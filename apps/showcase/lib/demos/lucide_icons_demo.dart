@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_animated_icons/lucide_animated_icons.dart';
+import 'package:dynamic_lucide_icons/dynamic_lucide_icons.dart';
 
 /// Demonstrates [AnimatedLucideIcon]:
 ///   * a controller-driven hero icon (play / reverse / loop / stop / reset),

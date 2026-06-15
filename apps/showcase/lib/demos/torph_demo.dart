@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:torph/torph.dart';
+import 'package:dynamic_torph/dynamic_torph.dart';
 
 /// Demonstrates [TextMorph]: a live text field bound to a morphing display,
 /// letter- and word-level presets, and a choice of spring vs. cubic easing with

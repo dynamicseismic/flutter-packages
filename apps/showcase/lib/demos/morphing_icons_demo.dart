@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_morphing_icons/flutter_morphing_icons.dart';
+import 'package:dynamic_morphing_icons/dynamic_morphing_icons.dart';
 
 /// Demonstrates [MorphingIcon]: a hero icon that morphs to the next icon on
 /// tap, a picker grid of every [MorphIcons.all] entry, and live speed / stroke

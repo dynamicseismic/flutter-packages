@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_haptics/flutter_haptics.dart';
+import 'package:dynamic_haptics/dynamic_haptics.dart';
 
 /// Demonstrates [FlutterHaptics]: built-in presets, the polymorphic `trigger`
 /// API (shorthand int lists & custom [HapticVibration] patterns), and cancel.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_morphing_icons/flutter_morphing_icons.dart';
-import 'package:lucide_animated_icons/lucide_animated_icons.dart';
-import 'package:torph/torph.dart';
+import 'package:dynamic_morphing_icons/dynamic_morphing_icons.dart';
+import 'package:dynamic_lucide_icons/dynamic_lucide_icons.dart';
+import 'package:dynamic_torph/dynamic_torph.dart';
 
 import 'demos/haptics_demo.dart';
 import 'demos/lucide_icons_demo.dart';

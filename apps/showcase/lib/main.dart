@@ -7,7 +7,7 @@ void main() {
 }
 
 /// Unified showcase for the packages in this monorepo:
-/// flutter_haptics, lucide_animated_icons, flutter_morphing_icons, torph.
+/// dynamic_haptics, dynamic_lucide_icons, dynamic_morphing_icons, dynamic_torph.
 class ShowcaseApp extends StatelessWidget {
   const ShowcaseApp({super.key});
 

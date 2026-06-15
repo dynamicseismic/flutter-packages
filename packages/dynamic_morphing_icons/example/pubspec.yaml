@@ -1,4 +1,4 @@
-name: showcase
+name: morphing_icons_example
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -33,16 +33,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-
-  # Monorepo packages — resolved locally via the Dart pub workspace.
-  # NOTE: import by *package* name; folder names now match package names.
-  dynamic_haptics: ^0.0.1
-  dynamic_lucide_icons: ^0.1.0
-  dynamic_morphing_icons: ^0.1.0
-  dynamic_torph: ^0.0.1
+  dynamic_morphing_icons:
+    path: ../
 
 dev_dependencies:
   flutter_test:

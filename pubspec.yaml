@@ -9,14 +9,14 @@ environment:
 # Dart pub workspaces (required since Melos 7): the whole workspace resolves once,
 # into a single root pubspec.lock. Each member declares `resolution: workspace`.
 workspace:
-  - packages/flutter_haptics
-  - packages/flutter_haptics/example
-  - packages/flutter_lucide_animated_icons
-  - packages/flutter_lucide_animated_icons/example
-  - packages/flutter_morphing_icons
-  - packages/flutter_morphing_icons/example
-  - packages/torph
-  - packages/torph/example
+  - packages/dynamic_haptics
+  - packages/dynamic_haptics/example
+  - packages/dynamic_lucide_icons
+  - packages/dynamic_lucide_icons/example
+  - packages/dynamic_morphing_icons
+  - packages/dynamic_morphing_icons/example
+  - packages/dynamic_torph
+  - packages/dynamic_torph/example
   - apps/showcase
 
 dev_dependencies:

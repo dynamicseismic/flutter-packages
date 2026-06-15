@@ -1,22 +1,8 @@
-name: showcase
-description: "A new Flutter project."
+name: flutter_haptics_example
+description: "Demonstrates how to use the dynamic_haptics plugin."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
 
 resolution: workspace
 
@@ -33,18 +19,21 @@ dependencies:
   flutter:
     sdk: flutter
 
+  dynamic_haptics:
+    # When depending on this package from a real application you should use:
+    #   dynamic_haptics: ^x.y.z
+    # See https://dart.dev/tools/pub/dependencies#version-constraints
+    # The example app is bundled with the plugin so we use a path dependency on
+    # the parent directory to use the current plugin's version.
+    path: ../
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
-  # Monorepo packages — resolved locally via the Dart pub workspace.
-  # NOTE: import by *package* name; folder names now match package names.
-  dynamic_haptics: ^0.0.1
-  dynamic_lucide_icons: ^0.1.0
-  dynamic_morphing_icons: ^0.1.0
-  dynamic_torph: ^0.0.1
-
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 
