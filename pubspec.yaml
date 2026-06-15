@@ -1,0 +1,47 @@
+name: flutter_packages_workspace
+description: Monorepo of Flutter packages (haptics, animated/morphing icons, text morph) + showcase app.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.12.0
+
+# Dart pub workspaces (required since Melos 7): the whole workspace resolves once,
+# into a single root pubspec.lock. Each member declares `resolution: workspace`.
+workspace:
+  - packages/flutter_haptics
+  - packages/flutter_haptics/example
+  - packages/flutter_lucide_animated_icons
+  - packages/flutter_lucide_animated_icons/example
+  - packages/flutter_morphing_icons
+  - packages/flutter_morphing_icons/example
+  - packages/torph
+  - packages/torph/example
+  - apps/showcase
+
+dev_dependencies:
+  melos: ^7.8.2
+
+# Melos 7: melos.yaml is gone — config lives here. The package list is the
+# `workspace:` field above.
+melos:
+  scripts:
+    analyze:
+      description: dart analyze across the workspace
+      run: dart analyze
+      exec:
+        concurrency: 1
+
+    format:
+      description: dart format (CI mode — fails on diff)
+      run: dart format --set-exit-if-changed .
+      exec:
+        concurrency: 1
+
+    test:
+      description: flutter test across Flutter packages
+      run: flutter test
+      exec:
+        concurrency: 1
+      packageFilters:
+        flutter: true
