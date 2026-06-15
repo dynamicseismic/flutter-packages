@@ -1,8 +1,8 @@
 name: dynamic_lucide_icons
 description: "Beautifully animated, hover/tap-triggered Lucide icons for Flutter — a faithful port of pqoqubbw/icons."
 version: 0.1.0
-homepage: https://github.com/pqoqubbw/icons
-repository: https://github.com/pqoqubbw/icons
+homepage: https://github.com/dynamicseismic/flutter-packages
+repository: https://github.com/dynamicseismic/flutter-packages/tree/main/packages/dynamic_lucide_icons
 
 resolution: workspace
 
