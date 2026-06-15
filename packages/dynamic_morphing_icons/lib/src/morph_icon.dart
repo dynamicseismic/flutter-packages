@@ -3,11 +3,11 @@ import 'dart:ui' show Offset, lerpDouble;
 
 import 'package:flutter/foundation.dart';
 
-/// The size of the coordinate box every [MorphIcon] is authored in.
+/// The size of the coordinate box every [DynamicMorphIcon] is authored in.
 ///
 /// Icons live in a `iconBoxSize` x `iconBoxSize` square (the standard 24x24
 /// icon grid), with the centre at ([iconCenter], [iconCenter]). The
-/// [MorphPainter] scales this box to whatever size the widget is rendered at.
+/// [DynamicMorphPainter] scales this box to whatever size the widget is rendered at.
 const double iconBoxSize = 24.0;
 
 /// The centre of the icon box — where collapsed ("hidden") lines live.
@@ -17,10 +17,10 @@ const double iconCenter = iconBoxSize / 2;
 ///
 /// The morphing technique requires every icon to be made of exactly three of
 /// these. Icons that visually need fewer lines collapse the extras to an
-/// invisible point (see [MorphLine.hidden]), so that any icon shares the same
+/// invisible point (see [DynamicMorphLine.hidden]), so that any icon shares the same
 /// structure as any other and can therefore morph into it.
 @immutable
-class MorphLine {
+class DynamicMorphLine {
   /// First endpoint, in the [iconBoxSize] coordinate space.
   final Offset a;
 
@@ -32,17 +32,17 @@ class MorphLine {
   /// in/out as it grows from or shrinks to that point.
   final double opacity;
 
-  const MorphLine(this.a, this.b, {this.opacity = 1});
+  const DynamicMorphLine(this.a, this.b, {this.opacity = 1});
 
   /// Convenience for a line where both endpoints share a coordinate — a dot
   /// when drawn with round caps (used by the `more` icon), or, with
   /// `opacity: 0`, an invisible collapsed line.
-  const MorphLine.dot(Offset at, {double opacity = 1})
+  const DynamicMorphLine.dot(Offset at, {double opacity = 1})
       : this(at, at, opacity: opacity);
 
   /// An invisible line collapsed onto the icon centre. Use it to fill the
   /// unused slots of icons that need fewer than three visible lines.
-  static const MorphLine hidden = MorphLine.dot(
+  static const DynamicMorphLine hidden = DynamicMorphLine.dot(
     Offset(iconCenter, iconCenter),
     opacity: 0,
   );
@@ -51,7 +51,7 @@ class MorphLine {
   double get length => (b - a).distance;
 
   /// This line with both endpoints rotated by [radians] about [center].
-  MorphLine rotatedAbout(Offset center, double radians) {
+  DynamicMorphLine rotatedAbout(Offset center, double radians) {
     final cos = math.cos(radians);
     final sin = math.sin(radians);
     Offset rot(Offset p) {
@@ -59,13 +59,13 @@ class MorphLine {
       return center + Offset(v.dx * cos - v.dy * sin, v.dx * sin + v.dy * cos);
     }
 
-    return MorphLine(rot(a), rot(b), opacity: opacity);
+    return DynamicMorphLine(rot(a), rot(b), opacity: opacity);
   }
 
   /// Linearly interpolates between two lines: endpoints and opacity each
   /// tween independently. This is what produces a cross-group morph where the
   /// lines genuinely travel through coordinate space.
-  static MorphLine lerp(MorphLine x, MorphLine y, double t) => MorphLine(
+  static DynamicMorphLine lerp(DynamicMorphLine x, DynamicMorphLine y, double t) => DynamicMorphLine(
         Offset.lerp(x.a, y.a, t)!,
         Offset.lerp(x.b, y.b, t)!,
         opacity: lerpDouble(x.opacity, y.opacity, t)!,
@@ -73,7 +73,7 @@ class MorphLine {
 
   @override
   bool operator ==(Object other) =>
-      other is MorphLine &&
+      other is DynamicMorphLine &&
       other.a == a &&
       other.b == b &&
       other.opacity == opacity;
@@ -82,10 +82,10 @@ class MorphLine {
   int get hashCode => Object.hash(a, b, opacity);
 
   @override
-  String toString() => 'MorphLine($a, $b, opacity: $opacity)';
+  String toString() => 'DynamicMorphLine($a, $b, opacity: $opacity)';
 }
 
-/// The definition of a single morphable icon: exactly three [MorphLine]s plus
+/// The definition of a single morphable icon: exactly three [DynamicMorphLine]s plus
 /// optional rotation-group metadata.
 ///
 /// ## Rotation groups
@@ -97,16 +97,16 @@ class MorphLine {
 /// shape fixed and animates the canvas [rotationDegrees] from one to the
 /// other. Icons in different groups (or with no group) tween coordinates.
 @immutable
-class MorphIcon {
+class DynamicMorphIcon {
   /// A stable identifier, e.g. `'menu'`, `'arrowRight'`. Handy for debugging
   /// and for keying widgets.
   final String name;
 
   /// The line segments that make up the icon — three by convention. Icons that
-  /// need fewer collapse the extras to [MorphLine.hidden]; a few (e.g.
-  /// [MorphIcons.scan]) need more. When two icons of different lengths morph,
+  /// need fewer collapse the extras to [DynamicMorphLine.hidden]; a few (e.g.
+  /// [DynamicMorphIcons.scan]) need more. When two icons of different lengths morph,
   /// the painter pads the shorter one with hidden lines.
-  final List<MorphLine> lines;
+  final List<DynamicMorphLine> lines;
 
   /// Icons that share a non-null group morph by rotation rather than by
   /// coordinate interpolation. `null` means "not part of any rotation group".
@@ -117,7 +117,7 @@ class MorphIcon {
   /// so the painter rotates by the signed difference between two members.
   final double rotationDegrees;
 
-  const MorphIcon(
+  const DynamicMorphIcon(
     this.name,
     this.lines, {
     this.rotationGroup,
@@ -126,14 +126,14 @@ class MorphIcon {
 
   /// Whether [this] and [other] should morph by rotation (same non-null group)
   /// rather than by coordinate interpolation.
-  bool sharesRotationGroupWith(MorphIcon other) =>
+  bool sharesRotationGroupWith(DynamicMorphIcon other) =>
       rotationGroup != null && rotationGroup == other.rotationGroup;
 
   /// The icon's lines in their *displayed* orientation — [rotationDegrees]
   /// baked into the coordinates. Used when morphing across rotation groups so
   /// the tween starts/ends at what's actually on screen, not the base shape.
   /// (Within a single group the painter rotates rigidly instead.)
-  List<MorphLine> get resolvedLines {
+  List<DynamicMorphLine> get resolvedLines {
     if (rotationGroup == null || rotationDegrees == 0) return lines;
     final radians = rotationDegrees * math.pi / 180;
     const center = Offset(iconCenter, iconCenter);
@@ -142,7 +142,7 @@ class MorphIcon {
 
   @override
   bool operator ==(Object other) =>
-      other is MorphIcon &&
+      other is DynamicMorphIcon &&
       other.name == name &&
       listEquals(other.lines, lines) &&
       other.rotationGroup == rotationGroup &&
@@ -153,5 +153,5 @@ class MorphIcon {
       Object.hash(name, Object.hashAll(lines), rotationGroup, rotationDegrees);
 
   @override
-  String toString() => 'MorphIcon($name)';
+  String toString() => 'DynamicMorphIcon($name)';
 }

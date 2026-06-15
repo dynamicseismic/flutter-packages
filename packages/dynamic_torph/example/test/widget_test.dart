@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:torph_example/main.dart';
+import 'package:dynamic_torph_example/main.dart';
 
 void main() {
   testWidgets('playground boots and morphs from a preset', (tester) async {

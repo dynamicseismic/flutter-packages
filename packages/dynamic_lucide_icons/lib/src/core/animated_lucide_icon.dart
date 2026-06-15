@@ -5,8 +5,8 @@ import 'animated_icon_controller.dart';
 import 'animated_icon_painter.dart';
 import 'icon_part.dart';
 
-/// What makes an [AnimatedLucideIcon] play its animation.
-enum AnimationTrigger {
+/// What makes an [DynamicAnimatedLucideIcon] play its animation.
+enum DynamicAnimationTrigger {
   /// Play on pointer hover (web/desktop). Reverses to rest on exit.
   hover,
 
@@ -16,7 +16,7 @@ enum AnimationTrigger {
   /// Both [hover] and [tap]. The default — feels right on every platform.
   hoverAndTap,
 
-  /// No built-in trigger; drive it via an [AnimatedLucideIconController].
+  /// No built-in trigger; drive it via an [DynamicAnimatedLucideIconController].
   none,
 }
 
@@ -27,23 +27,23 @@ enum AnimationTrigger {
 /// programmatic control via [controller].
 ///
 /// ```dart
-/// AnimatedLucideIcon(icon: kBellIcon, size: 32)
+/// DynamicAnimatedLucideIcon(icon: kBellIcon, size: 32)
 /// ```
-class AnimatedLucideIcon extends StatefulWidget {
-  const AnimatedLucideIcon({
+class DynamicAnimatedLucideIcon extends StatefulWidget {
+  const DynamicAnimatedLucideIcon({
     super.key,
     required this.icon,
     this.size = 28,
     this.color,
     this.strokeWidth = 2,
     this.controller,
-    this.trigger = AnimationTrigger.hoverAndTap,
+    this.trigger = DynamicAnimationTrigger.hoverAndTap,
     this.loop = false,
     this.semanticLabel,
   });
 
   /// The icon definition (e.g. `kBellIcon`).
-  final LucideIconData icon;
+  final DynamicLucideIconData icon;
 
   /// Edge length in logical pixels.
   final double size;
@@ -56,10 +56,10 @@ class AnimatedLucideIcon extends StatefulWidget {
   final double strokeWidth;
 
   /// Optional handle for driving the animation imperatively.
-  final AnimatedLucideIconController? controller;
+  final DynamicAnimatedLucideIconController? controller;
 
   /// What triggers the animation.
-  final AnimationTrigger trigger;
+  final DynamicAnimationTrigger trigger;
 
   /// Whether to loop the animation continuously (e.g. a spinner).
   final bool loop;
@@ -68,10 +68,10 @@ class AnimatedLucideIcon extends StatefulWidget {
   final String? semanticLabel;
 
   @override
-  State<AnimatedLucideIcon> createState() => AnimatedLucideIconState();
+  State<DynamicAnimatedLucideIcon> createState() => DynamicAnimatedLucideIconState();
 }
 
-class AnimatedLucideIconState extends State<AnimatedLucideIcon>
+class DynamicAnimatedLucideIconState extends State<DynamicAnimatedLucideIcon>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
@@ -96,7 +96,7 @@ class AnimatedLucideIconState extends State<AnimatedLucideIcon>
   }
 
   @override
-  void didUpdateWidget(AnimatedLucideIcon oldWidget) {
+  void didUpdateWidget(DynamicAnimatedLucideIcon oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.controller != widget.controller) {
       oldWidget.controller?.detach(this);
@@ -126,7 +126,7 @@ class AnimatedLucideIconState extends State<AnimatedLucideIcon>
     super.dispose();
   }
 
-  // ---- Imperative API used by AnimatedLucideIconController ----
+  // ---- Imperative API used by DynamicAnimatedLucideIconController ----
 
   /// Plays the icon's effect. Draw-on/fade-in icons replay from empty (t=0)
   /// and end fully visible (t=1); others play forward from rest.
@@ -144,15 +144,15 @@ class AnimatedLucideIconState extends State<AnimatedLucideIcon>
   // ---- Trigger handlers ----
 
   bool get _hoverEnabled =>
-      widget.trigger == AnimationTrigger.hover ||
-      widget.trigger == AnimationTrigger.hoverAndTap;
+      widget.trigger == DynamicAnimationTrigger.hover ||
+      widget.trigger == DynamicAnimationTrigger.hoverAndTap;
 
   bool get _tapEnabled =>
-      widget.trigger == AnimationTrigger.tap ||
-      widget.trigger == AnimationTrigger.hoverAndTap;
+      widget.trigger == DynamicAnimationTrigger.tap ||
+      widget.trigger == DynamicAnimationTrigger.hoverAndTap;
 
   /// True when the animation should loop while the icon is active, either
-  /// because the caller forced [AnimatedLucideIcon.loop] or the icon itself is
+  /// because the caller forced [DynamicAnimatedLucideIcon.loop] or the icon itself is
   /// defined as repeating (spinners, pulsing indicators).
   bool get _loops => widget.loop || widget.icon.repeats;
 

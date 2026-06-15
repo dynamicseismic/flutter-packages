@@ -44,7 +44,7 @@ void main() {
                   color: const Color(0xFF101018),
                   child: Padding(
                     padding: const EdgeInsets.all(40),
-                    child: TextMorph(
+                    child: DynamicTextMorph(
                       t,
                       duration: const Duration(milliseconds: 600),
                       style: const TextStyle(

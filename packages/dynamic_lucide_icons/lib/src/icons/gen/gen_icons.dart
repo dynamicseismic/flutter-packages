@@ -1,5 +1,5 @@
 // Aggregator for the generated icon catalog. Each batch file (gen_NN.dart)
-// contributes a `const List<LucideIconEntry> genNNIcons`, spread together here.
+// contributes a `const List<DynamicLucideIconEntry> genNNIcons`, spread together here.
 import '../icon_entry.dart';
 
 import 'gen_01.dart';
@@ -24,7 +24,7 @@ import 'gen_19.dart';
 import 'gen_20.dart';
 
 /// Every generated (non-curated) icon.
-const List<LucideIconEntry> generatedIcons = [
+const List<DynamicLucideIconEntry> generatedIcons = [
   ...gen01Icons,
   ...gen02Icons,
   ...gen03Icons,

@@ -8,7 +8,7 @@ import 'ease.dart';
 const Duration kTorphDefaultDuration = Duration(milliseconds: 400);
 
 /// Default easing — the source's `"cubic-bezier(0.19, 1, 0.22, 1)"`.
-const TorphEase kTorphDefaultEase = TorphEase.cubic(Cubic(0.19, 1.0, 0.22, 1.0));
+const DynamicTorphEase kTorphDefaultEase = DynamicTorphEase.cubic(Cubic(0.19, 1.0, 0.22, 1.0));
 
 /// Whether entering/exiting segments scale (0.95 ↔ 1.0) while fading.
 const bool kTorphDefaultScale = true;

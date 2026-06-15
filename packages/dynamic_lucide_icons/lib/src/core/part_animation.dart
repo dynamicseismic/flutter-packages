@@ -4,7 +4,7 @@ import 'package:flutter/animation.dart';
 
 import 'svg_path_parser.dart' show degToRad;
 
-/// Base class for an animation applied to a single [IconPart].
+/// Base class for an animation applied to a single [DynamicIconPart].
 ///
 /// The global animation progress is a single `0..1` value driven by the
 /// widget's [AnimationController]. Each part carves out its own window of that
@@ -18,9 +18,9 @@ import 'svg_path_parser.dart' show degToRad;
 ///  * a custom [draw] (e.g. progressive stroke drawing).
 ///
 /// Overriding only the relevant hook lets effects compose cleanly via
-/// [CompositePart].
-abstract class PartAnimation {
-  const PartAnimation({
+/// [DynamicCompositePart].
+abstract class DynamicPartAnimation {
+  const DynamicPartAnimation({
     this.delay = Duration.zero,
     this.duration,
     this.curve = Curves.easeInOut,
@@ -57,7 +57,7 @@ abstract class PartAnimation {
   /// Opacity multiplier in `[0, 1]`. Default: fully opaque.
   double opacity(double globalT, Duration total) => 1.0;
 
-  /// Draws [path] with [paint]. Default draws the whole path; [DrawPart]
+  /// Draws [path] with [paint]. Default draws the whole path; [DynamicDrawPart]
   /// overrides this for progressive stroke drawing.
   void draw(Canvas canvas, Path path, Paint paint, double globalT, Duration total) {
     canvas.drawPath(path, paint);
@@ -76,8 +76,8 @@ abstract class PartAnimation {
 /// [pivot] defaults to the part's bounding-box centre (Motion's
 /// `transform-origin: 50% 50%`). For whole-icon rotations pass
 /// [kViewBoxCenter].
-class RotatePart extends PartAnimation {
-  const RotatePart(
+class DynamicRotatePart extends DynamicPartAnimation {
+  const DynamicRotatePart(
     this.degrees, {
     this.pivot,
     super.delay,
@@ -102,8 +102,8 @@ class RotatePart extends PartAnimation {
 
 /// Translates the part along a keyframed path of offsets, in 24-unit viewBox
 /// space (e.g. `[Offset.zero, Offset(0, 2)]` for the download arrow bob).
-class TranslatePart extends PartAnimation {
-  const TranslatePart(
+class DynamicTranslatePart extends DynamicPartAnimation {
+  const DynamicTranslatePart(
     this.offsets, {
     super.delay,
     super.duration,
@@ -120,16 +120,16 @@ class TranslatePart extends PartAnimation {
   }
 }
 
-/// Which axes a [ScalePart] scales.
-enum ScaleAxis { both, horizontal, vertical }
+/// Which axes a [DynamicScalePart] scales.
+enum DynamicScaleAxis { both, horizontal, vertical }
 
 /// Scales the part. [values] is a keyframe list of scale factors. [axis] limits
-/// scaling to one axis (e.g. [ScaleAxis.vertical] for equalizer bars).
-class ScalePart extends PartAnimation {
-  const ScalePart(
+/// scaling to one axis (e.g. [DynamicScaleAxis.vertical] for equalizer bars).
+class DynamicScalePart extends DynamicPartAnimation {
+  const DynamicScalePart(
     this.values, {
     this.pivot,
-    this.axis = ScaleAxis.both,
+    this.axis = DynamicScaleAxis.both,
     super.delay,
     super.duration,
     super.curve,
@@ -137,15 +137,15 @@ class ScalePart extends PartAnimation {
 
   final List<double> values;
   final Offset? pivot;
-  final ScaleAxis axis;
+  final DynamicScaleAxis axis;
 
   @override
   void applyTransform(Canvas canvas, Rect bounds, double globalT, Duration total) {
     final t = localT(globalT, total);
     final s = _lerpKeyframes(values, t);
     final p = pivot ?? bounds.center;
-    final sx = axis == ScaleAxis.vertical ? 1.0 : s;
-    final sy = axis == ScaleAxis.horizontal ? 1.0 : s;
+    final sx = axis == DynamicScaleAxis.vertical ? 1.0 : s;
+    final sy = axis == DynamicScaleAxis.horizontal ? 1.0 : s;
     canvas
       ..translate(p.dx, p.dy)
       ..scale(sx, sy)
@@ -159,8 +159,8 @@ class ScalePart extends PartAnimation {
 }
 
 /// Fades the part. [values] is a keyframe list of opacities (e.g. `[0, 1]`).
-class OpacityPart extends PartAnimation {
-  const OpacityPart(
+class DynamicOpacityPart extends DynamicPartAnimation {
+  const DynamicOpacityPart(
     this.values, {
     super.delay,
     super.duration,
@@ -183,8 +183,8 @@ class OpacityPart extends PartAnimation {
 ///
 /// With [fromEnd] true the stroke retreats from its end instead of growing from
 /// its start.
-class DrawPart extends PartAnimation {
-  const DrawPart({
+class DynamicDrawPart extends DynamicPartAnimation {
+  const DynamicDrawPart({
     this.fromEnd = false,
     super.delay,
     super.duration,
@@ -215,13 +215,13 @@ class DrawPart extends PartAnimation {
   bool get isAppearance => true;
 }
 
-/// Stacks several [PartAnimation]s on one part (e.g. scale + fade). Transforms
-/// compose in order; opacities multiply; if any child is a [DrawPart] its
+/// Stacks several [DynamicPartAnimation]s on one part (e.g. scale + fade). Transforms
+/// compose in order; opacities multiply; if any child is a [DynamicDrawPart] its
 /// progressive draw is used.
-class CompositePart extends PartAnimation {
-  const CompositePart(this.parts);
+class DynamicCompositePart extends DynamicPartAnimation {
+  const DynamicCompositePart(this.parts);
 
-  final List<PartAnimation> parts;
+  final List<DynamicPartAnimation> parts;
 
   @override
   void applyTransform(Canvas canvas, Rect bounds, double globalT, Duration total) {
@@ -242,7 +242,7 @@ class CompositePart extends PartAnimation {
   @override
   void draw(Canvas canvas, Path path, Paint paint, double globalT, Duration total) {
     for (final p in parts) {
-      if (p is DrawPart) {
+      if (p is DynamicDrawPart) {
         p.draw(canvas, path, paint, globalT, total);
         return;
       }

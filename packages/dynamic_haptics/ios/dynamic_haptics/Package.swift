@@ -4,19 +4,19 @@
 import PackageDescription
 
 let package = Package(
-    name: "flutter_haptics",
+    name: "dynamic_haptics",
     platforms: [
         .iOS("13.0")
     ],
     products: [
-        .library(name: "flutter-haptics", targets: ["flutter_haptics"])
+        .library(name: "dynamic-haptics", targets: ["dynamic_haptics"])
     ],
     dependencies: [
         .package(name: "FlutterFramework", path: "../FlutterFramework")
     ],
     targets: [
         .target(
-            name: "flutter_haptics",
+            name: "dynamic_haptics",
             dependencies: [
                 .product(name: "FlutterFramework", package: "FlutterFramework")
             ],

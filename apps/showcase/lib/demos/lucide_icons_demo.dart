@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dynamic_lucide_icons/dynamic_lucide_icons.dart';
 
-/// Demonstrates [AnimatedLucideIcon]:
+/// Demonstrates [DynamicAnimatedLucideIcon]:
 ///   * a controller-driven hero icon (play / reverse / loop / stop / reset),
 ///   * a searchable grid over the full [lucideAnimatedIcons] catalog, each cell
 ///     animating on hover (desktop) / tap (mobile).
@@ -13,8 +13,8 @@ class LucideIconsDemo extends StatefulWidget {
 }
 
 class _LucideIconsDemoState extends State<LucideIconsDemo> {
-  final AnimatedLucideIconController _controller =
-      AnimatedLucideIconController();
+  final DynamicAnimatedLucideIconController _controller =
+      DynamicAnimatedLucideIconController();
   final TextEditingController _search = TextEditingController();
   String _query = '';
 
@@ -24,7 +24,7 @@ class _LucideIconsDemoState extends State<LucideIconsDemo> {
     super.dispose();
   }
 
-  List<LucideIconEntry> get _filtered {
+  List<DynamicLucideIconEntry> get _filtered {
     final q = _query.trim().toLowerCase();
     if (q.isEmpty) return lucideAnimatedIcons;
     return lucideAnimatedIcons
@@ -49,11 +49,11 @@ class _LucideIconsDemoState extends State<LucideIconsDemo> {
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
-                    AnimatedLucideIcon(
+                    DynamicAnimatedLucideIcon(
                       icon: kBellIcon,
                       size: 48,
                       controller: _controller,
-                      trigger: AnimationTrigger.none,
+                      trigger: DynamicAnimationTrigger.none,
                       color: theme.colorScheme.primary,
                     ),
                     const SizedBox(width: 16),
@@ -141,7 +141,7 @@ class _LucideIconsDemoState extends State<LucideIconsDemo> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              AnimatedLucideIcon(icon: entry.data, size: 30),
+                              DynamicAnimatedLucideIcon(icon: entry.data, size: 30),
                               const SizedBox(height: 8),
                               Padding(
                                 padding:

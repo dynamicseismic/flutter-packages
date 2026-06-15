@@ -17,18 +17,18 @@ bezier or real spring physics.
 import 'package:dynamic_torph/dynamic_torph.dart';
 
 // Just give it text — it animates whenever the text changes.
-TextMorph('Hello world')
+DynamicTextMorph('Hello world')
 
 // Style it like any text.
-TextMorph(
+DynamicTextMorph(
   count.toString(),
   style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w600),
 )
 
 // Spring physics: the curve *and* the duration are derived from the spring.
-TextMorph(
+DynamicTextMorph(
   'Hello world',
-  ease: TorphEase.spring(SpringParams(stiffness: 200, damping: 20)),
+  ease: DynamicTorphEase.spring(DynamicSpringParams(stiffness: 200, damping: 20)),
 )
 ```
 
@@ -46,7 +46,7 @@ reused — that's what produces the glide instead of a cross-fade.
 | `text` (positional) | `String` | — | The text; animates on change. |
 | `style` | `TextStyle?` | inherited | Merged over the ambient `DefaultTextStyle`. |
 | `duration` | `Duration` | `400ms` | Used for cubic easing (springs compute their own). |
-| `ease` | `TorphEase` | `cubic(0.19, 1, 0.22, 1)` | `TorphEase.cubic(curve)` or `TorphEase.spring(params)`. |
+| `ease` | `DynamicTorphEase` | `cubic(0.19, 1, 0.22, 1)` | `DynamicTorphEase.cubic(curve)` or `DynamicTorphEase.spring(params)`. |
 | `scale` | `bool` | `true` | Entering/exiting segments scale `0.95 ↔ 1.0` while fading. |
 | `debug` | `bool` | `false` | Outlines the box (magenta) and each segment (cyan). |
 | `disabled` | `bool` | `false` | Renders plain text, no animation. |
@@ -56,7 +56,7 @@ reused — that's what produces the glide instead of a cross-fade.
 
 ### Springs
 
-`SpringParams(stiffness: 100, damping: 10, mass: 1, precision: 0.001)` is
+`DynamicSpringParams(stiffness: 100, damping: 10, mass: 1, precision: 0.001)` is
 resolved by numerically integrating a damped harmonic oscillator into a sampled
 easing curve plus an auto-computed settle duration — mirroring the web library's
 `linear(...)` output. Use `resolveSpring(params)` directly to read the resolved
@@ -66,7 +66,7 @@ easing curve plus an auto-computed settle duration — mirroring the web library
 
 A FLIP (First-Last-Invert-Play) engine, ported 1:1 from the source:
 
-1. **Segment** the text into stable-id units (`lib/src/segment.dart`).
+1. **DynamicSegment** the text into stable-id units (`lib/src/segment.dart`).
 2. **Measure** the resting layout of each unit with a `TextPainter`
    (`lib/src/flip.dart`).
 3. **Diff** old vs new and assign each unit a role — persistent / entering /

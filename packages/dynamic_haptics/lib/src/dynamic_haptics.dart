@@ -2,14 +2,14 @@ import '../dynamic_haptics_platform_interface.dart';
 import 'haptic_input_normalizer.dart';
 import 'haptic_models.dart';
 
-class FlutterHaptics {
-  FlutterHaptics({
+class DynamicHaptics {
+  DynamicHaptics({
     this.debug = false,
     this.showSwitch = false,
-    FlutterHapticsPlatform? platform,
-  }) : _platform = platform ?? FlutterHapticsPlatform.instance;
+    DynamicHapticsPlatform? platform,
+  }) : _platform = platform ?? DynamicHapticsPlatform.instance;
 
-  final FlutterHapticsPlatform _platform;
+  final DynamicHapticsPlatform _platform;
 
   bool debug;
   bool showSwitch;
@@ -17,7 +17,7 @@ class FlutterHaptics {
   Future<bool> get supportsHaptics => _platform.isSupported();
 
   static Future<bool> isSupported() {
-    return FlutterHapticsPlatform.instance.isSupported();
+    return DynamicHapticsPlatform.instance.isSupported();
   }
 
   static Future<bool> canVibrate() {
@@ -26,7 +26,7 @@ class FlutterHaptics {
 
   Future<void> trigger([
     Object? input,
-    TriggerOptions options = const TriggerOptions(),
+    DynamicTriggerOptions options = const DynamicTriggerOptions(),
   ]) {
     final request = HapticInputNormalizer.normalize(input, options);
     if (request.pattern.isEmpty) {

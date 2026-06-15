@@ -4,69 +4,69 @@ import 'haptic_presets.dart';
 
 const Duration _maxPhaseDuration = Duration(milliseconds: 1000);
 
-const List<HapticVibration> _defaultPattern = <HapticVibration>[
-  HapticVibration(duration: Duration(milliseconds: 25), intensity: 0.7),
+const List<DynamicHapticVibration> _defaultPattern = <DynamicHapticVibration>[
+  DynamicHapticVibration(duration: Duration(milliseconds: 25), intensity: 0.7),
 ];
 
 class HapticInputNormalizer {
   const HapticInputNormalizer._();
 
-  static NormalizedHapticRequest normalize(
+  static DynamicNormalizedHapticRequest normalize(
     Object? input,
-    TriggerOptions options,
+    DynamicTriggerOptions options,
   ) {
     final intensity = options.resolvedIntensity;
 
     if (input == null) {
-      return NormalizedHapticRequest(
+      return DynamicNormalizedHapticRequest(
         pattern: _sanitizePattern(_defaultPattern),
         intensity: intensity,
       );
     }
 
     if (input is String) {
-      return NormalizedHapticRequest(
-        pattern: _sanitizePattern(HapticPresets.presetForName(input).pattern),
+      return DynamicNormalizedHapticRequest(
+        pattern: _sanitizePattern(DynamicHapticPresets.presetForName(input).pattern),
         intensity: intensity,
         presetName: input,
       );
     }
 
-    if (input is HapticEffect) {
-      return NormalizedHapticRequest(
-        pattern: _sanitizePattern(HapticPresets.presetForEffect(input).pattern),
+    if (input is DynamicHapticEffect) {
+      return DynamicNormalizedHapticRequest(
+        pattern: _sanitizePattern(DynamicHapticPresets.presetForEffect(input).pattern),
         intensity: intensity,
         presetName: input.name,
       );
     }
 
-    if (input is HapticPreset) {
-      return NormalizedHapticRequest(
+    if (input is DynamicHapticPreset) {
+      return DynamicNormalizedHapticRequest(
         pattern: _sanitizePattern(input.pattern),
         intensity: intensity,
       );
     }
 
     if (input is Duration) {
-      return NormalizedHapticRequest(
-        pattern: <HapticVibration>[
-          HapticVibration(duration: _clampDuration(input)),
+      return DynamicNormalizedHapticRequest(
+        pattern: <DynamicHapticVibration>[
+          DynamicHapticVibration(duration: _clampDuration(input)),
         ],
         intensity: intensity,
       );
     }
 
     if (input is num) {
-      return NormalizedHapticRequest(
-        pattern: <HapticVibration>[
-          HapticVibration(duration: _durationFromNumber(input)),
+      return DynamicNormalizedHapticRequest(
+        pattern: <DynamicHapticVibration>[
+          DynamicHapticVibration(duration: _durationFromNumber(input)),
         ],
         intensity: intensity,
       );
     }
 
     if (input is List) {
-      return NormalizedHapticRequest(
+      return DynamicNormalizedHapticRequest(
         pattern: _sanitizePattern(_patternFromList(input)),
         intensity: intensity,
       );
@@ -75,18 +75,18 @@ class HapticInputNormalizer {
     throw ArgumentError.value(
       input,
       'input',
-      'Expected String, HapticEffect, num, Duration, HapticPreset, '
-          'List<num>, List<Duration>, or List<HapticVibration>.',
+      'Expected String, DynamicHapticEffect, num, Duration, DynamicHapticPreset, '
+          'List<num>, List<Duration>, or List<DynamicHapticVibration>.',
     );
   }
 
-  static List<HapticVibration> _patternFromList(List<Object?> input) {
+  static List<DynamicHapticVibration> _patternFromList(List<Object?> input) {
     if (input.isEmpty) {
-      return const <HapticVibration>[];
+      return const <DynamicHapticVibration>[];
     }
 
-    if (input.every((value) => value is HapticVibration)) {
-      return input.cast<HapticVibration>();
+    if (input.every((value) => value is DynamicHapticVibration)) {
+      return input.cast<DynamicHapticVibration>();
     }
 
     if (input.every((value) => value is Duration)) {
@@ -102,25 +102,25 @@ class HapticInputNormalizer {
     throw ArgumentError.value(
       input,
       'input',
-      'List input must contain only num, Duration, or HapticVibration values.',
+      'List input must contain only num, Duration, or DynamicHapticVibration values.',
     );
   }
 
-  static List<HapticVibration> _patternFromDurations(List<Duration> values) {
-    final pattern = <HapticVibration>[];
+  static List<DynamicHapticVibration> _patternFromDurations(List<Duration> values) {
+    final pattern = <DynamicHapticVibration>[];
     for (var index = 0; index < values.length; index += 2) {
       final delay = index > 0 ? values[index - 1] : Duration.zero;
       pattern.add(
-        HapticVibration(delay: delay, duration: _clampDuration(values[index])),
+        DynamicHapticVibration(delay: delay, duration: _clampDuration(values[index])),
       );
     }
     return pattern;
   }
 
-  static List<HapticVibration> _sanitizePattern(List<HapticVibration> pattern) {
+  static List<DynamicHapticVibration> _sanitizePattern(List<DynamicHapticVibration> pattern) {
     return pattern
         .map(
-          (vibration) => HapticVibration(
+          (vibration) => DynamicHapticVibration(
             delay: _validateDelay(vibration.delay),
             duration: _clampDuration(vibration.duration),
             intensity: vibration.intensity == null

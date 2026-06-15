@@ -12,7 +12,7 @@ import 'package:dynamic_lucide_icons/src/core/animated_icon_painter.dart';
 /// [WidgetTester.runAsync] rather than under the test's fake-async clock.
 Future<int> _paintedPixels(
   WidgetTester tester,
-  LucideIconData data,
+  DynamicLucideIconData data,
   double t, {
   double size = 64,
 }) async {

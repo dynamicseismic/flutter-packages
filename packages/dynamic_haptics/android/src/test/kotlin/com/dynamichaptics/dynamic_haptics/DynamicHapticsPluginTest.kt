@@ -1,4 +1,4 @@
-package com.flutterhaptics.flutter_haptics
+package com.dynamichaptics.dynamic_haptics
 
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -13,10 +13,10 @@ import kotlin.test.Test
  * you can run them directly from IDEs that support JUnit such as Android Studio.
  */
 
-internal class FlutterHapticsPluginTest {
+internal class DynamicHapticsPluginTest {
     @Test
     fun onMethodCall_unknownMethod_returnsNotImplemented() {
-        val plugin = FlutterHapticsPlugin()
+        val plugin = DynamicHapticsPlugin()
 
         val call = MethodCall("unknown", null)
         val mockResult: MethodChannel.Result = Mockito.mock(MethodChannel.Result::class.java)

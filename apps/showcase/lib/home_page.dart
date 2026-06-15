@@ -27,17 +27,17 @@ class HomePage extends StatelessWidget {
       _DemoEntry(
         title: 'Animated Lucide Icons',
         subtitle: 'Hover / tap micro-animations',
-        leading: const AnimatedLucideIcon(
+        leading: const DynamicAnimatedLucideIcon(
           icon: kSparklesIcon,
           size: 28,
-          trigger: AnimationTrigger.none,
+          trigger: DynamicAnimationTrigger.none,
         ),
         builder: (_) => const LucideIconsDemo(),
       ),
       _DemoEntry(
         title: 'Morphing Icons',
         subtitle: 'Every icon is three lines',
-        leading: const MorphingIcon(icon: MorphIcons.menu, size: 28),
+        leading: const DynamicMorphingIcon(icon: DynamicMorphIcons.menu, size: 28),
         builder: (_) => const MorphingIconsDemo(),
       ),
       _DemoEntry(
@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const TextMorph('Flutter Packages'),
+        title: const DynamicTextMorph('Flutter Packages'),
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),

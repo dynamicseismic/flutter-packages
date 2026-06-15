@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dynamic_haptics/dynamic_haptics.dart';
 
-/// Demonstrates [FlutterHaptics]: built-in presets, the polymorphic `trigger`
-/// API (shorthand int lists & custom [HapticVibration] patterns), and cancel.
+/// Demonstrates [DynamicHaptics]: built-in presets, the polymorphic `trigger`
+/// API (shorthand int lists & custom [DynamicHapticVibration] patterns), and cancel.
 ///
 /// The plugin only registers Android & iOS implementations, so on macOS / web /
 /// desktop the method channel throws [MissingPluginException]. Every call is
@@ -16,14 +16,14 @@ class HapticsDemo extends StatefulWidget {
 }
 
 class _HapticsDemoState extends State<HapticsDemo> {
-  final FlutterHaptics _haptics = FlutterHaptics();
+  final DynamicHaptics _haptics = DynamicHaptics();
   bool? _supported; // null while checking
   String _last = '—';
 
   @override
   void initState() {
     super.initState();
-    FlutterHaptics.isSupported().catchError((_) => false).then((value) {
+    DynamicHaptics.isSupported().catchError((_) => false).then((value) {
       if (mounted) setState(() => _supported = value);
     });
   }
@@ -62,18 +62,18 @@ class _HapticsDemoState extends State<HapticsDemo> {
     final theme = Theme.of(context);
     final supported = _supported;
 
-    const effects = <(String, HapticEffect)>[
-      ('Success', HapticEffect.success),
-      ('Warning', HapticEffect.warning),
-      ('Error', HapticEffect.error),
-      ('Selection', HapticEffect.selection),
-      ('Light', HapticEffect.light),
-      ('Medium', HapticEffect.medium),
-      ('Heavy', HapticEffect.heavy),
-      ('Soft', HapticEffect.soft),
-      ('Rigid', HapticEffect.rigid),
-      ('Nudge', HapticEffect.nudge),
-      ('Buzz', HapticEffect.buzz),
+    const effects = <(String, DynamicHapticEffect)>[
+      ('Success', DynamicHapticEffect.success),
+      ('Warning', DynamicHapticEffect.warning),
+      ('Error', DynamicHapticEffect.error),
+      ('Selection', DynamicHapticEffect.selection),
+      ('Light', DynamicHapticEffect.light),
+      ('Medium', DynamicHapticEffect.medium),
+      ('Heavy', DynamicHapticEffect.heavy),
+      ('Soft', DynamicHapticEffect.soft),
+      ('Rigid', DynamicHapticEffect.rigid),
+      ('Nudge', DynamicHapticEffect.nudge),
+      ('Buzz', DynamicHapticEffect.buzz),
     ];
 
     return Scaffold(
@@ -110,7 +110,7 @@ class _HapticsDemoState extends State<HapticsDemo> {
               ),
             ),
           const SizedBox(height: 8),
-          Text('Presets (HapticEffect)', style: theme.textTheme.titleMedium),
+          Text('Presets (DynamicHapticEffect)', style: theme.textTheme.titleMedium),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -137,18 +137,18 @@ class _HapticsDemoState extends State<HapticsDemo> {
               ),
               FilledButton(
                 onPressed: () => _fire(
-                  const <HapticVibration>[
-                    HapticVibration(
+                  const <DynamicHapticVibration>[
+                    DynamicHapticVibration(
                       duration: Duration(milliseconds: 80),
                       intensity: 0.9,
                     ),
-                    HapticVibration(
+                    DynamicHapticVibration(
                       delay: Duration(milliseconds: 60),
                       duration: Duration(milliseconds: 160),
                       intensity: 0.35,
                     ),
                   ],
-                  'custom HapticVibration pattern',
+                  'custom DynamicHapticVibration pattern',
                 ),
                 child: const Text('Vibration pattern'),
               ),

@@ -1,4 +1,4 @@
-enum HapticEffect {
+enum DynamicHapticEffect {
   success,
   warning,
   error,

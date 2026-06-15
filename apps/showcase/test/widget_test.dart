@@ -24,7 +24,7 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    await openAndReturn('Haptics', find.text('Presets (HapticEffect)'));
+    await openAndReturn('Haptics', find.text('Presets (DynamicHapticEffect)'));
     await openAndReturn(
       'Animated Lucide Icons',
       find.text('Hover on desktop · tap on mobile'),

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gallery/main.dart';
+import 'package:dynamic_lucide_icons_example/main.dart';
 
 void main() {
   testWidgets('gallery renders the icon grid', (tester) async {

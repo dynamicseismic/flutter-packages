@@ -15,11 +15,11 @@ import 'segment.dart';
 /// [AnimationController] and a configurable [ease].
 ///
 /// ```dart
-/// TextMorph('Hello world')
-/// TextMorph('Hello world', ease: TorphEase.spring(SpringParams(stiffness: 200, damping: 20)))
+/// DynamicTextMorph('Hello world')
+/// DynamicTextMorph('Hello world', ease: DynamicTorphEase.spring(DynamicSpringParams(stiffness: 200, damping: 20)))
 /// ```
-class TextMorph extends StatefulWidget {
-  const TextMorph(
+class DynamicTextMorph extends StatefulWidget {
+  const DynamicTextMorph(
     this.text, {
     super.key,
     this.style,
@@ -43,8 +43,8 @@ class TextMorph extends StatefulWidget {
   /// own settle time.
   final Duration duration;
 
-  /// Easing: a [TorphEase.cubic] curve or [TorphEase.spring] physics.
-  final TorphEase ease;
+  /// Easing: a [DynamicTorphEase.cubic] curve or [DynamicTorphEase.spring] physics.
+  final DynamicTorphEase ease;
 
   /// Whether entering/exiting segments scale while fading.
   final bool scale;
@@ -65,13 +65,13 @@ class TextMorph extends StatefulWidget {
   final VoidCallback? onAnimationComplete;
 
   @override
-  State<TextMorph> createState() => _TextMorphState();
+  State<DynamicTextMorph> createState() => _TextMorphState();
 }
 
-class _TextMorphState extends State<TextMorph>
+class _TextMorphState extends State<DynamicTextMorph>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late ResolvedEase _ease;
+  late DynamicResolvedEase _ease;
   int? _easeKey;
 
   // Resolved rendering context, refreshed on every reconcile.
@@ -110,7 +110,7 @@ class _TextMorphState extends State<TextMorph>
   }
 
   @override
-  void didUpdateWidget(TextMorph oldWidget) {
+  void didUpdateWidget(DynamicTextMorph oldWidget) {
     super.didUpdateWidget(oldWidget);
     _reconcile();
   }
@@ -195,7 +195,7 @@ class _TextMorphState extends State<TextMorph>
     return h;
   }
 
-  Map<String, double> _measureWidths(List<Segment> segs) =>
+  Map<String, double> _measureWidths(List<DynamicSegment> segs) =>
       {for (final s in segs) s.id: _measureWidth(s.string)};
 
   // ---- Layout transitions ------------------------------------------------

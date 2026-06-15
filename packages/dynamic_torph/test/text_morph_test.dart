@@ -5,7 +5,7 @@ import 'package:dynamic_torph/dynamic_torph.dart';
 Widget _host(String text, {bool disabled = false}) => MaterialApp(
       home: Scaffold(
         body: Center(
-          child: TextMorph(
+          child: DynamicTextMorph(
             text,
             disabled: disabled,
             style: const TextStyle(fontSize: 32),
@@ -56,7 +56,7 @@ void main() {
     Widget host(String t) => MaterialApp(
           home: Align(
             alignment: Alignment.topLeft,
-            child: TextMorph(t, style: const TextStyle(fontSize: 40)),
+            child: DynamicTextMorph(t, style: const TextStyle(fontSize: 40)),
           ),
         );
 
@@ -84,7 +84,7 @@ void main() {
     var completed = 0;
     Widget host(String t) => MaterialApp(
           home: Scaffold(
-            body: TextMorph(t, onAnimationComplete: () => completed++),
+            body: DynamicTextMorph(t, onAnimationComplete: () => completed++),
           ),
         );
     await tester.pumpWidget(host('one'));

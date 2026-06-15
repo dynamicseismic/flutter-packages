@@ -1,4 +1,4 @@
-name: flutter_haptics_example
+name: dynamic_haptics_example
 description: "Demonstrates how to use the dynamic_haptics plugin."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

@@ -4,11 +4,11 @@ import 'package:flutter/animation.dart';
 
 /// Spring physics parameters.
 ///
-/// Direct port of torph's `SpringParams`. A spring is resolved into a sampled
+/// Direct port of torph's `DynamicSpringParams`. A spring is resolved into a sampled
 /// easing [Curve] plus an automatically computed [Duration] via
 /// [resolveSpring], mirroring the web library's `linear(...)` output.
-class SpringParams {
-  const SpringParams({
+class DynamicSpringParams {
+  const DynamicSpringParams({
     this.stiffness = 100,
     this.damping = 10,
     this.mass = 1,
@@ -25,7 +25,7 @@ class SpringParams {
 
   @override
   bool operator ==(Object other) =>
-      other is SpringParams &&
+      other is DynamicSpringParams &&
       other.stiffness == stiffness &&
       other.damping == damping &&
       other.mass == mass &&
@@ -36,13 +36,13 @@ class SpringParams {
 
   @override
   String toString() =>
-      'SpringParams(stiffness: $stiffness, damping: $damping, mass: $mass, '
+      'DynamicSpringParams(stiffness: $stiffness, damping: $damping, mass: $mass, '
       'precision: $precision)';
 }
 
-/// The result of resolving a [SpringParams] into an animatable form.
-class SpringResult {
-  const SpringResult(this.curve, this.duration);
+/// The result of resolving a [DynamicSpringParams] into an animatable form.
+class DynamicSpringResult {
+  const DynamicSpringResult(this.curve, this.duration);
 
   final Curve curve;
   final Duration duration;
@@ -95,8 +95,8 @@ int computeSpringDurationMs(double omega0, double zeta, double precision) {
 /// A [Curve] backed by uniformly-spaced samples, linearly interpolated between
 /// them — the Flutter equivalent of CSS `linear(p0, p1, ... pn)` that torph
 /// emits for springs.
-class SampledSpringCurve extends Curve {
-  const SampledSpringCurve(this.points);
+class DynamicSampledSpringCurve extends Curve {
+  const DynamicSampledSpringCurve(this.points);
 
   /// Displacement samples (normalized 0..1) spread evenly across the timeline.
   final List<double> points;
@@ -112,12 +112,12 @@ class SampledSpringCurve extends Curve {
   }
 }
 
-final Map<SpringParams, SpringResult> _cache = {};
+final Map<DynamicSpringParams, DynamicSpringResult> _cache = {};
 
-/// Resolves [params] into a [SampledSpringCurve] and a settle [Duration].
+/// Resolves [params] into a [DynamicSampledSpringCurve] and a settle [Duration].
 ///
 /// Results are memoized per parameter set, like the source's `cache`.
-SpringResult resolveSpring([SpringParams params = const SpringParams()]) {
+DynamicSpringResult resolveSpring([DynamicSpringParams params = const DynamicSpringParams()]) {
   final cached = _cache[params];
   if (cached != null) return cached;
 
@@ -139,8 +139,8 @@ SpringResult resolveSpring([SpringParams params = const SpringParams()]) {
     points.removeAt(points.length - 2);
   }
 
-  final result = SpringResult(
-    SampledSpringCurve(points),
+  final result = DynamicSpringResult(
+    DynamicSampledSpringCurve(points),
     Duration(milliseconds: durationMs),
   );
   _cache[params] = result;

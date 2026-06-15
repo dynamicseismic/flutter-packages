@@ -2,64 +2,64 @@ import 'package:flutter/animation.dart';
 
 import 'spring.dart';
 
-/// How a [TextMorph] eases its per-segment animations.
+/// How a [DynamicTextMorph] eases its per-segment animations.
 ///
 /// Mirrors the source's `ease` option, which accepts either a CSS easing string
-/// (`TorphEase.cubic`) or spring parameters (`TorphEase.spring`).
-sealed class TorphEase {
-  const TorphEase();
+/// (`DynamicTorphEase.cubic`) or spring parameters (`DynamicTorphEase.spring`).
+sealed class DynamicTorphEase {
+  const DynamicTorphEase();
 
   /// A fixed [Curve] (e.g. a [Cubic] bezier). Uses the widget's own duration.
-  const factory TorphEase.cubic(Curve curve) = CubicEase;
+  const factory DynamicTorphEase.cubic(Curve curve) = DynamicCubicEase;
 
   /// Physics-based easing; the curve *and* the duration are derived from the
   /// spring (see [resolveSpring]).
-  const factory TorphEase.spring(SpringParams params) = SpringEase;
+  const factory DynamicTorphEase.spring(DynamicSpringParams params) = DynamicSpringEase;
 
-  /// Resolves this ease into a concrete curve + duration. For [CubicEase] the
+  /// Resolves this ease into a concrete curve + duration. For [DynamicCubicEase] the
   /// [fallbackDuration] (the widget's `duration`) is used.
-  ResolvedEase resolve(Duration fallbackDuration);
+  DynamicResolvedEase resolve(Duration fallbackDuration);
 }
 
-/// A [TorphEase] wrapping a static [Curve].
-class CubicEase extends TorphEase {
-  const CubicEase(this.curve);
+/// A [DynamicTorphEase] wrapping a static [Curve].
+class DynamicCubicEase extends DynamicTorphEase {
+  const DynamicCubicEase(this.curve);
 
   final Curve curve;
 
   @override
-  ResolvedEase resolve(Duration fallbackDuration) =>
-      ResolvedEase(curve, fallbackDuration);
+  DynamicResolvedEase resolve(Duration fallbackDuration) =>
+      DynamicResolvedEase(curve, fallbackDuration);
 
   @override
-  bool operator ==(Object other) => other is CubicEase && other.curve == curve;
+  bool operator ==(Object other) => other is DynamicCubicEase && other.curve == curve;
 
   @override
   int get hashCode => curve.hashCode;
 }
 
-/// A [TorphEase] wrapping [SpringParams].
-class SpringEase extends TorphEase {
-  const SpringEase(this.params);
+/// A [DynamicTorphEase] wrapping [DynamicSpringParams].
+class DynamicSpringEase extends DynamicTorphEase {
+  const DynamicSpringEase(this.params);
 
-  final SpringParams params;
+  final DynamicSpringParams params;
 
   @override
-  ResolvedEase resolve(Duration fallbackDuration) {
+  DynamicResolvedEase resolve(Duration fallbackDuration) {
     final r = resolveSpring(params);
-    return ResolvedEase(r.curve, r.duration);
+    return DynamicResolvedEase(r.curve, r.duration);
   }
 
   @override
-  bool operator ==(Object other) => other is SpringEase && other.params == params;
+  bool operator ==(Object other) => other is DynamicSpringEase && other.params == params;
 
   @override
   int get hashCode => params.hashCode;
 }
 
 /// A concrete easing curve paired with the duration it should run over.
-class ResolvedEase {
-  const ResolvedEase(this.curve, this.duration);
+class DynamicResolvedEase {
+  const DynamicResolvedEase(this.curve, this.duration);
 
   final Curve curve;
   final Duration duration;

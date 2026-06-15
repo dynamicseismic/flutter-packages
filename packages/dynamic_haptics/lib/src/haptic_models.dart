@@ -11,8 +11,8 @@ double clampHapticIntensity(double value) {
 }
 
 @immutable
-class HapticVibration {
-  const HapticVibration({
+class DynamicHapticVibration {
+  const DynamicHapticVibration({
     required this.duration,
     this.intensity,
     this.delay = Duration.zero,
@@ -34,12 +34,12 @@ class HapticVibration {
     };
   }
 
-  HapticVibration copyWith({
+  DynamicHapticVibration copyWith({
     Duration? duration,
     double? intensity,
     Duration? delay,
   }) {
-    return HapticVibration(
+    return DynamicHapticVibration(
       duration: duration ?? this.duration,
       intensity: intensity ?? this.intensity,
       delay: delay ?? this.delay,
@@ -48,7 +48,7 @@ class HapticVibration {
 
   @override
   String toString() {
-    return 'HapticVibration('
+    return 'DynamicHapticVibration('
         'duration: $duration, '
         'intensity: $intensity, '
         'delay: $delay'
@@ -58,7 +58,7 @@ class HapticVibration {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        other is HapticVibration &&
+        other is DynamicHapticVibration &&
             duration == other.duration &&
             intensity == other.intensity &&
             delay == other.delay;
@@ -69,16 +69,16 @@ class HapticVibration {
 }
 
 @immutable
-class HapticPreset {
-  const HapticPreset({required this.pattern, this.description});
+class DynamicHapticPreset {
+  const DynamicHapticPreset({required this.pattern, this.description});
 
-  final List<HapticVibration> pattern;
+  final List<DynamicHapticVibration> pattern;
   final String? description;
 }
 
 @immutable
-class TriggerOptions {
-  const TriggerOptions({this.intensity})
+class DynamicTriggerOptions {
+  const DynamicTriggerOptions({this.intensity})
     : assert(intensity == null || (intensity >= 0 && intensity <= 1));
 
   final double? intensity;
@@ -87,14 +87,14 @@ class TriggerOptions {
 }
 
 @immutable
-class NormalizedHapticRequest {
-  const NormalizedHapticRequest({
+class DynamicNormalizedHapticRequest {
+  const DynamicNormalizedHapticRequest({
     required this.pattern,
     required this.intensity,
     this.presetName,
   });
 
-  final List<HapticVibration> pattern;
+  final List<DynamicHapticVibration> pattern;
   final double intensity;
   final String? presetName;
 }

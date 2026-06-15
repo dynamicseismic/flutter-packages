@@ -6,8 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final platform = MethodChannelFlutterHaptics();
-  const channel = MethodChannel('flutter_haptics');
+  final platform = MethodChannelDynamicHaptics();
+  const channel = MethodChannel('dynamic_haptics');
   final calls = <MethodCall>[];
 
   setUp(() {
@@ -36,8 +36,8 @@ void main() {
 
   test('trigger sends primitive pattern payload', () async {
     await platform.trigger(
-      const <HapticVibration>[
-        HapticVibration(
+      const <DynamicHapticVibration>[
+        DynamicHapticVibration(
           delay: Duration(milliseconds: 10),
           duration: Duration(milliseconds: 40),
           intensity: 0.8,

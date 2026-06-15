@@ -54,7 +54,7 @@ class GalleryPage extends StatefulWidget {
 class _GalleryPageState extends State<GalleryPage> {
   String _query = '';
 
-  List<LucideIconEntry> get _filtered {
+  List<DynamicLucideIconEntry> get _filtered {
     final q = _query.trim().toLowerCase();
     if (q.isEmpty) return lucideAnimatedIcons;
     return lucideAnimatedIcons
@@ -121,7 +121,7 @@ class _Header extends StatelessWidget {
         children: [
           Row(
             children: [
-              const AnimatedLucideIcon(icon: kSparklesIcon, size: 26),
+              const DynamicAnimatedLucideIcon(icon: kSparklesIcon, size: 26),
               const SizedBox(width: 10),
               Text('dynamic_lucide_icons',
                   style: Theme.of(context)
@@ -132,7 +132,7 @@ class _Header extends StatelessWidget {
               IconButton(
                 tooltip: isDark ? 'Light mode' : 'Dark mode',
                 onPressed: onToggleTheme,
-                icon: AnimatedLucideIcon(
+                icon: DynamicAnimatedLucideIcon(
                   key: ValueKey(isDark),
                   icon: isDark ? kSunIcon : kMoonIcon,
                   size: 22,
@@ -154,10 +154,10 @@ class _Header extends StatelessWidget {
               hintText: 'Search icons (e.g. bell, sound, arrow)…',
               prefixIcon: const Padding(
                 padding: EdgeInsets.all(10),
-                child: AnimatedLucideIcon(
+                child: DynamicAnimatedLucideIcon(
                   icon: kSearchIcon,
                   size: 20,
-                  trigger: AnimationTrigger.none,
+                  trigger: DynamicAnimationTrigger.none,
                 ),
               ),
               filled: true,
@@ -177,14 +177,14 @@ class _Header extends StatelessWidget {
 class _IconCell extends StatefulWidget {
   const _IconCell({required this.entry});
 
-  final LucideIconEntry entry;
+  final DynamicLucideIconEntry entry;
 
   @override
   State<_IconCell> createState() => _IconCellState();
 }
 
 class _IconCellState extends State<_IconCell> {
-  final _controller = AnimatedLucideIconController();
+  final _controller = DynamicAnimatedLucideIconController();
   bool _hovering = false;
 
   Future<void> _copy() async {
@@ -234,12 +234,12 @@ class _IconCellState extends State<_IconCell> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AnimatedLucideIcon(
+              DynamicAnimatedLucideIcon(
                 icon: widget.entry.data,
                 size: 30,
                 controller: _controller,
                 // The cell handles hover/tap; disable built-in triggers.
-                trigger: AnimationTrigger.none,
+                trigger: DynamicAnimationTrigger.none,
                 color: scheme.onSurface,
               ),
               const SizedBox(height: 12),

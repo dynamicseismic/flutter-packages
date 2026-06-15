@@ -5,7 +5,7 @@
 /// icon can transform into any other — the lines slide, rotate, and grow rather
 /// than crossfading.
 ///
-/// See [MorphingIcon] for the widget and [MorphIcons] for the built-in set.
+/// See [DynamicMorphingIcon] for the widget and [DynamicMorphIcons] for the built-in set.
 ///
 /// Technique adapted from <https://benji.org/morphing-icons-with-claude>.
 library;

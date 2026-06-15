@@ -11,8 +11,8 @@ import 'morph_painter.dart';
 /// [icon] property (e.g. in `setState`) and the transition runs automatically.
 ///
 /// ```dart
-/// MorphingIcon(
-///   icon: _open ? MorphIcons.cross : MorphIcons.menu,
+/// DynamicMorphingIcon(
+///   icon: _open ? DynamicMorphIcons.cross : DynamicMorphIcons.menu,
 ///   size: 32,
 ///   color: Theme.of(context).colorScheme.onSurface,
 /// )
@@ -20,9 +20,9 @@ import 'morph_painter.dart';
 ///
 /// Behaves like a normal [Icon]: when [size] or [color] are omitted it inherits
 /// from the ambient [IconTheme].
-class MorphingIcon extends StatefulWidget {
+class DynamicMorphingIcon extends StatefulWidget {
   /// The icon to display. Changing it animates from the previously shown icon.
-  final MorphIcon icon;
+  final DynamicMorphIcon icon;
 
   /// Width and height in logical pixels. Defaults to the ambient
   /// [IconThemeData.size], then `24`.
@@ -43,7 +43,7 @@ class MorphingIcon extends StatefulWidget {
   /// Optional description for screen readers.
   final String? semanticLabel;
 
-  const MorphingIcon({
+  const DynamicMorphingIcon({
     super.key,
     required this.icon,
     this.size,
@@ -55,18 +55,18 @@ class MorphingIcon extends StatefulWidget {
   });
 
   @override
-  State<MorphingIcon> createState() => _MorphingIconState();
+  State<DynamicMorphingIcon> createState() => _MorphingIconState();
 }
 
-class _MorphingIconState extends State<MorphingIcon>
+class _MorphingIconState extends State<DynamicMorphingIcon>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
   /// The shape the current morph starts from.
-  late MorphIcon _from;
+  late DynamicMorphIcon _from;
 
   /// The shape the current morph ends on — always the latest [widget.icon].
-  late MorphIcon _to;
+  late DynamicMorphIcon _to;
 
   @override
   void initState() {
@@ -82,7 +82,7 @@ class _MorphingIconState extends State<MorphingIcon>
   }
 
   @override
-  void didUpdateWidget(MorphingIcon old) {
+  void didUpdateWidget(DynamicMorphingIcon old) {
     super.didUpdateWidget(old);
     if (widget.duration != old.duration) {
       _controller.duration = widget.duration;
@@ -115,7 +115,7 @@ class _MorphingIconState extends State<MorphingIcon>
         builder: (context, _) {
           return CustomPaint(
             size: Size.square(size),
-            painter: MorphPainter(
+            painter: DynamicMorphPainter(
               from: _from,
               to: _to,
               t: widget.curve.transform(_controller.value),

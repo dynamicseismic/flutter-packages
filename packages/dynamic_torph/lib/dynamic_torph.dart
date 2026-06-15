@@ -1,13 +1,13 @@
 /// Torph for Flutter — dependency-free animated text morphing.
 ///
 /// A faithful port of [torph](https://github.com/lochie/torph). The main entry
-/// point is the [TextMorph] widget; springs are configured via [SpringParams]
-/// and [TorphEase.spring].
+/// point is the [DynamicTextMorph] widget; springs are configured via [DynamicSpringParams]
+/// and [DynamicTorphEase.spring].
 library;
 
 export 'src/defaults.dart';
-export 'src/ease.dart' show TorphEase, CubicEase, SpringEase, ResolvedEase;
-export 'src/segment.dart' show Segment, segmentText, kNbsp;
+export 'src/ease.dart' show DynamicTorphEase, DynamicCubicEase, DynamicSpringEase, DynamicResolvedEase;
+export 'src/segment.dart' show DynamicSegment, segmentText, kNbsp;
 export 'src/spring.dart'
-    show SpringParams, SpringResult, SampledSpringCurve, resolveSpring;
-export 'src/text_morph.dart' show TextMorph;
+    show DynamicSpringParams, DynamicSpringResult, DynamicSampledSpringCurve, resolveSpring;
+export 'src/text_morph.dart' show DynamicTextMorph;

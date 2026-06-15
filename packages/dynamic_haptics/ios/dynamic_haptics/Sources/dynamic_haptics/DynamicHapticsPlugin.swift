@@ -3,14 +3,14 @@ import CoreHaptics
 import Flutter
 import UIKit
 
-public class FlutterHapticsPlugin: NSObject, FlutterPlugin {
+public class DynamicHapticsPlugin: NSObject, FlutterPlugin {
   private var hapticEngine: CHHapticEngine?
   private var currentPlayer: CHHapticPatternPlayer?
   private var pendingFallbackTasks: [DispatchWorkItem] = []
 
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "flutter_haptics", binaryMessenger: registrar.messenger())
-    let instance = FlutterHapticsPlugin()
+    let channel = FlutterMethodChannel(name: "dynamic_haptics", binaryMessenger: registrar.messenger())
+    let instance = DynamicHapticsPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

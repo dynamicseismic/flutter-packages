@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'dynamic_haptics_platform_interface.dart';
 import 'src/haptic_models.dart';
 
-class MethodChannelFlutterHaptics extends FlutterHapticsPlatform {
+class MethodChannelDynamicHaptics extends DynamicHapticsPlatform {
   @visibleForTesting
-  final methodChannel = const MethodChannel('flutter_haptics');
+  final methodChannel = const MethodChannel('dynamic_haptics');
 
   @override
   Future<bool> isSupported() async {
@@ -15,7 +15,7 @@ class MethodChannelFlutterHaptics extends FlutterHapticsPlatform {
 
   @override
   Future<void> trigger(
-    List<HapticVibration> pattern, {
+    List<DynamicHapticVibration> pattern, {
     required double intensity,
     String? presetName,
   }) {

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flutterhaptics.flutter_haptics_example"
+    namespace = "com.example.dynamic_haptics_example"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -15,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.flutterhaptics.flutter_haptics_example"
+        applicationId = "com.example.dynamic_haptics_example"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

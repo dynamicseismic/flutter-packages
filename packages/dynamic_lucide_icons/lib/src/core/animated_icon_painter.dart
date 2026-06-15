@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'icon_part.dart';
 import 'svg_path_parser.dart';
 
-/// Paints an [LucideIconData] at animation progress [t] (0..1).
+/// Paints an [DynamicLucideIconData] at animation progress [t] (0..1).
 ///
 /// The canvas is scaled so the authored viewBox (24) maps to [size], then each
 /// part is drawn: static parts as-is, animated parts wrapped in a save/restore
@@ -18,7 +18,7 @@ class AnimatedIconPainter extends CustomPainter {
     required this.strokeWidth,
   });
 
-  final LucideIconData data;
+  final DynamicLucideIconData data;
   final double t;
   final Color color;
   final double strokeWidth;
@@ -26,7 +26,7 @@ class AnimatedIconPainter extends CustomPainter {
   /// Cache for combined group paths (single paths are cached in [SvgPathParser]).
   static final Map<String, ui.Path> _groupCache = <String, ui.Path>{};
 
-  static ui.Path _pathFor(IconPart part) {
+  static ui.Path _pathFor(DynamicIconPart part) {
     if (part.paths.length == 1) return SvgPathParser.parse(part.paths.first);
     final key = part.paths.join('|');
     return _groupCache.putIfAbsent(key, () {

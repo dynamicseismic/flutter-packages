@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import 'morph_icon.dart';
 
-/// Paints the interpolated state between two [MorphIcon]s at progress [t].
+/// Paints the interpolated state between two [DynamicMorphIcon]s at progress [t].
 ///
 /// Two morph modes, matching the original technique:
 ///
@@ -14,9 +14,9 @@ import 'morph_icon.dart';
 ///  * **Interpolation** — otherwise each of the three line slots is tweened
 ///    independently through coordinate space, so the shapes genuinely flow
 ///    into one another.
-class MorphPainter extends CustomPainter {
-  final MorphIcon from;
-  final MorphIcon to;
+class DynamicMorphPainter extends CustomPainter {
+  final DynamicMorphIcon from;
+  final DynamicMorphIcon to;
 
   /// Morph progress, already eased, in `[0, 1]`. `0` paints [from], `1` paints
   /// [to].
@@ -28,7 +28,7 @@ class MorphPainter extends CustomPainter {
   /// Stroke width in logical pixels (not scaled with [iconBoxSize]).
   final double strokeWidth;
 
-  const MorphPainter({
+  const DynamicMorphPainter({
     required this.from,
     required this.to,
     required this.t,
@@ -82,7 +82,7 @@ class MorphPainter extends CustomPainter {
   }
 
   /// Different groups: tween each line slot through coordinate space. Uses
-  /// [MorphIcon.resolvedLines] so a grouped icon morphs from/to the orientation
+  /// [DynamicMorphIcon.resolvedLines] so a grouped icon morphs from/to the orientation
   /// actually on screen rather than its un-rotated base shape. The shorter icon
   /// is padded with hidden lines so icons of different lengths still morph.
   void _paintInterpolating(
@@ -91,15 +91,15 @@ class MorphPainter extends CustomPainter {
     final toLines = to.resolvedLines;
     final count = math.max(fromLines.length, toLines.length);
     for (var i = 0; i < count; i++) {
-      final line = MorphLine.lerp(_at(fromLines, i), _at(toLines, i), t);
+      final line = DynamicMorphLine.lerp(_at(fromLines, i), _at(toLines, i), t);
       _drawLine(canvas, paint, toCanvas(line.a), toCanvas(line.b), line.opacity);
     }
   }
 
-  /// The line at [i], or [MorphLine.hidden] if [lines] is shorter than that —
+  /// The line at [i], or [DynamicMorphLine.hidden] if [lines] is shorter than that —
   /// the padding that lets a 3-line icon morph into an 8-line one.
-  MorphLine _at(List<MorphLine> lines, int i) =>
-      i < lines.length ? lines[i] : MorphLine.hidden;
+  DynamicMorphLine _at(List<DynamicMorphLine> lines, int i) =>
+      i < lines.length ? lines[i] : DynamicMorphLine.hidden;
 
   void _drawLine(Canvas canvas, Paint paint, Offset a, Offset b, double opacity) {
     if (opacity <= 0.001) return; // fully collapsed/invisible — skip.
@@ -115,7 +115,7 @@ class MorphPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(MorphPainter old) =>
+  bool shouldRepaint(DynamicMorphPainter old) =>
       old.t != t ||
       old.from != from ||
       old.to != to ||

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dynamic_torph/dynamic_torph.dart';
 
-/// Demonstrates [TextMorph]: a live text field bound to a morphing display,
+/// Demonstrates [DynamicTextMorph]: a live text field bound to a morphing display,
 /// letter- and word-level presets, and a choice of spring vs. cubic easing with
 /// adjustable parameters.
 class TorphDemo extends StatefulWidget {
@@ -20,15 +20,15 @@ class _TorphDemoState extends State<TorphDemo> {
   double _mass = 1;
   double _cubicMs = 600;
 
-  TorphEase get _ease => _useSpring
-      ? TorphEase.spring(
-          SpringParams(
+  DynamicTorphEase get _ease => _useSpring
+      ? DynamicTorphEase.spring(
+          DynamicSpringParams(
             stiffness: _stiffness,
             damping: _damping,
             mass: _mass,
           ),
         )
-      : const TorphEase.cubic(Cubic(0.19, 1, 0.22, 1));
+      : const DynamicTorphEase.cubic(Cubic(0.19, 1, 0.22, 1));
 
   void _setText(String value) {
     _input.text = value;
@@ -57,7 +57,7 @@ class _TorphDemoState extends State<TorphDemo> {
               borderRadius: BorderRadius.circular(20),
               color: theme.colorScheme.surfaceContainerHighest,
             ),
-            child: TextMorph(
+            child: DynamicTextMorph(
               _text.isEmpty ? ' ' : _text,
               duration: Duration(milliseconds: _cubicMs.round()),
               ease: _ease,

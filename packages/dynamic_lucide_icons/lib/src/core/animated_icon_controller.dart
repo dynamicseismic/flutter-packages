@@ -1,27 +1,27 @@
 import 'animated_lucide_icon.dart';
 
-/// Programmatic handle for an [AnimatedLucideIcon], mirroring the
+/// Programmatic handle for an [DynamicAnimatedLucideIcon], mirroring the
 /// `startAnimation` / `stopAnimation` ref API of pqoqubbw/icons.
 ///
-/// Create one, pass it to an [AnimatedLucideIcon], then drive the animation
+/// Create one, pass it to an [DynamicAnimatedLucideIcon], then drive the animation
 /// imperatively:
 ///
 /// ```dart
-/// final controller = AnimatedLucideIconController();
+/// final controller = DynamicAnimatedLucideIconController();
 /// // ...
-/// AnimatedLucideIcon(icon: kBellIcon, controller: controller);
+/// DynamicAnimatedLucideIcon(icon: kBellIcon, controller: controller);
 /// // later:
 /// controller.play();
 /// ```
-class AnimatedLucideIconController {
-  AnimatedLucideIconState? _state;
+class DynamicAnimatedLucideIconController {
+  DynamicAnimatedLucideIconState? _state;
 
   /// Whether this controller is currently bound to a mounted icon.
   bool get isAttached => _state != null;
 
-  /// Used by [AnimatedLucideIcon] to bind/unbind. Not part of the public API.
-  void attach(AnimatedLucideIconState state) => _state = state;
-  void detach(AnimatedLucideIconState state) {
+  /// Used by [DynamicAnimatedLucideIcon] to bind/unbind. Not part of the public API.
+  void attach(DynamicAnimatedLucideIconState state) => _state = state;
+  void detach(DynamicAnimatedLucideIconState state) {
     if (identical(_state, state)) _state = null;
   }
 

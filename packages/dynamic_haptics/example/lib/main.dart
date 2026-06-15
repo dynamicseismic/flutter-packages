@@ -28,7 +28,7 @@ class HapticsHome extends StatefulWidget {
 }
 
 class _HapticsHomeState extends State<HapticsHome> {
-  final FlutterHaptics _haptics = FlutterHaptics();
+  final DynamicHaptics _haptics = DynamicHaptics();
   bool? _isSupported;
   String _lastEvent = 'None';
 
@@ -45,7 +45,7 @@ class _HapticsHomeState extends State<HapticsHome> {
   }
 
   Future<void> _loadSupport() async {
-    final isSupported = await FlutterHaptics.isSupported().catchError(
+    final isSupported = await DynamicHaptics.isSupported().catchError(
       (_) => false,
     );
     if (!mounted) {
@@ -100,7 +100,7 @@ class _HapticsHomeState extends State<HapticsHome> {
               _HapticButton(
                 icon: Icons.warning_amber_rounded,
                 label: 'Warning',
-                onPressed: () => _trigger(HapticEffect.warning, 'warning'),
+                onPressed: () => _trigger(DynamicHapticEffect.warning, 'warning'),
               ),
               _HapticButton(
                 icon: Icons.error_outline,
@@ -131,12 +131,12 @@ class _HapticsHomeState extends State<HapticsHome> {
               _HapticButton(
                 icon: Icons.graphic_eq,
                 label: 'Pattern',
-                onPressed: () => _trigger(const <HapticVibration>[
-                  HapticVibration(
+                onPressed: () => _trigger(const <DynamicHapticVibration>[
+                  DynamicHapticVibration(
                     duration: Duration(milliseconds: 80),
                     intensity: 0.8,
                   ),
-                  HapticVibration(
+                  DynamicHapticVibration(
                     delay: Duration(milliseconds: 60),
                     duration: Duration(milliseconds: 120),
                     intensity: 0.35,

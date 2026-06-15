@@ -6,13 +6,13 @@ import '../icon_entry.dart';
 /// Generated icon batch 18. Path data: Lucide (ISC). Animation params:
 /// pqoqubbw/icons (MIT). See ATTRIBUTION.md.
 
-const _fadeIn = OpacityPart([0, 1], duration: Duration(milliseconds: 100));
+const _fadeIn = DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 100));
 
 /// Snowflake that shivers with a quick side-to-side rotation.
-const LucideIconData kSnowflakeIcon = LucideIconData(
+const DynamicLucideIconData kSnowflakeIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 400),
   parts: [
-    IconPart.group(
+    DynamicIconPart.group(
       [
         'm10 20-1.25-2.5L6 18',
         'M10 4 8.75 6.5 6 6',
@@ -27,174 +27,174 @@ const LucideIconData kSnowflakeIcon = LucideIconData(
         'm7 21 3-6-1.5-3',
         'm7 3 3 6h4',
       ],
-      RotatePart([0, -5, 5, -5, 5, 0], pivot: kViewBoxCenter),
+      DynamicRotatePart([0, -5, 5, -5, 5, 0], pivot: kViewBoxCenter),
     ),
   ],
 );
 
 /// Square activity: the heartbeat line draws itself inside the static frame.
-const LucideIconData kSquareActivityIcon = LucideIconData(
+const DynamicLucideIconData kSquareActivityIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 600),
   parts: [
-    IconPart(
+    DynamicIconPart(
         'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z'),
-    IconPart(
+    DynamicIconPart(
       'M17 12h-2l-2 5-2-10-2 5H7',
-      CompositePart([DrawPart(), _fadeIn]),
+      DynamicCompositePart([DynamicDrawPart(), _fadeIn]),
     ),
   ],
 );
 
 /// Square arrow down: arrow head bobs, the shaft retracts and extends.
-const LucideIconData kSquareArrowDownIcon = LucideIconData(
+const DynamicLucideIconData kSquareArrowDownIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 400),
   parts: [
-    IconPart(
+    DynamicIconPart(
         'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z'),
-    IconPart(
+    DynamicIconPart(
       'm8 12 4 4 4-4',
-      TranslatePart([Offset.zero, Offset(0, -3), Offset.zero]),
+      DynamicTranslatePart([Offset.zero, Offset(0, -3), Offset.zero]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M12 8v8',
-      ScalePart([1, 0.625, 1], axis: ScaleAxis.vertical, pivot: Offset(12, 8)),
+      DynamicScalePart([1, 0.625, 1], axis: DynamicScaleAxis.vertical, pivot: Offset(12, 8)),
     ),
   ],
 );
 
 /// Square arrow left: arrow head nudges, the shaft retracts and extends.
-const LucideIconData kSquareArrowLeftIcon = LucideIconData(
+const DynamicLucideIconData kSquareArrowLeftIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 400),
   parts: [
-    IconPart(
+    DynamicIconPart(
         'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z'),
-    IconPart(
+    DynamicIconPart(
       'm12 8-4 4 4 4',
-      TranslatePart([Offset.zero, Offset(3, 0), Offset.zero]),
+      DynamicTranslatePart([Offset.zero, Offset(3, 0), Offset.zero]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M16 12H8',
-      ScalePart([1, 0.375, 1],
-          axis: ScaleAxis.horizontal, pivot: Offset(16, 12)),
+      DynamicScalePart([1, 0.375, 1],
+          axis: DynamicScaleAxis.horizontal, pivot: Offset(16, 12)),
     ),
   ],
 );
 
 /// Square arrow right: shaft retracts and extends, the head nudges.
-const LucideIconData kSquareArrowRightIcon = LucideIconData(
+const DynamicLucideIconData kSquareArrowRightIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 400),
   parts: [
-    IconPart(
+    DynamicIconPart(
         'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z'),
-    IconPart(
+    DynamicIconPart(
       'M8 12h8',
-      ScalePart([1, 0.625, 1], axis: ScaleAxis.horizontal, pivot: Offset(8, 12)),
+      DynamicScalePart([1, 0.625, 1], axis: DynamicScaleAxis.horizontal, pivot: Offset(8, 12)),
     ),
-    IconPart(
+    DynamicIconPart(
       'm12 8 4 4-4 4',
-      TranslatePart([Offset.zero, Offset(-3, 0), Offset.zero]),
+      DynamicTranslatePart([Offset.zero, Offset(-3, 0), Offset.zero]),
     ),
   ],
 );
 
 /// Square arrow up: arrow head bobs, the shaft retracts and extends.
-const LucideIconData kSquareArrowUpIcon = LucideIconData(
+const DynamicLucideIconData kSquareArrowUpIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 400),
   parts: [
-    IconPart(
+    DynamicIconPart(
         'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z'),
-    IconPart(
+    DynamicIconPart(
       'm16 12-4-4-4 4',
-      TranslatePart([Offset.zero, Offset(0, 3), Offset.zero]),
+      DynamicTranslatePart([Offset.zero, Offset(0, 3), Offset.zero]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M12 16V8',
-      ScalePart([1, 0.375, 1], axis: ScaleAxis.vertical, pivot: Offset(12, 16)),
+      DynamicScalePart([1, 0.375, 1], axis: DynamicScaleAxis.vertical, pivot: Offset(12, 16)),
     ),
   ],
 );
 
 /// Square chevron down: the chevron nudges down and back.
-const LucideIconData kSquareChevronDownIcon = LucideIconData(
+const DynamicLucideIconData kSquareChevronDownIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart(
+    DynamicIconPart(
         'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z'),
-    IconPart(
+    DynamicIconPart(
       'm16 10-4 4-4-4',
-      TranslatePart([Offset.zero, Offset(0, 2), Offset.zero]),
+      DynamicTranslatePart([Offset.zero, Offset(0, 2), Offset.zero]),
     ),
   ],
 );
 
 /// Square chevron left: the chevron nudges left and back.
-const LucideIconData kSquareChevronLeftIcon = LucideIconData(
+const DynamicLucideIconData kSquareChevronLeftIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart(
+    DynamicIconPart(
         'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z'),
-    IconPart(
+    DynamicIconPart(
       'm14 16-4-4 4-4',
-      TranslatePart([Offset.zero, Offset(-2, 0), Offset.zero]),
+      DynamicTranslatePart([Offset.zero, Offset(-2, 0), Offset.zero]),
     ),
   ],
 );
 
 /// Square chevron right: the chevron nudges right and back.
-const LucideIconData kSquareChevronRightIcon = LucideIconData(
+const DynamicLucideIconData kSquareChevronRightIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart(
+    DynamicIconPart(
         'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z'),
-    IconPart(
+    DynamicIconPart(
       'm10 8 4 4-4 4',
-      TranslatePart([Offset.zero, Offset(2, 0), Offset.zero]),
+      DynamicTranslatePart([Offset.zero, Offset(2, 0), Offset.zero]),
     ),
   ],
 );
 
 /// Square chevron up: the chevron nudges up and back.
-const LucideIconData kSquareChevronUpIcon = LucideIconData(
+const DynamicLucideIconData kSquareChevronUpIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart(
+    DynamicIconPart(
         'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2z'),
-    IconPart(
+    DynamicIconPart(
       'm8 14 4-4 4 4',
-      TranslatePart([Offset.zero, Offset(0, -2), Offset.zero]),
+      DynamicTranslatePart([Offset.zero, Offset(0, -2), Offset.zero]),
     ),
   ],
 );
 
 /// Square stack: the cards pop in turn as the top card squashes.
-const LucideIconData kSquareStackIcon = LucideIconData(
+const DynamicLucideIconData kSquareStackIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M4 10c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2',
-      ScalePart([1, 0.9, 1], delay: Duration(milliseconds: 300)),
+      DynamicScalePart([1, 0.9, 1], delay: Duration(milliseconds: 300)),
     ),
-    IconPart(
+    DynamicIconPart(
       'M10 16c-1.1 0-2-.9-2-2v-4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2',
-      ScalePart([1, 0.9, 1], delay: Duration(milliseconds: 200)),
+      DynamicScalePart([1, 0.9, 1], delay: Duration(milliseconds: 200)),
     ),
-    IconPart(
+    DynamicIconPart(
       'M16 14h4a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-4a2 2 0 0 1 2 -2z',
-      ScalePart([1, 0.8, 1]),
+      DynamicScalePart([1, 0.8, 1]),
     ),
   ],
 );
 
 /// Stamp that presses down with a bounce while the ink line spreads.
-const LucideIconData kStampIcon = LucideIconData(
+const DynamicLucideIconData kStampIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 800),
   parts: [
-    IconPart.group(
+    DynamicIconPart.group(
       [
         'M14 13V8.5C14 7 15 7 15 5a3 3 0 0 0-6 0c0 2 1 2 1 3.5V13',
         'M20 15.5a2.5 2.5 0 0 0-2.5-2.5h-11A2.5 2.5 0 0 0 4 15.5V17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1z',
       ],
-      TranslatePart([
+      DynamicTranslatePart([
         Offset.zero,
         Offset(0, 4),
         Offset(0, 4),
@@ -202,72 +202,72 @@ const LucideIconData kStampIcon = LucideIconData(
         Offset.zero,
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M5 22h14',
-      CompositePart([
-        ScalePart([1, 0.85, 0.85, 1],
-            axis: ScaleAxis.horizontal, pivot: Offset(12, 22)),
-        OpacityPart([1, 0.4, 1, 1]),
+      DynamicCompositePart([
+        DynamicScalePart([1, 0.85, 0.85, 1],
+            axis: DynamicScaleAxis.horizontal, pivot: Offset(12, 22)),
+        DynamicOpacityPart([1, 0.4, 1, 1]),
       ]),
     ),
   ],
 );
 
 /// Stethoscope that draws itself on from the earpiece outward.
-const LucideIconData kStethoscopeIcon = LucideIconData(
+const DynamicLucideIconData kStethoscopeIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 850),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M20 8a2 2 0 1 0 0 4 2 2 0 1 0 0 -4',
-      CompositePart([
-        DrawPart(
+      DynamicCompositePart([
+        DynamicDrawPart(
             delay: Duration(milliseconds: 100),
             duration: Duration(milliseconds: 250)),
-        OpacityPart([0, 1],
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 100),
             duration: Duration(milliseconds: 100)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M8 15a6 6 0 0 0 12 0v-3',
-      CompositePart([
-        DrawPart(
+      DynamicCompositePart([
+        DynamicDrawPart(
             delay: Duration(milliseconds: 350),
             duration: Duration(milliseconds: 250)),
-        OpacityPart([0, 1],
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 350),
             duration: Duration(milliseconds: 100)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M11 2v2',
-      CompositePart([
-        DrawPart(
+      DynamicCompositePart([
+        DynamicDrawPart(
             delay: Duration(milliseconds: 600),
             duration: Duration(milliseconds: 250)),
-        OpacityPart([0, 1],
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 600),
             duration: Duration(milliseconds: 100)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M5 2v2',
-      CompositePart([
-        DrawPart(
+      DynamicCompositePart([
+        DynamicDrawPart(
             delay: Duration(milliseconds: 600),
             duration: Duration(milliseconds: 250)),
-        OpacityPart([0, 1],
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 600),
             duration: Duration(milliseconds: 100)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1',
-      CompositePart([
-        DrawPart(
+      DynamicCompositePart([
+        DynamicDrawPart(
             delay: Duration(milliseconds: 600),
             duration: Duration(milliseconds: 250)),
-        OpacityPart([0, 1],
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 600),
             duration: Duration(milliseconds: 100)),
       ]),
@@ -276,189 +276,189 @@ const LucideIconData kStethoscopeIcon = LucideIconData(
 );
 
 /// Sun (dim): the rays light up one by one around the disc.
-const LucideIconData kSunDimIcon = LucideIconData(
+const DynamicLucideIconData kSunDimIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 1100),
   parts: [
-    IconPart('M8 12a4 4 0 1 0 8 0 4 4 0 1 0 -8 0'),
-    IconPart('M12 4h.01',
-        OpacityPart([0, 1],
+    DynamicIconPart('M8 12a4 4 0 1 0 8 0 4 4 0 1 0 -8 0'),
+    DynamicIconPart('M12 4h.01',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 100),
             duration: Duration(milliseconds: 300))),
-    IconPart('M20 12h.01',
-        OpacityPart([0, 1],
+    DynamicIconPart('M20 12h.01',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 200),
             duration: Duration(milliseconds: 300))),
-    IconPart('M12 20h.01',
-        OpacityPart([0, 1],
+    DynamicIconPart('M12 20h.01',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 300),
             duration: Duration(milliseconds: 300))),
-    IconPart('M4 12h.01',
-        OpacityPart([0, 1],
+    DynamicIconPart('M4 12h.01',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 400),
             duration: Duration(milliseconds: 300))),
-    IconPart('M17.657 6.343h.01',
-        OpacityPart([0, 1],
+    DynamicIconPart('M17.657 6.343h.01',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 500),
             duration: Duration(milliseconds: 300))),
-    IconPart('M17.657 17.657h.01',
-        OpacityPart([0, 1],
+    DynamicIconPart('M17.657 17.657h.01',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 600),
             duration: Duration(milliseconds: 300))),
-    IconPart('M6.343 17.657h.01',
-        OpacityPart([0, 1],
+    DynamicIconPart('M6.343 17.657h.01',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 700),
             duration: Duration(milliseconds: 300))),
-    IconPart('M6.343 6.343h.01',
-        OpacityPart([0, 1],
+    DynamicIconPart('M6.343 6.343h.01',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 800),
             duration: Duration(milliseconds: 300))),
   ],
 );
 
 /// Sun (medium): the rays light up one by one around the disc.
-const LucideIconData kSunMediumIcon = LucideIconData(
+const DynamicLucideIconData kSunMediumIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 1100),
   parts: [
-    IconPart('M8 12a4 4 0 1 0 8 0 4 4 0 1 0 -8 0'),
-    IconPart('M12 3v1',
-        OpacityPart([0, 1],
+    DynamicIconPart('M8 12a4 4 0 1 0 8 0 4 4 0 1 0 -8 0'),
+    DynamicIconPart('M12 3v1',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 100),
             duration: Duration(milliseconds: 300))),
-    IconPart('M12 20v1',
-        OpacityPart([0, 1],
+    DynamicIconPart('M12 20v1',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 200),
             duration: Duration(milliseconds: 300))),
-    IconPart('M3 12h1',
-        OpacityPart([0, 1],
+    DynamicIconPart('M3 12h1',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 300),
             duration: Duration(milliseconds: 300))),
-    IconPart('M20 12h1',
-        OpacityPart([0, 1],
+    DynamicIconPart('M20 12h1',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 400),
             duration: Duration(milliseconds: 300))),
-    IconPart('m18.364 5.636-.707.707',
-        OpacityPart([0, 1],
+    DynamicIconPart('m18.364 5.636-.707.707',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 500),
             duration: Duration(milliseconds: 300))),
-    IconPart('m6.343 17.657-.707.707',
-        OpacityPart([0, 1],
+    DynamicIconPart('m6.343 17.657-.707.707',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 600),
             duration: Duration(milliseconds: 300))),
-    IconPart('m5.636 5.636.707.707',
-        OpacityPart([0, 1],
+    DynamicIconPart('m5.636 5.636.707.707',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 700),
             duration: Duration(milliseconds: 300))),
-    IconPart('m17.657 17.657.707.707',
-        OpacityPart([0, 1],
+    DynamicIconPart('m17.657 17.657.707.707',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 800),
             duration: Duration(milliseconds: 300))),
   ],
 );
 
 /// Sun-moon: the crescent wobbles while the rays light up around it.
-const LucideIconData kSunMoonIcon = LucideIconData(
+const DynamicLucideIconData kSunMoonIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 1500),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M12 8a2.83 2.83 0 0 0 4 4 4 4 0 1 1-4-4',
-      RotatePart([0, -5, 5, -2, 2, 0], pivot: kViewBoxCenter),
+      DynamicRotatePart([0, -5, 5, -2, 2, 0], pivot: kViewBoxCenter),
     ),
-    IconPart('M12 2v2',
-        OpacityPart([0, 1],
+    DynamicIconPart('M12 2v2',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 100),
             duration: Duration(milliseconds: 300))),
-    IconPart('M12 20v2',
-        OpacityPart([0, 1],
+    DynamicIconPart('M12 20v2',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 200),
             duration: Duration(milliseconds: 300))),
-    IconPart('m4.9 4.9 1.4 1.4',
-        OpacityPart([0, 1],
+    DynamicIconPart('m4.9 4.9 1.4 1.4',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 300),
             duration: Duration(milliseconds: 300))),
-    IconPart('m17.7 17.7 1.4 1.4',
-        OpacityPart([0, 1],
+    DynamicIconPart('m17.7 17.7 1.4 1.4',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 400),
             duration: Duration(milliseconds: 300))),
-    IconPart('M2 12h2',
-        OpacityPart([0, 1],
+    DynamicIconPart('M2 12h2',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 500),
             duration: Duration(milliseconds: 300))),
-    IconPart('M20 12h2',
-        OpacityPart([0, 1],
+    DynamicIconPart('M20 12h2',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 600),
             duration: Duration(milliseconds: 300))),
-    IconPart('m6.3 17.7-1.4 1.4',
-        OpacityPart([0, 1],
+    DynamicIconPart('m6.3 17.7-1.4 1.4',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 700),
             duration: Duration(milliseconds: 300))),
-    IconPart('m19.1 4.9-1.4 1.4',
-        OpacityPart([0, 1],
+    DynamicIconPart('m19.1 4.9-1.4 1.4',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 800),
             duration: Duration(milliseconds: 300))),
   ],
 );
 
 /// Sunset: the sun dips while its rays light up one by one.
-const LucideIconData kSunsetIcon = LucideIconData(
+const DynamicLucideIconData kSunsetIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 700),
   parts: [
-    IconPart.group(
+    DynamicIconPart.group(
       ['M12 10V2', 'm16 6-4 4-4-4'],
-      TranslatePart([Offset.zero, Offset(0, 1), Offset.zero]),
+      DynamicTranslatePart([Offset.zero, Offset(0, 1), Offset.zero]),
     ),
-    IconPart('m4.93 10.93 1.41 1.41',
-        OpacityPart([0, 1],
+    DynamicIconPart('m4.93 10.93 1.41 1.41',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 100),
             duration: Duration(milliseconds: 300))),
-    IconPart('M2 18h2',
-        OpacityPart([0, 1],
+    DynamicIconPart('M2 18h2',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 200),
             duration: Duration(milliseconds: 300))),
-    IconPart('M20 18h2',
-        OpacityPart([0, 1],
+    DynamicIconPart('M20 18h2',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 300),
             duration: Duration(milliseconds: 300))),
-    IconPart('m19.07 10.93-1.41 1.41',
-        OpacityPart([0, 1],
+    DynamicIconPart('m19.07 10.93-1.41 1.41',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 400),
             duration: Duration(milliseconds: 300))),
-    IconPart('M22 22H2',
-        OpacityPart([0, 1],
+    DynamicIconPart('M22 22H2',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 500),
             duration: Duration(milliseconds: 300))),
-    IconPart('M16 18a4 4 0 0 0-8 0'),
+    DynamicIconPart('M16 18a4 4 0 0 0-8 0'),
   ],
 );
 
 /// Swiss franc that draws itself: the stem first, then the cross-bars.
-const LucideIconData kSwissFrancIcon = LucideIconData(
+const DynamicLucideIconData kSwissFrancIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 900),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M10 21V3h8',
-      CompositePart([
-        DrawPart(duration: Duration(milliseconds: 540)),
-        OpacityPart([0, 1], duration: Duration(milliseconds: 100)),
+      DynamicCompositePart([
+        DynamicDrawPart(duration: Duration(milliseconds: 540)),
+        DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 100)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M6 16h9',
-      CompositePart([
-        DrawPart(
+      DynamicCompositePart([
+        DynamicDrawPart(
             delay: Duration(milliseconds: 450),
             duration: Duration(milliseconds: 360)),
-        OpacityPart([0, 1],
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 450),
             duration: Duration(milliseconds: 100)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M10 9.5h7',
-      CompositePart([
-        DrawPart(
+      DynamicCompositePart([
+        DynamicDrawPart(
             delay: Duration(milliseconds: 450),
             duration: Duration(milliseconds: 360)),
-        OpacityPart([0, 1],
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 450),
             duration: Duration(milliseconds: 100)),
       ]),
@@ -467,34 +467,34 @@ const LucideIconData kSwissFrancIcon = LucideIconData(
 );
 
 /// Switch camera: the body and swap arrows draw themselves on.
-const LucideIconData kSwitchCameraIcon = LucideIconData(
+const DynamicLucideIconData kSwitchCameraIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 400),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5',
-      DrawPart(),
+      DynamicDrawPart(),
     ),
-    IconPart(
+    DynamicIconPart(
       'M13 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5',
-      DrawPart(),
+      DynamicDrawPart(),
     ),
-    IconPart('M9 12a3 3 0 1 0 6 0 3 3 0 1 0 -6 0'),
-    IconPart(
+    DynamicIconPart('M9 12a3 3 0 1 0 6 0 3 3 0 1 0 -6 0'),
+    DynamicIconPart(
       'm18 22-3-3 3-3',
-      DrawPart(),
+      DynamicDrawPart(),
     ),
-    IconPart(
+    DynamicIconPart(
       'm6 2 3 3-3 3',
-      DrawPart(),
+      DynamicDrawPart(),
     ),
   ],
 );
 
 /// Syringe that springs back as if drawing in, with a slight tilt.
-const LucideIconData kSyringeIcon = LucideIconData(
+const DynamicLucideIconData kSyringeIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart.group(
+    DynamicIconPart.group(
       [
         'm18 2 4 4',
         'm17 7 3-3',
@@ -503,52 +503,52 @@ const LucideIconData kSyringeIcon = LucideIconData(
         'm5 19-3 3',
         'm14 4 6 6',
       ],
-      CompositePart([
-        TranslatePart([Offset.zero, Offset(-3, 3)],
-            curve: SpringCurve(stiffness: 250, damping: 25)),
-        RotatePart([0, 1],
+      DynamicCompositePart([
+        DynamicTranslatePart([Offset.zero, Offset(-3, 3)],
+            curve: DynamicSpringCurve(stiffness: 250, damping: 25)),
+        DynamicRotatePart([0, 1],
             pivot: kViewBoxCenter,
-            curve: SpringCurve(stiffness: 250, damping: 25)),
+            curve: DynamicSpringCurve(stiffness: 250, damping: 25)),
       ]),
     ),
   ],
 );
 
-const List<LucideIconEntry> gen18Icons = [
-  LucideIconEntry('snowflake', kSnowflakeIcon, ['snow', 'winter', 'cold', 'flake']),
-  LucideIconEntry('square-activity', kSquareActivityIcon,
+const List<DynamicLucideIconEntry> gen18Icons = [
+  DynamicLucideIconEntry('snowflake', kSnowflakeIcon, ['snow', 'winter', 'cold', 'flake']),
+  DynamicLucideIconEntry('square-activity', kSquareActivityIcon,
       ['activity', 'pulse', 'heartbeat', 'health', 'square']),
-  LucideIconEntry('square-arrow-down', kSquareArrowDownIcon,
+  DynamicLucideIconEntry('square-arrow-down', kSquareArrowDownIcon,
       ['arrow', 'down', 'square', 'direction']),
-  LucideIconEntry('square-arrow-left', kSquareArrowLeftIcon,
+  DynamicLucideIconEntry('square-arrow-left', kSquareArrowLeftIcon,
       ['arrow', 'left', 'square', 'direction']),
-  LucideIconEntry('square-arrow-right', kSquareArrowRightIcon,
+  DynamicLucideIconEntry('square-arrow-right', kSquareArrowRightIcon,
       ['arrow', 'right', 'square', 'direction']),
-  LucideIconEntry('square-arrow-up', kSquareArrowUpIcon,
+  DynamicLucideIconEntry('square-arrow-up', kSquareArrowUpIcon,
       ['arrow', 'up', 'square', 'direction']),
-  LucideIconEntry('square-chevron-down', kSquareChevronDownIcon,
+  DynamicLucideIconEntry('square-chevron-down', kSquareChevronDownIcon,
       ['chevron', 'down', 'square', 'arrow']),
-  LucideIconEntry('square-chevron-left', kSquareChevronLeftIcon,
+  DynamicLucideIconEntry('square-chevron-left', kSquareChevronLeftIcon,
       ['chevron', 'left', 'square', 'arrow']),
-  LucideIconEntry('square-chevron-right', kSquareChevronRightIcon,
+  DynamicLucideIconEntry('square-chevron-right', kSquareChevronRightIcon,
       ['chevron', 'right', 'square', 'arrow']),
-  LucideIconEntry('square-chevron-up', kSquareChevronUpIcon,
+  DynamicLucideIconEntry('square-chevron-up', kSquareChevronUpIcon,
       ['chevron', 'up', 'square', 'arrow']),
-  LucideIconEntry('square-stack', kSquareStackIcon,
+  DynamicLucideIconEntry('square-stack', kSquareStackIcon,
       ['stack', 'layers', 'copy', 'cards', 'square']),
-  LucideIconEntry('stamp', kStampIcon, ['stamp', 'approve', 'seal', 'ink']),
-  LucideIconEntry('stethoscope', kStethoscopeIcon,
+  DynamicLucideIconEntry('stamp', kStampIcon, ['stamp', 'approve', 'seal', 'ink']),
+  DynamicLucideIconEntry('stethoscope', kStethoscopeIcon,
       ['stethoscope', 'doctor', 'medical', 'health']),
-  LucideIconEntry('sun-dim', kSunDimIcon, ['sun', 'dim', 'brightness', 'light']),
-  LucideIconEntry('sun-medium', kSunMediumIcon,
+  DynamicLucideIconEntry('sun-dim', kSunDimIcon, ['sun', 'dim', 'brightness', 'light']),
+  DynamicLucideIconEntry('sun-medium', kSunMediumIcon,
       ['sun', 'medium', 'brightness', 'light']),
-  LucideIconEntry('sun-moon', kSunMoonIcon,
+  DynamicLucideIconEntry('sun-moon', kSunMoonIcon,
       ['sun', 'moon', 'theme', 'day', 'night']),
-  LucideIconEntry('sunset', kSunsetIcon, ['sunset', 'sun', 'evening', 'dusk']),
-  LucideIconEntry('swiss-franc', kSwissFrancIcon,
+  DynamicLucideIconEntry('sunset', kSunsetIcon, ['sunset', 'sun', 'evening', 'dusk']),
+  DynamicLucideIconEntry('swiss-franc', kSwissFrancIcon,
       ['swiss', 'franc', 'currency', 'money', 'chf']),
-  LucideIconEntry('switch-camera', kSwitchCameraIcon,
+  DynamicLucideIconEntry('switch-camera', kSwitchCameraIcon,
       ['switch', 'camera', 'flip', 'swap']),
-  LucideIconEntry('syringe', kSyringeIcon,
+  DynamicLucideIconEntry('syringe', kSyringeIcon,
       ['syringe', 'injection', 'medical', 'vaccine', 'needle']),
 ];

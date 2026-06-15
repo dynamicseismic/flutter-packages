@@ -2,11 +2,11 @@ import '../core/icon_part.dart';
 
 /// A catalog entry: an icon's kebab-case [name], its [data], and search
 /// [keywords].
-class LucideIconEntry {
-  const LucideIconEntry(this.name, this.data, this.keywords);
+class DynamicLucideIconEntry {
+  const DynamicLucideIconEntry(this.name, this.data, this.keywords);
 
   final String name;
-  final LucideIconData data;
+  final DynamicLucideIconData data;
   final List<String> keywords;
 
   /// The `k…Icon` identifier of the const for this icon

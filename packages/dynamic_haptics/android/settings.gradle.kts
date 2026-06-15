@@ -1,1 +1,1 @@
-rootProject.name = "flutter_haptics"
+rootProject.name = "dynamic_haptics"

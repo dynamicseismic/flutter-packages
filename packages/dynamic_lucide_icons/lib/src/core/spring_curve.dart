@@ -10,8 +10,8 @@ import 'package:flutter/physics.dart';
 /// is simulated once over its natural settling time and remapped to the
 /// `[0, 1]` curve domain. Overshoot above 1.0 is preserved — that bounce is the
 /// point of a spring.
-class SpringCurve extends Curve {
-  const SpringCurve({
+class DynamicSpringCurve extends Curve {
+  const DynamicSpringCurve({
     this.stiffness = 100,
     this.damping = 10,
     this.mass = 1,

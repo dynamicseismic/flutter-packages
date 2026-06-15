@@ -37,15 +37,15 @@ void main() {
     });
   });
 
-  group('SpringCurve', () {
+  group('DynamicSpringCurve', () {
     test('starts at 0 and settles near 1', () {
-      const curve = SpringCurve(stiffness: 200, damping: 10);
+      const curve = DynamicSpringCurve(stiffness: 200, damping: 10);
       expect(curve.transform(0), closeTo(0, 1e-6));
       expect(curve.transform(1), closeTo(1, 0.05));
     });
 
     test('under-damped spring overshoots past 1', () {
-      const curve = SpringCurve(stiffness: 300, damping: 8);
+      const curve = DynamicSpringCurve(stiffness: 300, damping: 8);
       var maxValue = 0.0;
       for (var i = 0; i <= 100; i++) {
         maxValue = maxValue > curve.transform(i / 100) ? maxValue : curve.transform(i / 100);
@@ -54,16 +54,16 @@ void main() {
     });
   });
 
-  group('AnimatedLucideIconController', () {
+  group('DynamicAnimatedLucideIconController', () {
     testWidgets('attaches to a mounted icon and plays without error',
         (tester) async {
-      final controller = AnimatedLucideIconController();
+      final controller = DynamicAnimatedLucideIconController();
       await tester.pumpWidget(
         MaterialApp(
-          home: AnimatedLucideIcon(
+          home: DynamicAnimatedLucideIcon(
             icon: kBellIcon,
             controller: controller,
-            trigger: AnimationTrigger.none,
+            trigger: DynamicAnimationTrigger.none,
           ),
         ),
       );
@@ -91,15 +91,15 @@ void main() {
     testWidgets('every icon paints at t = 0, mid and end without throwing',
         (tester) async {
       for (final entry in lucideAnimatedIcons) {
-        final controller = AnimatedLucideIconController();
+        final controller = DynamicAnimatedLucideIconController();
         await tester.pumpWidget(
           MaterialApp(
             home: Center(
-              child: AnimatedLucideIcon(
+              child: DynamicAnimatedLucideIcon(
                 icon: entry.data,
                 size: 48,
                 controller: controller,
-                trigger: AnimationTrigger.none,
+                trigger: DynamicAnimationTrigger.none,
               ),
             ),
           ),

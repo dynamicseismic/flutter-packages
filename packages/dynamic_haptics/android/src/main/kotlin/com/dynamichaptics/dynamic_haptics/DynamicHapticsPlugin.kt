@@ -1,4 +1,4 @@
-package com.flutterhaptics.flutter_haptics
+package com.dynamichaptics.dynamic_haptics
 
 import android.content.Context
 import android.os.Build
@@ -12,13 +12,13 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import kotlin.math.roundToInt
 
-class FlutterHapticsPlugin : FlutterPlugin, MethodCallHandler {
+class DynamicHapticsPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
     private lateinit var applicationContext: Context
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         applicationContext = flutterPluginBinding.applicationContext
-        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_haptics")
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "dynamic_haptics")
         channel.setMethodCallHandler(this)
     }
 

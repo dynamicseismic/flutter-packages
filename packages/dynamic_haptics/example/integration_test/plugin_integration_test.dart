@@ -6,7 +6,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('isSupported returns a platform value', (_) async {
-    final isSupported = await FlutterHaptics.isSupported();
+    final isSupported = await DynamicHaptics.isSupported();
 
     expect(isSupported, isA<bool>());
   });

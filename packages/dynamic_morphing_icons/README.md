@@ -31,8 +31,8 @@ class _MenuButtonState extends State<MenuButton> {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => setState(() => _open = !_open),
-      icon: MorphingIcon(
-        icon: _open ? MorphIcons.cross : MorphIcons.menu,
+      icon: DynamicMorphingIcon(
+        icon: _open ? DynamicMorphIcons.cross : DynamicMorphIcons.menu,
         size: 28,
         // color & size fall back to the ambient IconTheme when omitted.
       ),
@@ -41,14 +41,14 @@ class _MenuButtonState extends State<MenuButton> {
 }
 ```
 
-That's it — when `icon` changes, `MorphingIcon` animates from the old shape to
+That's it — when `icon` changes, `DynamicMorphingIcon` animates from the old shape to
 the new one.
 
-### `MorphingIcon` parameters
+### `DynamicMorphingIcon` parameters
 
 | Parameter       | Default              | Description                                   |
 | --------------- | -------------------- | --------------------------------------------- |
-| `icon`          | (required)           | The `MorphIcon` to show. Change it to morph.  |
+| `icon`          | (required)           | The `DynamicMorphIcon` to show. Change it to morph.  |
 | `size`          | `IconTheme` → `24`   | Width/height in logical pixels.               |
 | `color`         | `IconTheme` → black  | Stroke colour.                                |
 | `strokeWidth`   | `2.0`                | Line thickness in logical pixels.             |
@@ -58,8 +58,8 @@ the new one.
 
 ## The icons
 
-All are exposed as `const` values on `MorphIcons`, and the full ordered list is
-`MorphIcons.all`:
+All are exposed as `const` values on `DynamicMorphIcons`, and the full ordered list is
+`DynamicMorphIcons.all`:
 
 `menu` · `cross` · `plus` · `minus` · `equals` · `asterisk` · `more` · `check` ·
 `play` · `pause` · `download` · `upload` · `external` · `arrowRight` ·
@@ -84,16 +84,16 @@ icon: its extra segments shrink to the centre and fade out.
 
 ## Defining your own icons
 
-A `MorphIcon` is a name plus a list of `MorphLine`s in a 24×24 box — three by
+A `DynamicMorphIcon` is a name plus a list of `DynamicMorphLine`s in a 24×24 box — three by
 convention, but any number works (the engine pads the shorter side when
-morphing). Use `MorphLine.hidden` (an invisible point at the centre) for unused
-slots, and `MorphLine.dot` for a visible dot:
+morphing). Use `DynamicMorphLine.hidden` (an invisible point at the centre) for unused
+slots, and `DynamicMorphLine.dot` for a visible dot:
 
 ```dart
-const heart = MorphIcon('heart', [
-  MorphLine(Offset(12, 20), Offset(4, 10)),
-  MorphLine(Offset(12, 20), Offset(20, 10)),
-  MorphLine.hidden,
+const heart = DynamicMorphIcon('heart', [
+  DynamicMorphLine(Offset(12, 20), Offset(4, 10)),
+  DynamicMorphLine(Offset(12, 20), Offset(20, 10)),
+  DynamicMorphLine.hidden,
 ]);
 ```
 

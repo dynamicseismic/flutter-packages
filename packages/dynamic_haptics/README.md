@@ -3,30 +3,30 @@
 WebHaptics-style haptic feedback for Flutter on Android and iOS.
 
 The package keeps the input shape close to `lochie/web-haptics`: call `trigger`
-with a preset name, a duration, a shorthand pattern, a `HapticVibration` list,
-or a full `HapticPreset`.
+with a preset name, a duration, a shorthand pattern, a `DynamicHapticVibration` list,
+or a full `DynamicHapticPreset`.
 
 ## Usage
 
 ```dart
 import 'package:dynamic_haptics/dynamic_haptics.dart';
 
-final haptics = FlutterHaptics();
+final haptics = DynamicHaptics();
 
-await FlutterHaptics.isSupported();
+await DynamicHaptics.isSupported();
 
 await haptics.trigger('success');
-await haptics.trigger(HapticEffect.warning);
+await haptics.trigger(DynamicHapticEffect.warning);
 await haptics.trigger(200);
 await haptics.trigger(<int>[100, 50, 100]);
 
 await haptics.trigger(
-  const <HapticVibration>[
-    HapticVibration(
+  const <DynamicHapticVibration>[
+    DynamicHapticVibration(
       duration: Duration(milliseconds: 80),
       intensity: 0.8,
     ),
-    HapticVibration(
+    DynamicHapticVibration(
       delay: Duration(milliseconds: 50),
       duration: Duration(milliseconds: 100),
       intensity: 0.4,

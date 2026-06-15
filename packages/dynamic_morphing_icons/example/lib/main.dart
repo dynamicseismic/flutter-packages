@@ -33,12 +33,12 @@ class _HomePageState extends State<HomePage> {
   double _durationMs = 450;
   double _strokeWidth = 2.5;
 
-  MorphIcon get _current => MorphIcons.all[_index];
+  DynamicMorphIcon get _current => DynamicMorphIcons.all[_index];
 
   void _select(int index) => setState(() => _index = index);
 
   void _cycle() =>
-      setState(() => _index = (_index + 1) % MorphIcons.all.length);
+      setState(() => _index = (_index + 1) % DynamicMorphIcons.all.length);
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +130,7 @@ class _HeroIcon extends StatelessWidget {
     required this.onTap,
   });
 
-  final MorphIcon icon;
+  final DynamicMorphIcon icon;
   final double durationMs;
   final double strokeWidth;
   final VoidCallback onTap;
@@ -151,7 +151,7 @@ class _HeroIcon extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
-          child: MorphingIcon(
+          child: DynamicMorphingIcon(
             icon: icon,
             size: 96,
             color: scheme.onSurface,
@@ -183,12 +183,12 @@ class _IconGrid extends StatelessWidget {
       spacing: 10,
       runSpacing: 10,
       children: [
-        for (var i = 0; i < MorphIcons.all.length; i++)
+        for (var i = 0; i < DynamicMorphIcons.all.length; i++)
           _GridTile(
             selected: i == selectedIndex,
             onTap: () => onSelect(i),
-            child: MorphingIcon(
-              icon: MorphIcons.all[i],
+            child: DynamicMorphingIcon(
+              icon: DynamicMorphIcons.all[i],
               size: 28,
               strokeWidth: strokeWidth,
               color: i == selectedIndex ? scheme.onPrimary : scheme.onSurface,

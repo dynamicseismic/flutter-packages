@@ -6,17 +6,17 @@ import '../icon_entry.dart';
 /// Generated icon batch 03. Path data: Lucide (ISC). Animation params:
 /// pqoqubbw/icons (MIT). See ATTRIBUTION.md.
 
-const _fadeIn = OpacityPart([0, 1], duration: Duration(milliseconds: 100));
+const _fadeIn = DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 100));
 
 /// Paperclip-style attach pin that draws itself on.
-const LucideIconData kAttachFileIcon = LucideIconData(
+const DynamicLucideIconData kAttachFileIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M6 7.90909V16C6 19.3137 8.68629 22 12 22V22C15.3137 22 18 19.3137 18 16V6C18 3.79086 16.2091 2 14 2V2C11.7909 2 10 3.79086 10 6V15.1818C10 16.2864 10.8954 17.1818 12 17.1818V17.1818C13.1046 17.1818 14 16.2864 14 15.1818V8',
-      CompositePart([
-        DrawPart(delay: Duration(milliseconds: 100), duration: Duration(milliseconds: 400)),
-        OpacityPart([0, 1],
+      DynamicCompositePart([
+        DynamicDrawPart(delay: Duration(milliseconds: 100), duration: Duration(milliseconds: 400)),
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 100), duration: Duration(milliseconds: 100)),
       ]),
     ),
@@ -25,32 +25,32 @@ const LucideIconData kAttachFileIcon = LucideIconData(
 
 /// Axe that swings: whole-icon rotate through `[0,-20,25,0]°`, pivoting at the
 /// handle butt (bottom-left).
-const LucideIconData kAxeIcon = LucideIconData(
+const DynamicLucideIconData kAxeIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 800),
   parts: [
-    IconPart.group(
+    DynamicIconPart.group(
       [
         'm14 12-8.381 8.38a1 1 0 0 1-3.001-3L11 9',
         'M15 15.5a.5.5 0 0 0 .5.5A6.5 6.5 0 0 0 22 9.5a.5.5 0 0 0-.5-.5h-1.672a2 2 0 0 1-1.414-.586l-5.062-5.062a1.205 1.205 0 0 0-1.704 0L9.352 5.648a1.205 1.205 0 0 0 0 1.704l5.062 5.062A2 2 0 0 1 15 13.828z',
       ],
-      RotatePart([0, -20, 25, 0], pivot: Offset(0, 24)),
+      DynamicRotatePart([0, -20, 25, 0], pivot: Offset(0, 24)),
     ),
   ],
 );
 
 /// Alert badge that scales up and shakes (whole-icon scale + rotate pulse).
-const LucideIconData kBadgeAlertIcon = LucideIconData(
+const DynamicLucideIconData kBadgeAlertIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart.group(
+    DynamicIconPart.group(
       [
         'M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z',
         'M12 8 12 12',
         'M12 16 12.01 16',
       ],
-      CompositePart([
-        ScalePart([1, 1.1, 1.1, 1.1, 1], pivot: kViewBoxCenter),
-        RotatePart([0, -3, 3, -2, 2, 0], pivot: kViewBoxCenter),
+      DynamicCompositePart([
+        DynamicScalePart([1, 1.1, 1.1, 1.1, 1], pivot: kViewBoxCenter),
+        DynamicRotatePart([0, -3, 3, -2, 2, 0], pivot: kViewBoxCenter),
       ]),
     ),
   ],
@@ -58,38 +58,38 @@ const LucideIconData kBadgeAlertIcon = LucideIconData(
 
 /// Percent badge whose scalloped outline spins a half-turn with a spring; the
 /// percent glyph stays put.
-const LucideIconData kBadgePercentIcon = LucideIconData(
+const DynamicLucideIconData kBadgePercentIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 600),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z',
-      RotatePart([0, 180],
+      DynamicRotatePart([0, 180],
           delay: Duration(milliseconds: 100),
           pivot: kViewBoxCenter,
-          curve: SpringCurve(stiffness: 80, damping: 13)),
+          curve: DynamicSpringCurve(stiffness: 80, damping: 13)),
     ),
-    IconPart('m15 9-6 6'),
-    IconPart('M9 9h.01'),
-    IconPart('M15 15h.01'),
+    DynamicIconPart('m15 9-6 6'),
+    DynamicIconPart('M9 9h.01'),
+    DynamicIconPart('M15 15h.01'),
   ],
 );
 
 /// Prohibition sign: the ring draws on, then the slash draws across it.
-const LucideIconData kBanIcon = LucideIconData(
+const DynamicLucideIconData kBanIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 900),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M2 12a10 10 0 1 0 20 0a10 10 0 1 0 -20 0',
-      CompositePart([
-        DrawPart(duration: Duration(milliseconds: 400)),
-        OpacityPart([0, 1], duration: Duration(milliseconds: 100)),
+      DynamicCompositePart([
+        DynamicDrawPart(duration: Duration(milliseconds: 400)),
+        DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 100)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'm4.9 4.9 14.2 14.2',
-      CompositePart([
-        DrawPart(delay: Duration(milliseconds: 500), duration: Duration(milliseconds: 400)),
-        OpacityPart([0, 1],
+      DynamicCompositePart([
+        DynamicDrawPart(delay: Duration(milliseconds: 500), duration: Duration(milliseconds: 400)),
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 500), duration: Duration(milliseconds: 100)),
       ]),
     ),
@@ -97,18 +97,18 @@ const LucideIconData kBanIcon = LucideIconData(
 );
 
 /// Banana whose two curves draw themselves on, staggered.
-const LucideIconData kBananaIcon = LucideIconData(
+const DynamicLucideIconData kBananaIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 600),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z',
-      CompositePart([DrawPart(), _fadeIn]),
+      DynamicCompositePart([DynamicDrawPart(), _fadeIn]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5',
-      CompositePart([
-        DrawPart(delay: Duration(milliseconds: 200)),
-        OpacityPart([0, 1],
+      DynamicCompositePart([
+        DynamicDrawPart(delay: Duration(milliseconds: 200)),
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 200), duration: Duration(milliseconds: 100)),
       ]),
     ),
@@ -116,103 +116,103 @@ const LucideIconData kBananaIcon = LucideIconData(
 );
 
 /// Battery whose charge bar fills in from the left.
-const LucideIconData kBatteryIcon = LucideIconData(
+const DynamicLucideIconData kBatteryIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 400),
   parts: [
-    IconPart('M4 6h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z'),
-    IconPart('M22 14v-4'),
-    IconPart(
+    DynamicIconPart('M4 6h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z'),
+    DynamicIconPart('M22 14v-4'),
+    DynamicIconPart(
       'M4 8 16 8 16 16 4 16Z',
-      CompositePart([
-        ScalePart([0, 1],
-            axis: ScaleAxis.horizontal, pivot: Offset(4, 12), curve: Curves.easeOut),
-        OpacityPart([0, 1], duration: Duration(milliseconds: 100)),
+      DynamicCompositePart([
+        DynamicScalePart([0, 1],
+            axis: DynamicScaleAxis.horizontal, pivot: Offset(4, 12), curve: Curves.easeOut),
+        DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 100)),
       ]),
     ),
   ],
 );
 
-const _batteryBar = OpacityPart([0, 1], duration: Duration(milliseconds: 600));
+const _batteryBar = DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 600));
 
 /// Full battery whose three charge bars fade out then cascade back in.
-const LucideIconData kBatteryFullIcon = LucideIconData(
+const DynamicLucideIconData kBatteryFullIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 1400),
   parts: [
-    IconPart('M2 9h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z'),
-    IconPart('M22 11 22 13'),
-    IconPart('M6 11 6 13', _batteryBar),
-    IconPart('M10 11 10 13',
-        OpacityPart([0, 1],
+    DynamicIconPart('M2 9h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z'),
+    DynamicIconPart('M22 11 22 13'),
+    DynamicIconPart('M6 11 6 13', _batteryBar),
+    DynamicIconPart('M10 11 10 13',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 400), duration: Duration(milliseconds: 600))),
-    IconPart('M14 11 14 13',
-        OpacityPart([0, 1],
+    DynamicIconPart('M14 11 14 13',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 800), duration: Duration(milliseconds: 600))),
   ],
 );
 
 /// Low battery whose single charge bar fades out then back in.
-const LucideIconData kBatteryLowIcon = LucideIconData(
+const DynamicLucideIconData kBatteryLowIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 600),
   parts: [
-    IconPart('M2 9h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z'),
-    IconPart('M22 11 22 13'),
-    IconPart('M6 11 6 13', OpacityPart([0, 1])),
+    DynamicIconPart('M2 9h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z'),
+    DynamicIconPart('M22 11 22 13'),
+    DynamicIconPart('M6 11 6 13', DynamicOpacityPart([0, 1])),
   ],
 );
 
 /// Medium battery whose two charge bars fade out then cascade back in.
-const LucideIconData kBatteryMediumIcon = LucideIconData(
+const DynamicLucideIconData kBatteryMediumIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 1000),
   parts: [
-    IconPart('M2 9h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z'),
-    IconPart('M22 11 22 13'),
-    IconPart('M6 11 6 13', _batteryBar),
-    IconPart('M10 11 10 13',
-        OpacityPart([0, 1],
+    DynamicIconPart('M2 9h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z'),
+    DynamicIconPart('M22 11 22 13'),
+    DynamicIconPart('M6 11 6 13', _batteryBar),
+    DynamicIconPart('M10 11 10 13',
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 400), duration: Duration(milliseconds: 600))),
   ],
 );
 
 /// Battery-plus whose plus glyph pulses (scale + fade).
-const LucideIconData kBatteryPlusIcon = LucideIconData(
+const DynamicLucideIconData kBatteryPlusIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart('M12.543 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3.605'),
-    IconPart('M22 14v-4'),
-    IconPart('M7.606 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.606'),
-    IconPart.group(
+    DynamicIconPart('M12.543 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3.605'),
+    DynamicIconPart('M22 14v-4'),
+    DynamicIconPart('M7.606 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.606'),
+    DynamicIconPart.group(
       ['M10 9v6', 'M7 12h6'],
-      CompositePart([
-        ScalePart([1, 0.8, 1.2, 1], pivot: kViewBoxCenter),
-        OpacityPart([1, 0.5, 1]),
+      DynamicCompositePart([
+        DynamicScalePart([1, 0.8, 1.2, 1], pivot: kViewBoxCenter),
+        DynamicOpacityPart([1, 0.5, 1]),
       ]),
     ),
   ],
 );
 
 /// Battery-warning whose exclamation glyph pulses continuously.
-const LucideIconData kBatteryWarningIcon = LucideIconData(
+const DynamicLucideIconData kBatteryWarningIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 800),
   repeats: true,
   parts: [
-    IconPart('M14 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2'),
-    IconPart('M22 14v-4'),
-    IconPart('M6 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2'),
-    IconPart.group(
+    DynamicIconPart('M14 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2'),
+    DynamicIconPart('M22 14v-4'),
+    DynamicIconPart('M6 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2'),
+    DynamicIconPart.group(
       ['M10 17h.01', 'M10 7v6'],
-      CompositePart([
-        ScalePart([1, 1.1, 1], pivot: kViewBoxCenter),
-        OpacityPart([1, 0.4, 1]),
+      DynamicCompositePart([
+        DynamicScalePart([1, 1.1, 1], pivot: kViewBoxCenter),
+        DynamicOpacityPart([1, 0.4, 1]),
       ]),
     ),
   ],
 );
 
 /// Electric bell that rings: the whole glyph shakes (rotate wobble).
-const LucideIconData kBellElectricIcon = LucideIconData(
+const DynamicLucideIconData kBellElectricIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 900),
   parts: [
-    IconPart.group(
+    DynamicIconPart.group(
       [
         'M18.518 17.347A7 7 0 0 1 14 19',
         'M18.8 4A11 11 0 0 1 20 9',
@@ -221,109 +221,109 @@ const LucideIconData kBellElectricIcon = LucideIconData(
         'M6 16h6a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2v-2a2 2 0 0 1 2 -2z',
         'M18 16a2 2 0 1 0 4 0a2 2 0 1 0 -4 0',
       ],
-      RotatePart([0, -12, 12, -8, 8, 0], pivot: kViewBoxCenter),
+      DynamicRotatePart([0, -12, 12, -8, 8, 0], pivot: kViewBoxCenter),
     ),
   ],
 );
 
 /// Flexed biceps that flexes: whole-icon rotate swing (loops while active).
-const LucideIconData kBicepsFlexedIcon = LucideIconData(
+const DynamicLucideIconData kBicepsFlexedIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 2000),
   repeats: true,
   parts: [
-    IconPart.group(
+    DynamicIconPart.group(
       [
         'M12.409 13.017A5 5 0 0 1 22 15c0 3.866-4 7-9 7-4.077 0-8.153-.82-10.371-2.462-.426-.316-.631-.832-.62-1.362C2.118 12.723 2.627 2 10 2a3 3 0 0 1 3 3 2 2 0 0 1-2 2c-1.105 0-1.64-.444-2-1',
         'M15 14a5 5 0 0 0-7.584 2',
         'M9.964 6.825C8.019 7.977 9.5 13 8 15',
       ],
-      RotatePart([0, 15, 0], pivot: kViewBoxCenter),
+      DynamicRotatePart([0, 15, 0], pivot: kViewBoxCenter),
     ),
   ],
 );
 
 /// Blocks: the top block slides down-left toward the base.
-const LucideIconData kBlocksIcon = LucideIconData(
+const DynamicLucideIconData kBlocksIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart('M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3'),
-    IconPart(
+    DynamicIconPart('M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3'),
+    DynamicIconPart(
       'M14 3h7v7h-7z',
-      TranslatePart([Offset.zero, Offset(-4, 4)], curve: Curves.easeOut),
+      DynamicTranslatePart([Offset.zero, Offset(-4, 4)], curve: Curves.easeOut),
     ),
   ],
 );
 
 /// Bluetooth glyph whose two strokes draw themselves on.
-const LucideIconData kBluetoothIcon = LucideIconData(
+const DynamicLucideIconData kBluetoothIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 400),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'm7 7 10 10-5 5V2l5 5L7 17',
-      CompositePart([
-        DrawPart(duration: Duration(milliseconds: 300)),
-        OpacityPart([0, 1], duration: Duration(milliseconds: 150)),
+      DynamicCompositePart([
+        DynamicDrawPart(duration: Duration(milliseconds: 300)),
+        DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 150)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M14.5 9.5 17 7l-5-5v4.5',
-      CompositePart([
-        DrawPart(duration: Duration(milliseconds: 300)),
-        OpacityPart([0, 1], duration: Duration(milliseconds: 150)),
+      DynamicCompositePart([
+        DynamicDrawPart(duration: Duration(milliseconds: 300)),
+        DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 150)),
       ]),
     ),
   ],
 );
 
 /// Bluetooth-connected: the glyph pulses while the side dashes draw in.
-const LucideIconData kBluetoothConnectedIcon = LucideIconData(
+const DynamicLucideIconData kBluetoothConnectedIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 600),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'm7 7 10 10-5 5V2l5 5L7 17',
-      OpacityPart([1, 0, 1, 0.5, 1],
+      DynamicOpacityPart([1, 0, 1, 0.5, 1],
           delay: Duration(milliseconds: 200), duration: Duration(milliseconds: 300)),
     ),
-    IconPart(
+    DynamicIconPart(
       'M18 12 21 12',
-      CompositePart([
-        DrawPart(duration: Duration(milliseconds: 400)),
-        OpacityPart([0, 1], duration: Duration(milliseconds: 150)),
+      DynamicCompositePart([
+        DynamicDrawPart(duration: Duration(milliseconds: 400)),
+        DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 150)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M3 12 6 12',
-      CompositePart([
-        DrawPart(fromEnd: true, duration: Duration(milliseconds: 200)),
-        OpacityPart([0, 1], duration: Duration(milliseconds: 150)),
+      DynamicCompositePart([
+        DynamicDrawPart(fromEnd: true, duration: Duration(milliseconds: 200)),
+        DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 150)),
       ]),
     ),
   ],
 );
 
 /// Bluetooth-off: the broken glyph draws on, then the slash draws across.
-const LucideIconData kBluetoothOffIcon = LucideIconData(
+const DynamicLucideIconData kBluetoothOffIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 600),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'm17 17-5 5V12l-5 5',
-      CompositePart([
-        DrawPart(duration: Duration(milliseconds: 300)),
-        OpacityPart([0, 1], duration: Duration(milliseconds: 100)),
+      DynamicCompositePart([
+        DynamicDrawPart(duration: Duration(milliseconds: 300)),
+        DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 100)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'M14.5 9.5 17 7l-5-5v4.5',
-      CompositePart([
-        DrawPart(duration: Duration(milliseconds: 300)),
-        OpacityPart([0, 1], duration: Duration(milliseconds: 100)),
+      DynamicCompositePart([
+        DynamicDrawPart(duration: Duration(milliseconds: 300)),
+        DynamicOpacityPart([0, 1], duration: Duration(milliseconds: 100)),
       ]),
     ),
-    IconPart(
+    DynamicIconPart(
       'm2 2 20 20',
-      CompositePart([
-        DrawPart(delay: Duration(milliseconds: 300), duration: Duration(milliseconds: 200)),
-        OpacityPart([0, 1],
+      DynamicCompositePart([
+        DynamicDrawPart(delay: Duration(milliseconds: 300), duration: Duration(milliseconds: 200)),
+        DynamicOpacityPart([0, 1],
             delay: Duration(milliseconds: 300), duration: Duration(milliseconds: 100)),
       ]),
     ),
@@ -332,48 +332,48 @@ const LucideIconData kBluetoothOffIcon = LucideIconData(
 
 /// Bold "B" that gives an emphatic squeeze (stroke-weight swap approximated as
 /// a gentle scale pulse).
-const LucideIconData kBoldIcon = LucideIconData(
+const DynamicLucideIconData kBoldIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 600),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8',
-      ScalePart([1, 1.1, 1], pivot: kViewBoxCenter),
+      DynamicScalePart([1, 1.1, 1], pivot: kViewBoxCenter),
     ),
   ],
 );
 
 /// Bone that wiggles (rotate `[0,-8,8,-6,0]°`).
-const LucideIconData kBoneIcon = LucideIconData(
+const DynamicLucideIconData kBoneIcon = DynamicLucideIconData(
   duration: Duration(milliseconds: 500),
   parts: [
-    IconPart(
+    DynamicIconPart(
       'M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z',
-      RotatePart([0, -8, 8, -6, 0], pivot: kViewBoxCenter, curve: Curves.easeIn),
+      DynamicRotatePart([0, -8, 8, -6, 0], pivot: kViewBoxCenter, curve: Curves.easeIn),
     ),
   ],
 );
 
-const List<LucideIconEntry> gen03Icons = [
-  LucideIconEntry('attach-file', kAttachFileIcon, ['attach', 'file', 'paperclip', 'pin']),
-  LucideIconEntry('axe', kAxeIcon, ['axe', 'chop', 'tool', 'weapon']),
-  LucideIconEntry('badge-alert', kBadgeAlertIcon, ['badge', 'alert', 'warning', 'notification']),
-  LucideIconEntry('badge-percent', kBadgePercentIcon, ['badge', 'percent', 'discount', 'sale']),
-  LucideIconEntry('ban', kBanIcon, ['ban', 'block', 'forbidden', 'prohibited', 'cancel']),
-  LucideIconEntry('banana', kBananaIcon, ['banana', 'fruit', 'food']),
-  LucideIconEntry('battery', kBatteryIcon, ['battery', 'power', 'charge', 'energy']),
-  LucideIconEntry('battery-full', kBatteryFullIcon, ['battery', 'full', 'power', 'charge']),
-  LucideIconEntry('battery-low', kBatteryLowIcon, ['battery', 'low', 'power', 'charge']),
-  LucideIconEntry('battery-medium', kBatteryMediumIcon, ['battery', 'medium', 'power', 'charge']),
-  LucideIconEntry('battery-plus', kBatteryPlusIcon, ['battery', 'plus', 'add', 'charge']),
-  LucideIconEntry('battery-warning', kBatteryWarningIcon, ['battery', 'warning', 'alert', 'low']),
-  LucideIconEntry('bell-electric', kBellElectricIcon, ['bell', 'electric', 'alarm', 'ring']),
-  LucideIconEntry('biceps-flexed', kBicepsFlexedIcon, ['biceps', 'flex', 'muscle', 'strong', 'arm']),
-  LucideIconEntry('blocks', kBlocksIcon, ['blocks', 'build', 'stack', 'integration']),
-  LucideIconEntry('bluetooth', kBluetoothIcon, ['bluetooth', 'wireless', 'connection']),
-  LucideIconEntry('bluetooth-connected', kBluetoothConnectedIcon,
+const List<DynamicLucideIconEntry> gen03Icons = [
+  DynamicLucideIconEntry('attach-file', kAttachFileIcon, ['attach', 'file', 'paperclip', 'pin']),
+  DynamicLucideIconEntry('axe', kAxeIcon, ['axe', 'chop', 'tool', 'weapon']),
+  DynamicLucideIconEntry('badge-alert', kBadgeAlertIcon, ['badge', 'alert', 'warning', 'notification']),
+  DynamicLucideIconEntry('badge-percent', kBadgePercentIcon, ['badge', 'percent', 'discount', 'sale']),
+  DynamicLucideIconEntry('ban', kBanIcon, ['ban', 'block', 'forbidden', 'prohibited', 'cancel']),
+  DynamicLucideIconEntry('banana', kBananaIcon, ['banana', 'fruit', 'food']),
+  DynamicLucideIconEntry('battery', kBatteryIcon, ['battery', 'power', 'charge', 'energy']),
+  DynamicLucideIconEntry('battery-full', kBatteryFullIcon, ['battery', 'full', 'power', 'charge']),
+  DynamicLucideIconEntry('battery-low', kBatteryLowIcon, ['battery', 'low', 'power', 'charge']),
+  DynamicLucideIconEntry('battery-medium', kBatteryMediumIcon, ['battery', 'medium', 'power', 'charge']),
+  DynamicLucideIconEntry('battery-plus', kBatteryPlusIcon, ['battery', 'plus', 'add', 'charge']),
+  DynamicLucideIconEntry('battery-warning', kBatteryWarningIcon, ['battery', 'warning', 'alert', 'low']),
+  DynamicLucideIconEntry('bell-electric', kBellElectricIcon, ['bell', 'electric', 'alarm', 'ring']),
+  DynamicLucideIconEntry('biceps-flexed', kBicepsFlexedIcon, ['biceps', 'flex', 'muscle', 'strong', 'arm']),
+  DynamicLucideIconEntry('blocks', kBlocksIcon, ['blocks', 'build', 'stack', 'integration']),
+  DynamicLucideIconEntry('bluetooth', kBluetoothIcon, ['bluetooth', 'wireless', 'connection']),
+  DynamicLucideIconEntry('bluetooth-connected', kBluetoothConnectedIcon,
       ['bluetooth', 'connected', 'paired', 'wireless']),
-  LucideIconEntry('bluetooth-off', kBluetoothOffIcon,
+  DynamicLucideIconEntry('bluetooth-off', kBluetoothOffIcon,
       ['bluetooth', 'off', 'disabled', 'disconnected']),
-  LucideIconEntry('bold', kBoldIcon, ['bold', 'text', 'format', 'weight']),
-  LucideIconEntry('bone', kBoneIcon, ['bone', 'dog', 'pet', 'skeleton']),
+  DynamicLucideIconEntry('bold', kBoldIcon, ['bold', 'text', 'format', 'weight']),
+  DynamicLucideIconEntry('bone', kBoneIcon, ['bone', 'dog', 'pet', 'skeleton']),
 ];

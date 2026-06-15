@@ -33,10 +33,10 @@ void main() {
                   color: const Color(0xFF101018),
                   child: Padding(
                     padding: const EdgeInsets.all(40),
-                    child: TextMorph(
+                    child: DynamicTextMorph(
                       t,
                       duration: const Duration(milliseconds: 700),
-                      ease: const TorphEase.cubic(Cubic(0.4, 0, 0.2, 1)),
+                      ease: const DynamicTorphEase.cubic(Cubic(0.4, 0, 0.2, 1)),
                       debug: debug,
                       style: const TextStyle(
                         fontFamily: 'CaptureFont',

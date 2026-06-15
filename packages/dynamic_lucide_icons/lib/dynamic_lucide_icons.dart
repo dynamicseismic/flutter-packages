@@ -5,17 +5,17 @@
 /// ```dart
 /// import 'package:dynamic_lucide_icons/dynamic_lucide_icons.dart';
 ///
-/// AnimatedLucideIcon(icon: kBellIcon, size: 32);
+/// DynamicAnimatedLucideIcon(icon: kBellIcon, size: 32);
 /// ```
 ///
 /// See [lucideAnimatedIcons] for the full catalog, and
-/// [AnimatedLucideIconController] for driving animations programmatically.
+/// [DynamicAnimatedLucideIconController] for driving animations programmatically.
 library;
 
 // Public engine API.
 export 'src/core/animated_icon_controller.dart';
 export 'src/core/animated_lucide_icon.dart'
-    show AnimatedLucideIcon, AnimationTrigger;
+    show DynamicAnimatedLucideIcon, DynamicAnimationTrigger;
 export 'src/core/icon_part.dart';
 export 'src/core/part_animation.dart';
 export 'src/core/spring_curve.dart';

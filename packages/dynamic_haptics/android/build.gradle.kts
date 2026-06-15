@@ -1,4 +1,4 @@
-group = "com.flutterhaptics.flutter_haptics"
+group = "com.dynamichaptics.dynamic_haptics"
 version = "1.0-SNAPSHOT"
 
 buildscript {
@@ -26,7 +26,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flutterhaptics.flutter_haptics"
+    namespace = "com.dynamichaptics.dynamic_haptics"
 
     compileSdk = 36
 

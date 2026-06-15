@@ -78,16 +78,16 @@ class _PlaygroundState extends State<Playground> {
     super.dispose();
   }
 
-  TorphEase get _ease => _useSpring
-      ? TorphEase.spring(SpringParams(
+  DynamicTorphEase get _ease => _useSpring
+      ? DynamicTorphEase.spring(DynamicSpringParams(
           stiffness: _stiffness,
           damping: _damping,
           mass: _mass,
         ))
-      : const TorphEase.cubic(Cubic(0.19, 1.0, 0.22, 1.0));
+      : const DynamicTorphEase.cubic(Cubic(0.19, 1.0, 0.22, 1.0));
 
   Duration get _resolvedDuration => _useSpring
-      ? resolveSpring(SpringParams(
+      ? resolveSpring(DynamicSpringParams(
           stiffness: _stiffness,
           damping: _damping,
           mass: _mass,
@@ -185,7 +185,7 @@ class _PlaygroundState extends State<Playground> {
         ),
         border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
       ),
-      child: TextMorph(
+      child: DynamicTextMorph(
         _text,
         ease: _ease,
         duration: Duration(milliseconds: _cubicMs.round()),

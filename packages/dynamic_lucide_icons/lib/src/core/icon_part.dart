@@ -3,22 +3,22 @@ import 'part_animation.dart';
 /// One drawable piece of an icon: one or more SVG sub-paths that share a single
 /// [animation] (or none, for a static piece like the download tray).
 ///
-/// Grouping multiple sub-paths under one [IconPart.group] makes them transform
+/// Grouping multiple sub-paths under one [DynamicIconPart.group] makes them transform
 /// together — the equivalent of wrapping them in one Motion `<g>`.
-class IconPart {
+class DynamicIconPart {
   /// A single SVG path `d` string, optionally animated.
-  const IconPart(String d, [this.animation])
+  const DynamicIconPart(String d, [this.animation])
       : _d = d,
         _paths = null;
 
   /// A group of SVG path `d` strings that animate together as one unit.
-  const IconPart.group(List<String> paths, [this.animation])
+  const DynamicIconPart.group(List<String> paths, [this.animation])
       : _d = null,
         _paths = paths;
 
   final String? _d;
   final List<String>? _paths;
-  final PartAnimation? animation;
+  final DynamicPartAnimation? animation;
 
   /// The sub-path `d` strings making up this part.
   List<String> get paths => _paths ?? <String>[_d!];
@@ -28,8 +28,8 @@ class IconPart {
 /// the [duration] of one play-through of its animation.
 ///
 /// Instances are `const`, so an icon definition costs nothing until painted.
-class LucideIconData {
-  const LucideIconData({
+class DynamicLucideIconData {
+  const DynamicLucideIconData({
     required this.parts,
     this.duration = const Duration(milliseconds: 500),
     this.viewBox = 24,
@@ -37,7 +37,7 @@ class LucideIconData {
   });
 
   /// Ordered list of strokes. Later parts paint on top of earlier ones.
-  final List<IconPart> parts;
+  final List<DynamicIconPart> parts;
 
   /// Duration of a single forward play-through (or one loop, when [repeats]).
   final Duration duration;

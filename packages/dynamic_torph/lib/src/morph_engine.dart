@@ -100,7 +100,7 @@ class MorphResult {
 /// Builds the resting layout for [segments] from measured [widths] (single
 /// line: x accumulates, y stays 0) and the line [height].
 ({Map<String, Offset> layout, List<String> ids, Size size}) layoutSegments(
-  List<Segment> segments,
+  List<DynamicSegment> segments,
   Map<String, double> widths,
   double height,
 ) {
@@ -118,7 +118,7 @@ class MorphResult {
 /// Produces a static (non-animating) set of items — used for the very first
 /// render and for re-layout snaps after a style/config change.
 MorphResult staticMorph(
-  List<Segment> segments,
+  List<DynamicSegment> segments,
   Map<String, double> widths,
   double height,
 ) {
@@ -155,7 +155,7 @@ MorphResult staticMorph(
 /// holds the live visual state of currently-shown segments for smooth
 /// interruption.
 MorphResult computeMorph({
-  required List<Segment> segments,
+  required List<DynamicSegment> segments,
   required Map<String, double> widths,
   required double height,
   required Map<String, Offset> prevLayout,

@@ -22,10 +22,10 @@ dependencies:
 import 'package:dynamic_lucide_icons/dynamic_lucide_icons.dart';
 
 // Plays on hover (desktop/web) and tap (mobile) by default.
-AnimatedLucideIcon(icon: kBellIcon)
+DynamicAnimatedLucideIcon(icon: kBellIcon)
 
 // Customise size, colour, stroke width.
-AnimatedLucideIcon(
+DynamicAnimatedLucideIcon(
   icon: kDownloadIcon,
   size: 32,
   color: Colors.indigo,   // defaults to the ambient IconTheme / text colour
@@ -36,10 +36,10 @@ AnimatedLucideIcon(
 ### Triggers
 
 ```dart
-AnimatedLucideIcon(icon: kHeartIcon, trigger: AnimationTrigger.hover)       // hover only
-AnimatedLucideIcon(icon: kHeartIcon, trigger: AnimationTrigger.tap)         // tap only
-AnimatedLucideIcon(icon: kHeartIcon, trigger: AnimationTrigger.hoverAndTap) // both (default)
-AnimatedLucideIcon(icon: kHeartIcon, trigger: AnimationTrigger.none)        // controller-driven
+DynamicAnimatedLucideIcon(icon: kHeartIcon, trigger: DynamicAnimationTrigger.hover)       // hover only
+DynamicAnimatedLucideIcon(icon: kHeartIcon, trigger: DynamicAnimationTrigger.tap)         // tap only
+DynamicAnimatedLucideIcon(icon: kHeartIcon, trigger: DynamicAnimationTrigger.hoverAndTap) // both (default)
+DynamicAnimatedLucideIcon(icon: kHeartIcon, trigger: DynamicAnimationTrigger.none)        // controller-driven
 ```
 
 ### Programmatic control
@@ -47,12 +47,12 @@ AnimatedLucideIcon(icon: kHeartIcon, trigger: AnimationTrigger.none)        // c
 The equivalent of pqoqubbw's `startAnimation` / `stopAnimation` ref handle:
 
 ```dart
-final controller = AnimatedLucideIconController();
+final controller = DynamicAnimatedLucideIconController();
 
-AnimatedLucideIcon(
+DynamicAnimatedLucideIcon(
   icon: kBellIcon,
   controller: controller,
-  trigger: AnimationTrigger.none,
+  trigger: DynamicAnimationTrigger.none,
 );
 
 // elsewhere
@@ -70,7 +70,7 @@ Every icon is also available through a registry, handy for galleries and search:
 ```dart
 for (final entry in lucideAnimatedIcons) {
   print('${entry.name}: ${entry.keywords}');   // e.g. "bell: [notification, alarm, ring]"
-  AnimatedLucideIcon(icon: entry.data);
+  DynamicAnimatedLucideIcon(icon: entry.data);
 }
 ```
 
@@ -102,19 +102,19 @@ gradient fills) use a tasteful equivalent instead.
 
 ## Adding your own icon
 
-The engine is declarative. An icon is a `LucideIconData` made of `IconPart`s,
-each with an optional animation (`RotatePart`, `TranslatePart`, `ScalePart`,
-`OpacityPart`, `DrawPart`, or a `CompositePart` of several). Paste the Lucide
+The engine is declarative. An icon is a `DynamicLucideIconData` made of `DynamicIconPart`s,
+each with an optional animation (`DynamicRotatePart`, `DynamicTranslatePart`, `DynamicScalePart`,
+`DynamicOpacityPart`, `DynamicDrawPart`, or a `DynamicCompositePart` of several). Paste the Lucide
 path data and describe the motion:
 
 ```dart
-const kMyArrow = LucideIconData(
+const kMyArrow = DynamicLucideIconData(
   duration: Duration(milliseconds: 400),
   parts: [
-    IconPart('M5 12h14'),                                      // static
-    IconPart(
+    DynamicIconPart('M5 12h14'),                                      // static
+    DynamicIconPart(
       'm12 5 7 7-7 7',
-      TranslatePart([Offset.zero, Offset(2, 0), Offset.zero]), // bobs right
+      DynamicTranslatePart([Offset.zero, Offset(2, 0), Offset.zero]), // bobs right
     ),
   ],
 );

@@ -4,11 +4,11 @@ import 'package:dynamic_haptics/dynamic_haptics_platform_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class RecordingFlutterHapticsPlatform
+class RecordingDynamicHapticsPlatform
     with MockPlatformInterfaceMixin
-    implements FlutterHapticsPlatform {
+    implements DynamicHapticsPlatform {
   bool supported = true;
-  List<HapticVibration>? lastPattern;
+  List<DynamicHapticVibration>? lastPattern;
   double? lastIntensity;
   String? lastPresetName;
   var cancelCount = 0;
@@ -18,7 +18,7 @@ class RecordingFlutterHapticsPlatform
 
   @override
   Future<void> trigger(
-    List<HapticVibration> pattern, {
+    List<DynamicHapticVibration> pattern, {
     required double intensity,
     String? presetName,
   }) async {
@@ -34,20 +34,20 @@ class RecordingFlutterHapticsPlatform
 }
 
 void main() {
-  test('$MethodChannelFlutterHaptics is the default instance', () {
+  test('$MethodChannelDynamicHaptics is the default instance', () {
     expect(
-      FlutterHapticsPlatform.instance,
-      isInstanceOf<MethodChannelFlutterHaptics>(),
+      DynamicHapticsPlatform.instance,
+      isInstanceOf<MethodChannelDynamicHaptics>(),
     );
   });
 
-  group('FlutterHaptics', () {
-    late RecordingFlutterHapticsPlatform platform;
-    late FlutterHaptics haptics;
+  group('DynamicHaptics', () {
+    late RecordingDynamicHapticsPlatform platform;
+    late DynamicHaptics haptics;
 
     setUp(() {
-      platform = RecordingFlutterHapticsPlatform();
-      haptics = FlutterHaptics(platform: platform);
+      platform = RecordingDynamicHapticsPlatform();
+      haptics = DynamicHaptics(platform: platform);
     });
 
     test('reports support from platform', () async {
@@ -63,22 +63,22 @@ void main() {
 
       expect(platform.lastPresetName, 'success');
       expect(platform.lastIntensity, 0.5);
-      expect(platform.lastPattern, HapticPresets.success.pattern);
+      expect(platform.lastPattern, DynamicHapticPresets.success.pattern);
     });
 
     test('normalizes enum presets', () async {
-      await haptics.trigger(HapticEffect.warning);
+      await haptics.trigger(DynamicHapticEffect.warning);
 
       expect(platform.lastPresetName, 'warning');
-      expect(platform.lastPattern, HapticPresets.warning.pattern);
+      expect(platform.lastPattern, DynamicHapticPresets.warning.pattern);
     });
 
     test('normalizes number shorthand', () async {
       await haptics.trigger(<int>[100, 50, 100]);
 
-      expect(platform.lastPattern, const <HapticVibration>[
-        HapticVibration(duration: Duration(milliseconds: 100)),
-        HapticVibration(
+      expect(platform.lastPattern, const <DynamicHapticVibration>[
+        DynamicHapticVibration(duration: Duration(milliseconds: 100)),
+        DynamicHapticVibration(
           delay: Duration(milliseconds: 50),
           duration: Duration(milliseconds: 100),
         ),
@@ -88,8 +88,8 @@ void main() {
     test('clamps long phases to the web haptics limit', () async {
       await haptics.trigger(1500);
 
-      expect(platform.lastPattern, const <HapticVibration>[
-        HapticVibration(duration: Duration(milliseconds: 1000)),
+      expect(platform.lastPattern, const <DynamicHapticVibration>[
+        DynamicHapticVibration(duration: Duration(milliseconds: 1000)),
       ]);
     });
 

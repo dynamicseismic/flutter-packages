@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dynamic_morphing_icons/dynamic_morphing_icons.dart';
 
-/// Demonstrates [MorphingIcon]: a hero icon that morphs to the next icon on
-/// tap, a picker grid of every [MorphIcons.all] entry, and live speed / stroke
+/// Demonstrates [DynamicMorphingIcon]: a hero icon that morphs to the next icon on
+/// tap, a picker grid of every [DynamicMorphIcons.all] entry, and live speed / stroke
 /// controls. Changing the `icon` (via setState) is what drives the morph.
 class MorphingIconsDemo extends StatefulWidget {
   const MorphingIconsDemo({super.key});
@@ -16,10 +16,10 @@ class _MorphingIconsDemoState extends State<MorphingIconsDemo> {
   double _durationMs = 450;
   double _strokeWidth = 2.5;
 
-  MorphIcon get _current => MorphIcons.all[_index];
+  DynamicMorphIcon get _current => DynamicMorphIcons.all[_index];
 
   void _next() =>
-      setState(() => _index = (_index + 1) % MorphIcons.all.length);
+      setState(() => _index = (_index + 1) % DynamicMorphIcons.all.length);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _MorphingIconsDemoState extends State<MorphingIconsDemo> {
                   color: scheme.surfaceContainerHighest,
                   shape: BoxShape.circle,
                 ),
-                child: MorphingIcon(
+                child: DynamicMorphingIcon(
                   icon: _current,
                   size: 88,
                   color: scheme.onSurface,
@@ -67,9 +67,9 @@ class _MorphingIconsDemoState extends State<MorphingIconsDemo> {
             spacing: 10,
             runSpacing: 10,
             children: [
-              for (var i = 0; i < MorphIcons.all.length; i++)
+              for (var i = 0; i < DynamicMorphIcons.all.length; i++)
                 _PickerCell(
-                  icon: MorphIcons.all[i],
+                  icon: DynamicMorphIcons.all[i],
                   selected: i == _index,
                   strokeWidth: _strokeWidth,
                   onTap: () => setState(() => _index = i),
@@ -107,7 +107,7 @@ class _PickerCell extends StatelessWidget {
     required this.onTap,
   });
 
-  final MorphIcon icon;
+  final DynamicMorphIcon icon;
   final bool selected;
   final double strokeWidth;
   final VoidCallback onTap;
@@ -126,7 +126,7 @@ class _PickerCell extends StatelessWidget {
           color: selected ? scheme.primary : scheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: MorphingIcon(
+        child: DynamicMorphingIcon(
           icon: icon,
           size: 26,
           strokeWidth: strokeWidth,
