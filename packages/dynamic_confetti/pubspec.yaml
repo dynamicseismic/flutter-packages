@@ -1,0 +1,22 @@
+name: dynamic_confetti
+description: "A faithful Flutter port of canvas-confetti — performant, dependency-free particle confetti drawn with one CustomPainter, with a fire-from-anywhere one-liner."
+version: 0.1.0
+homepage: https://github.com/dynamicseismic/dynamic-flutter-packages
+repository: https://github.com/dynamicseismic/dynamic-flutter-packages/tree/main/packages/dynamic_confetti
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.0
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
