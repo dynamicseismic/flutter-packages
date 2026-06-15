@@ -7,7 +7,7 @@ void main() {
 }
 
 /// Unified showcase for the packages in this monorepo:
-/// dynamic_haptics, dynamic_lucide_icons, dynamic_morphing_icons, dynamic_torph.
+/// dynamic_haptics, dynamic_icons, dynamic_morphing_icons, dynamic_torph.
 class ShowcaseApp extends StatelessWidget {
   const ShowcaseApp({super.key});
 
