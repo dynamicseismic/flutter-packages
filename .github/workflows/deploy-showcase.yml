@@ -1,0 +1,63 @@
+name: Deploy showcase to GitHub Pages
+
+# Builds apps/showcase for the web and publishes it to GitHub Pages.
+# Pages serves a project site at https://<owner>.github.io/<repo>/, so the
+# build's base-href is derived from the repo name at build time.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/showcase/**'
+      - 'packages/**'
+      - 'pubspec.yaml'
+      - '.github/workflows/deploy-showcase.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; don't cancel an in-progress one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Resolve workspace
+        run: flutter pub get
+
+      - name: Build web
+        working-directory: apps/showcase
+        # base-href must have leading + trailing slashes, e.g. /flutter-packages/
+        run: flutter build web --release --base-href "/${GITHUB_REPOSITORY#*/}/"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/showcase/build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
