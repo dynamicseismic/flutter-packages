@@ -1,9 +1,9 @@
-# flutter-packages
+# dynamic-flutter-packages
 
 A [Melos](https://melos.invertase.dev/)-managed monorepo of small, focused Flutter
 packages — plus a single web **showcase** that demos them all.
 
-### ▶️ Live demo: https://dynamicseismic.github.io/flutter-packages/
+### ▶️ Live demo: https://dynamicseismic.github.io/dynamic-flutter-packages/
 
 ## Packages
 
