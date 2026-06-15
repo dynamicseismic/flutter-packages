@@ -11,8 +11,8 @@ environment:
 workspace:
   - packages/dynamic_haptics
   - packages/dynamic_haptics/example
-  - packages/dynamic_lucide_icons
-  - packages/dynamic_lucide_icons/example
+  - packages/dynamic_icons
+  - packages/dynamic_icons/example
   - packages/dynamic_morphing_icons
   - packages/dynamic_morphing_icons/example
   - packages/dynamic_torph

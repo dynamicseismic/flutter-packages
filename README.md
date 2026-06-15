@@ -10,7 +10,7 @@ packages — plus a single web **showcase** that demos them all.
 | Package | What it does |
 |---|---|
 | [`dynamic_haptics`](packages/dynamic_haptics) | WebHaptics-style haptic presets & custom vibration patterns (Android/iOS plugin) |
-| [`dynamic_lucide_icons`](packages/dynamic_lucide_icons) | Hover/tap-animated Lucide icons |
+| [`dynamic_icons`](packages/dynamic_icons) | Hover/tap-animated icons — Lucide stroke glyphs + filled crypto brand marks |
 | [`dynamic_morphing_icons`](packages/dynamic_morphing_icons) | Icons that morph into one another — every icon is three line segments |
 | [`dynamic_torph`](packages/dynamic_torph) | Dependency-free animated text morphing |
 
