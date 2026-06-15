@@ -1,4 +1,4 @@
-name: flutter_packages_workspace
+name: dynamic_flutter_packages_workspace
 description: Monorepo of Flutter packages (haptics, animated/morphing icons, text morph) + showcase app.
 publish_to: 'none'
 version: 0.1.0
