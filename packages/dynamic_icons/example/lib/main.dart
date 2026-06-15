@@ -1,6 +1,5 @@
 import 'package:dynamic_icons/dynamic_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() => runApp(const GalleryApp());
 
@@ -168,20 +167,6 @@ class _IconCellState extends State<_IconCell> {
   final _controller = IconController();
   bool _hovering = false;
 
-  Future<void> _copy() async {
-    await Clipboard.setData(ClipboardData(text: widget.entry.constName));
-    if (!mounted) return;
-    ScaffoldMessenger.of(context)
-      ..clearSnackBars()
-      ..showSnackBar(
-        SnackBar(
-          content: Text('Copied ${widget.entry.constName}'),
-          duration: const Duration(milliseconds: 1200),
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-  }
-
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -195,10 +180,7 @@ class _IconCellState extends State<_IconCell> {
         _controller.reverse();
       },
       child: GestureDetector(
-        onTap: () {
-          _controller.play();
-          _copy();
-        },
+        onTap: _controller.play,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           decoration: BoxDecoration(

@@ -92,11 +92,4 @@ void main() {
     expect(CryptoIcons.solana.restsAtEnd, isTrue);
     expect(CryptoIcons.bittensor.restsAtEnd, isTrue);
   });
-
-  test('constName maps kebab names to k…Icon identifiers', () {
-    final byName = {for (final e in dynamicIcons) e.name: e.constName};
-    expect(byName['ethereum'], 'kEthereumIcon');
-    expect(byName['bittensor-evm'], 'kBittensorEvmIcon');
-    expect(byName['bell'], 'kBellIcon');
-  });
 }

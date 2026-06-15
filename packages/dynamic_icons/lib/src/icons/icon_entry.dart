@@ -20,20 +20,4 @@ class IconEntry {
 
   /// Ticker symbol for crypto marks (e.g. `ETH`), or null for stroke glyphs.
   final String? symbol;
-
-  /// The `k…Icon` identifier of the const for this icon
-  /// (e.g. `bell` → `kBellIcon`, `arrow-down` → `kArrowDownIcon`).
-  String get constName {
-    final camel = name
-        .split('-')
-        .asMap()
-        .entries
-        .map(
-          (e) => e.key == 0
-              ? e.value
-              : '${e.value[0].toUpperCase()}${e.value.substring(1)}',
-        )
-        .join();
-    return 'k${camel[0].toUpperCase()}${camel.substring(1)}Icon';
-  }
 }

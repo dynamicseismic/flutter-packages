@@ -127,35 +127,23 @@ class _LucideIconsDemoState extends State<LucideIconsDemo> {
                       final entry = results[i];
                       return Card(
                         clipBehavior: Clip.antiAlias,
-                        child: InkWell(
-                          onTap: () {
-                            ScaffoldMessenger.of(context)
-                              ..clearSnackBars()
-                              ..showSnackBar(
-                                SnackBar(
-                                  duration: const Duration(seconds: 1),
-                                  content: Text(entry.constName),
-                                ),
-                              );
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              DynamicIcon(icon: entry.data, size: 30),
-                              const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
-                                child: Text(
-                                  entry.name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: theme.textTheme.bodySmall,
-                                ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            DynamicIcon(icon: entry.data, size: 30),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
                               ),
-                            ],
-                          ),
+                              child: Text(
+                                entry.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: theme.textTheme.bodySmall,
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },
