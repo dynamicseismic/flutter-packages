@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:dynamic_confetti/dynamic_confetti.dart';
+import 'package:dynamic_confetti/src/confetti_painter.dart';
 import 'package:dynamic_confetti/src/confetti_particle.dart';
 import 'package:dynamic_confetti/src/confetti_shape.dart';
 import 'package:flutter/material.dart';
@@ -172,6 +173,69 @@ void main() {
       );
       expect(c.particles, isEmpty);
       c.dispose();
+    });
+
+    test('an empty burst resolves its future instead of hanging', () async {
+      final c = DynamicConfettiController(random: Random(1))
+        ..setViewport(_size);
+      await c
+          .fire(const DynamicConfettiOptions(particleCount: 0))
+          .timeout(const Duration(seconds: 1));
+      expect(c.particles, isEmpty);
+      expect(c.isAnimating, isFalse);
+      c.dispose();
+    });
+
+    test(
+      'an empty burst queued before layout still resolves on flush',
+      () async {
+        final c = DynamicConfettiController(random: Random(1));
+        final done = c.fire(const DynamicConfettiOptions(particleCount: 0));
+        c.setViewport(_size);
+        await done.timeout(const Duration(seconds: 1));
+        expect(c.isAnimating, isFalse);
+        c.dispose();
+      },
+    );
+
+    test(
+      'a burst queued before reduce-motion syncs is suppressed on flush',
+      () async {
+        // reduceMotion still defaults false, so fire() can't suppress it yet and
+        // the burst is queued.
+        final c = DynamicConfettiController(random: Random(1));
+        final done = c.fire(
+          const DynamicConfettiOptions(
+            particleCount: 50,
+            disableForReducedMotion: true,
+          ),
+        );
+        expect(c.isAnimating, isTrue, reason: 'queued before layout');
+
+        // The widget later syncs reduce-motion on, then lays out.
+        c.reduceMotion = true;
+        c.setViewport(_size);
+
+        await done.timeout(const Duration(seconds: 1));
+        expect(
+          c.particles,
+          isEmpty,
+          reason: 'flush must re-check reduceMotion',
+        );
+        expect(c.isAnimating, isFalse);
+        c.dispose();
+      },
+    );
+  });
+
+  group('ConfettiPainter', () {
+    test('repaints only when the controller changes', () {
+      final a = DynamicConfettiController(random: Random(1));
+      final b = DynamicConfettiController(random: Random(2));
+      expect(ConfettiPainter(b).shouldRepaint(ConfettiPainter(a)), isTrue);
+      expect(ConfettiPainter(a).shouldRepaint(ConfettiPainter(a)), isFalse);
+      a.dispose();
+      b.dispose();
     });
   });
 

@@ -6,8 +6,9 @@ import 'confetti_controller.dart';
 import 'confetti_particle.dart';
 import 'confetti_shape.dart';
 
-/// Paints a controller's live particles. Repaints are driven by the controller
-/// (a [Listenable]), so [shouldRepaint] always returns false.
+/// Paints a controller's live particles. Per-frame repaints are driven by the
+/// controller (a [Listenable]); [shouldRepaint] only needs to fire when the
+/// widget is rebuilt with a *different* controller.
 ///
 /// Each branch mirrors the drawing half of canvas-confetti's `updateFetti`.
 /// Internal — not exported.
@@ -167,5 +168,6 @@ class ConfettiPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(ConfettiPainter oldDelegate) => false;
+  bool shouldRepaint(ConfettiPainter oldDelegate) =>
+      oldDelegate.controller != controller;
 }

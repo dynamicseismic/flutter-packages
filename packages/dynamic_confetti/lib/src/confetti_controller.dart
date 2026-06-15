@@ -66,6 +66,9 @@ class DynamicConfettiController extends ChangeNotifier {
       _pending.add(options);
     } else {
       _spawn(options, _viewport);
+      // A burst that produced nothing (e.g. particleCount <= 0) would otherwise
+      // leave the future hanging forever — there is no tick to resolve it.
+      if (!isAnimating) _resolveIdle();
     }
     notifyListeners();
     return idle.future;
@@ -90,8 +93,15 @@ class DynamicConfettiController extends ChangeNotifier {
     final queued = List<DynamicConfettiOptions>.of(_pending);
     _pending.clear();
     for (final options in queued) {
+      // Re-check reduce motion now that the widget has synced it: a burst
+      // queued before the first layout (e.g. fired in initState) was checked
+      // against a stale `reduceMotion`.
+      if (options.disableForReducedMotion && reduceMotion) continue;
       _spawn(options, size);
     }
+    // Every queued burst may have been suppressed or empty — resolve the future
+    // so callers (and the one-shot overlay) don't hang.
+    if (!isAnimating) _resolveIdle();
   }
 
   /// Advances the simulation by [dtSeconds], stepping in fixed 60fps ticks so
