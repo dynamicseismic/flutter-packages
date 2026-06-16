@@ -1,6 +1,6 @@
 name: dynamic_haptics
 description: WebHaptics-style haptic feedback presets and custom vibration patterns for Flutter.
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/dynamicseismic/flutter-packages
 repository: https://github.com/dynamicseismic/flutter-packages/tree/main/packages/dynamic_haptics
 topics:

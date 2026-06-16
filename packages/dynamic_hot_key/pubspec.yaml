@@ -1,6 +1,6 @@
 name: dynamic_hot_key
 description: Allows registering global (system-wide) hot keys. Supported on macOS and Windows.
-version: 0.9.1
+version: 0.1.0
 homepage: https://github.com/dynamicseismic/flutter-packages
 
 resolution: workspace
@@ -12,8 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dynamic_native_extensions: ^0.9.1
-  dynamic_keyboard_layout: ^0.9.1
+  dynamic_native_extensions: ^0.1.0
+  dynamic_keyboard_layout: ^0.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,6 @@
 name: dynamic_drag_and_drop
 description: Native Drag and Drop support for Flutter. Allows dragging contents across applications.
-version: 0.9.1
+version: 0.1.0
 homepage: https://github.com/dynamicseismic/flutter-packages
 
 resolution: workspace
@@ -13,8 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
   collection: ^1.16.0
-  dynamic_native_extensions: ^0.9.1
-  dynamic_clipboard: ^0.9.1
+  dynamic_native_extensions: ^0.1.0
+  dynamic_clipboard: ^0.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

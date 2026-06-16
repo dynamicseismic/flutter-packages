@@ -1,3 +1,7 @@
+## 0.1.0
+
+ - Renamed fork of `super_native_extensions`; version reset to `0.1.0` for the `dynamic_*` line.
+
 ## 0.9.1
 
 ## 0.9.0

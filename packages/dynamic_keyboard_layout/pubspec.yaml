@@ -1,6 +1,6 @@
 name: dynamic_keyboard_layout
 description: Keyboard layout mapping for Flutter. Map between physical and logical keys according to current keyboard layout and provides notification on layout changes.
-version: 0.9.1
+version: 0.1.0
 homepage: https://github.com/dynamicseismic/flutter-packages
 
 resolution: workspace
@@ -12,7 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dynamic_native_extensions: ^0.9.1
+  dynamic_native_extensions: ^0.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

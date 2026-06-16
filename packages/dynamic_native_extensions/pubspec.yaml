@@ -1,6 +1,6 @@
 name: dynamic_native_extensions
 description: Low level interface various native APIs such as clipboard and Drag and Drop. Not meant to be used directly.
-version: 0.9.1
+version: 0.1.0
 homepage: https://github.com/dynamicseismic/flutter-packages
 
 resolution: workspace

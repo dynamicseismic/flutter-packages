@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'dynamic_haptics'
-  s.version          = '0.0.1'
+  s.version          = '0.1.0'
   s.summary          = 'WebHaptics-style haptic feedback for Flutter.'
   s.description      = <<-DESC
 WebHaptics-style haptic feedback presets and custom vibration patterns for Flutter.

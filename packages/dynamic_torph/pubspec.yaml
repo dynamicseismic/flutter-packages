@@ -1,6 +1,6 @@
 name: dynamic_torph
 description: "Dependency-free animated text morphing for Flutter — a port of lochie/torph."
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/dynamicseismic/flutter-packages
 repository: https://github.com/dynamicseismic/flutter-packages/tree/main/packages/dynamic_torph
 
