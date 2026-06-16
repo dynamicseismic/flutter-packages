@@ -92,3 +92,6 @@ app.*.map.json
 # Linux / Windows ephemeral
 **/linux/flutter/ephemeral/
 **/windows/flutter/ephemeral/
+
+# Rust (cargokit builds the native crate from source; Cargo.lock is committed)
+**/rust/target/
