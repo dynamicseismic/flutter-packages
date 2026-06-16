@@ -1,5 +1,5 @@
 name: dynamic_flutter_packages_workspace
-description: Monorepo of Flutter packages (haptics, animated/morphing icons, text morph, confetti) + showcase app.
+description: Monorepo of Flutter packages (haptics, animated/morphing icons, text morph, confetti, native clipboard/drag-drop/context-menu) + showcase app.
 publish_to: 'none'
 version: 0.1.0
 
@@ -19,6 +19,15 @@ workspace:
   - packages/dynamic_morphing_icons/example
   - packages/dynamic_torph
   - packages/dynamic_torph/example
+  # super_native_extensions fork (super_ -> dynamic_). Native Rust+FFI plugin
+  # dynamic_native_extensions + the pure-Dart packages built on it. Its vendored
+  # cargokit/build_tool is intentionally NOT a member (pinned deps, own lockfile).
+  - packages/dynamic_native_extensions
+  - packages/dynamic_clipboard
+  - packages/dynamic_context_menu
+  - packages/dynamic_drag_and_drop
+  - packages/dynamic_keyboard_layout
+  - packages/dynamic_hot_key
   - apps/showcase
 
 dev_dependencies:

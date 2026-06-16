@@ -3,6 +3,7 @@ import 'package:dynamic_morphing_icons/dynamic_morphing_icons.dart';
 import 'package:dynamic_icons/dynamic_icons.dart';
 import 'package:dynamic_torph/dynamic_torph.dart';
 
+import 'demos/clipboard_demo.dart';
 import 'demos/confetti_demo.dart';
 import 'demos/crypto_icons_demo.dart';
 import 'demos/haptics_demo.dart';
@@ -31,6 +32,12 @@ class HomePage extends StatelessWidget {
         subtitle: 'Presets & custom vibration patterns',
         leading: const Icon(Icons.vibration, size: 28),
         builder: (_) => const HapticsDemo(),
+      ),
+      _DemoEntry(
+        title: 'Clipboard',
+        subtitle: 'Rich text read/write via the native layer',
+        leading: const Icon(Icons.content_paste, size: 28),
+        builder: (_) => const ClipboardDemo(),
       ),
       _DemoEntry(
         title: 'Lucide Icons',

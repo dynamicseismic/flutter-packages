@@ -1,0 +1,17 @@
+include: package:flutter_lints/flutter.yaml
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
+
+analyzer:
+  exclude:
+    # Vendored cargokit build tool — a standalone package with its own pinned
+    # deps and lockfile, not a workspace member. The analyzer can't resolve its
+    # imports with the workspace package config, so exclude it from analysis.
+    - cargokit/**
+
+linter:
+  rules:
+    prefer_relative_imports: true
+    # TODO(knopp): re-enable when in stable
+    # invalid_runtime_check_with_js_interop_types: true
