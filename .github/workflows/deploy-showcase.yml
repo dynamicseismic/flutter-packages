@@ -46,7 +46,7 @@ jobs:
 
       - name: Build web
         working-directory: apps/showcase
-        # base-href must have leading + trailing slashes, e.g. /dynamic-flutter-packages/
+        # base-href must have leading + trailing slashes, e.g. /flutter-packages/
         run: flutter build web --release --base-href "/${GITHUB_REPOSITORY#*/}/"
 
       - uses: actions/upload-pages-artifact@v3

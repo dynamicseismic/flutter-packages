@@ -1,8 +1,8 @@
 name: dynamic_morphing_icons
 description: "Icons that morph into one another. Every icon is three line segments, so any icon can transform into any other."
 version: 0.1.0
-homepage: https://github.com/dynamicseismic/dynamic-flutter-packages
-repository: https://github.com/dynamicseismic/dynamic-flutter-packages/tree/main/packages/dynamic_morphing_icons
+homepage: https://github.com/dynamicseismic/flutter-packages
+repository: https://github.com/dynamicseismic/flutter-packages/tree/main/packages/dynamic_morphing_icons
 
 resolution: workspace
 
