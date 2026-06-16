@@ -3,6 +3,7 @@ import 'package:dynamic_morphing_icons/dynamic_morphing_icons.dart';
 import 'package:dynamic_icons/dynamic_icons.dart';
 import 'package:dynamic_torph/dynamic_torph.dart';
 
+import 'demos/confetti_demo.dart';
 import 'demos/crypto_icons_demo.dart';
 import 'demos/haptics_demo.dart';
 import 'demos/lucide_icons_demo.dart';
@@ -19,6 +20,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = <_DemoEntry>[
+      _DemoEntry(
+        title: 'Confetti',
+        subtitle: 'canvas-confetti port — tap to celebrate',
+        leading: const Icon(Icons.celebration, size: 28),
+        builder: (_) => const ConfettiDemo(),
+      ),
       _DemoEntry(
         title: 'Haptics',
         subtitle: 'Presets & custom vibration patterns',

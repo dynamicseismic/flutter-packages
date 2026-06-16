@@ -1,5 +1,5 @@
 name: dynamic_flutter_packages_workspace
-description: Monorepo of Flutter packages (haptics, animated/morphing icons, text morph) + showcase app.
+description: Monorepo of Flutter packages (haptics, animated/morphing icons, text morph, confetti) + showcase app.
 publish_to: 'none'
 version: 0.1.0
 
@@ -9,6 +9,8 @@ environment:
 # Dart pub workspaces (required since Melos 7): the whole workspace resolves once,
 # into a single root pubspec.lock. Each member declares `resolution: workspace`.
 workspace:
+  - packages/dynamic_confetti
+  - packages/dynamic_confetti/example
   - packages/dynamic_haptics
   - packages/dynamic_haptics/example
   - packages/dynamic_icons

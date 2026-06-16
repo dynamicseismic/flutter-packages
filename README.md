@@ -9,6 +9,7 @@ packages — plus a single web **showcase** that demos them all.
 
 | Package | What it does |
 |---|---|
+| [`dynamic_confetti`](packages/dynamic_confetti) | A faithful Flutter port of canvas-confetti — particle confetti with a fire-from-anywhere one-liner |
 | [`dynamic_haptics`](packages/dynamic_haptics) | WebHaptics-style haptic presets & custom vibration patterns (Android/iOS plugin) |
 | [`dynamic_icons`](packages/dynamic_icons) | Hover/tap-animated icons — Lucide stroke glyphs + filled crypto brand marks |
 | [`dynamic_morphing_icons`](packages/dynamic_morphing_icons) | Icons that morph into one another — every icon is three line segments |
