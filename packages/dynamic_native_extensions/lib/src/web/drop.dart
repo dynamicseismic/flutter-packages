@@ -37,7 +37,9 @@ Iterable<(List<String> formats, $DataReaderItemHandle? readerHandle)>
   required bool allowReader,
 }) {
   final itemList = dataTransfer.items;
-  final hasFiles = dataTransfer.types.toDart.contains("Files");
+  // types.toDart yields List<JSString>; compare each as a Dart String so the
+  // "Files" check actually matches (a Dart-String contains never would).
+  final hasFiles = dataTransfer.types.toDart.any((e) => e.toDart == "Files");
 
   final res = <DataTransferItemHandle>[];
   var items = <web.DataTransferItem>[];

@@ -58,6 +58,9 @@ public final class ClipDataHelper {
             }
             onData(handle, res);
         });
+        // Let the single-use executor terminate its (non-daemon) thread once the
+        // task completes, instead of leaking a thread on every read.
+        executor.shutdown();
     }
 
     native void onData(int handle, Object data);

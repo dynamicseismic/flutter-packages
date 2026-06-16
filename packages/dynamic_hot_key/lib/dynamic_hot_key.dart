@@ -101,7 +101,9 @@ class _HotKeyManager extends raw.HotKeyManagerDelegate {
   }
 
   Future<void> destroyHotKey(HotKey hotKey) async {
-    _hotKeys.remove(hotKey);
+    // _hotKeys is keyed by the int handle, not the HotKey object — remove by
+    // handle so the entry (and its callbacks) is actually released.
+    _hotKeys.remove(hotKey._handle);
     await raw.HotKeyManager.instance.destroyHotKey(hotKey._handle);
   }
 
