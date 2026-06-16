@@ -1,5 +1,6 @@
 library dynamic_hot_key;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:dynamic_keyboard_layout/dynamic_keyboard_layout.dart';
 import 'package:dynamic_native_extensions/raw_hot_key.dart' as raw;
@@ -72,7 +73,7 @@ class _HotKeyManager extends raw.HotKeyManagerDelegate {
     raw.HotKeyManager.instance.delegate = this;
   }
 
-  final _hotKeys = <int, HotKey>{};
+  final _hotKeys = HotKeyRegistry<HotKey>((k) => k._handle);
 
   static final instance = _HotKeyManager._();
 
@@ -93,7 +94,7 @@ class _HotKeyManager extends raw.HotKeyManagerDelegate {
         onPressed,
         onReleased,
       );
-      _hotKeys[handle] = res;
+      _hotKeys.add(res);
       return res;
     } else {
       return null;
@@ -101,9 +102,7 @@ class _HotKeyManager extends raw.HotKeyManagerDelegate {
   }
 
   Future<void> destroyHotKey(HotKey hotKey) async {
-    // _hotKeys is keyed by the int handle, not the HotKey object — remove by
-    // handle so the entry (and its callbacks) is actually released.
-    _hotKeys.remove(hotKey._handle);
+    _hotKeys.remove(hotKey);
     await raw.HotKeyManager.instance.destroyHotKey(hotKey._handle);
   }
 
@@ -116,4 +115,28 @@ class _HotKeyManager extends raw.HotKeyManagerDelegate {
   void onHotKeyReleased(int handle) {
     _hotKeys[handle]?.onReleased?.call();
   }
+}
+
+/// Tracks active hot keys keyed by their native handle and dispatches events by
+/// handle.
+///
+/// Extracted from [_HotKeyManager] so this handle-based bookkeeping can be unit
+/// tested without the native layer. [remove] keys off the handle (via the
+/// `handleOf` function) rather than object identity: a previous bug removed
+/// entries by object against an int-keyed map, so the removal never matched —
+/// disposed hot keys stayed registered and kept firing on late events.
+@visibleForTesting
+class HotKeyRegistry<T extends Object> {
+  HotKeyRegistry(this._handleOf);
+
+  final int Function(T) _handleOf;
+  final _byHandle = <int, T>{};
+
+  void add(T item) => _byHandle[_handleOf(item)] = item;
+
+  void remove(T item) => _byHandle.remove(_handleOf(item));
+
+  T? operator [](int handle) => _byHandle[handle];
+
+  int get length => _byHandle.length;
 }
