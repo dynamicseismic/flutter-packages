@@ -96,14 +96,16 @@ class _MorphingIconState extends State<DynamicMorphingIcon>
   @override
   void didUpdateWidget(DynamicMorphingIcon old) {
     super.didUpdateWidget(old);
-    // The controller's duration is kept in sync with the resolved value in
-    // build; here we only (re)start a morph when the icon changes.
     if (widget.icon != old.icon) {
       // Start the new morph from whatever we were heading towards. (A morph
       // retriggered mid-flight restarts from `old.icon` rather than the exact
       // current frame — a deliberate v1 simplification.)
       _from = old.icon;
       _to = widget.icon;
+      // Sync the resolved duration *before* starting, so a same-frame change to
+      // `duration` (or the ambient theme) applies to this morph too — not just
+      // the next one. build() keeps it synced for every other case.
+      _controller.duration = _resolvedDuration(context);
       _controller.forward(from: 0);
     }
   }
@@ -113,6 +115,13 @@ class _MorphingIconState extends State<DynamicMorphingIcon>
     _controller.dispose();
     super.dispose();
   }
+
+  /// The effective morph duration: the explicit [DynamicMorphingIcon.duration],
+  /// else the ambient [DynamicMorphingIconTheme], else the built-in default.
+  Duration _resolvedDuration(BuildContext context) =>
+      widget.duration ??
+      DynamicMorphingIconTheme.of(context).duration ??
+      _kDefaultDuration;
 
   @override
   Widget build(BuildContext context) {
@@ -128,10 +137,9 @@ class _MorphingIconState extends State<DynamicMorphingIcon>
         widget.strokeWidth ?? theme.strokeWidth ?? _kDefaultStrokeWidth;
     final curve = widget.curve ?? theme.curve ?? _kDefaultCurve;
 
-    // Keep the controller's duration in sync with the resolved value so the
-    // next icon-change morph runs at the right speed.
-    _controller.duration =
-        widget.duration ?? theme.duration ?? _kDefaultDuration;
+    // Keep the controller's duration synced for morphs started outside build;
+    // didUpdateWidget re-syncs it again right before starting one.
+    _controller.duration = _resolvedDuration(context);
 
     Widget child = RepaintBoundary(
       child: AnimatedBuilder(

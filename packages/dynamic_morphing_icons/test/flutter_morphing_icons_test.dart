@@ -163,6 +163,34 @@ void main() {
         expect(tester.takeException(), isNull);
       },
     );
+
+    testWidgets('a same-frame duration change applies to that morph', (
+      tester,
+    ) async {
+      Widget harness(DynamicMorphIcon icon, Duration d) => Directionality(
+        textDirection: TextDirection.ltr,
+        child: Center(
+          child: DynamicMorphingIcon(icon: icon, duration: d),
+        ),
+      );
+
+      await tester.pumpWidget(
+        harness(DynamicMorphIcons.menu, const Duration(seconds: 1)),
+      );
+      await tester.pumpAndSettle();
+
+      // Change the icon AND shorten the duration in the same frame. The new
+      // (short) duration must apply to THIS morph, not just the next one.
+      await tester.pumpWidget(
+        harness(DynamicMorphIcons.cross, const Duration(milliseconds: 100)),
+      );
+      // Advance past the new duration: if it applied, the morph is finished;
+      // if the stale 1s duration were used, it would still be running.
+      await tester.pump(const Duration(milliseconds: 120));
+      expect(tester.hasRunningAnimations, isFalse);
+
+      await tester.pumpAndSettle();
+    });
   });
 
   group('DynamicMorphingIconTheme', () {
