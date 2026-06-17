@@ -84,7 +84,7 @@ class _GalleryPageState extends State<GalleryPage> {
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
               child: Row(
                 children: [
-                  const DynamicIcon(icon: LucideIcons.sparkles, size: 26),
+                  const DynamicIcon(icon: Lucide.sparkles, size: 26),
                   const SizedBox(width: 10),
                   Text(
                     'dynamic_icons',
@@ -98,7 +98,7 @@ class _GalleryPageState extends State<GalleryPage> {
                     onPressed: widget.onToggleTheme,
                     icon: DynamicIcon(
                       key: ValueKey(widget.isDark),
-                      icon: widget.isDark ? LucideIcons.sun : LucideIcons.moon,
+                      icon: widget.isDark ? Lucide.sun : Lucide.moon,
                       size: 22,
                     ),
                   ),
@@ -115,7 +115,7 @@ class _GalleryPageState extends State<GalleryPage> {
                   prefixIcon: const Padding(
                     padding: EdgeInsets.all(10),
                     child: DynamicIcon(
-                      icon: LucideIcons.search,
+                      icon: Lucide.search,
                       size: 20,
                       trigger: AnimationTrigger.none,
                     ),

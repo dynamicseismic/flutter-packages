@@ -50,7 +50,7 @@ class _LucideIconsDemoState extends State<LucideIconsDemo> {
                 child: Row(
                   children: [
                     DynamicIcon(
-                      icon: LucideIcons.bell,
+                      icon: Lucide.bell,
                       size: 48,
                       controller: _controller,
                       trigger: AnimationTrigger.none,

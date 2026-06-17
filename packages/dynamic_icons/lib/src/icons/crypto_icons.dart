@@ -279,9 +279,9 @@ final List<IconEntry> cryptoIcons = [
   ]),
 ];
 
-/// Namespaced crypto / chain brand marks — `CryptoIcons.ethereum`,
-/// `CryptoIcons.bnb`, … Mirrors Flutter's `Icons` convention.
-abstract final class CryptoIcons {
+/// Namespaced crypto / chain brand marks — `Crypto.ethereum`,
+/// `Crypto.bnb`, … Mirrors Flutter's `Icons` convention.
+abstract final class Crypto {
   static final ethereum = kEthereumIcon;
   static final solana = kSolanaIcon;
   static const bnb = kBnbIcon;
