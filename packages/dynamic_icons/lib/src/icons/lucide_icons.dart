@@ -30,9 +30,9 @@ import 'gen/gen_18.dart';
 import 'gen/gen_19.dart';
 import 'gen/gen_20.dart';
 
-/// Namespaced Lucide stroke icons — `LucideIcons.bell`,
-/// `LucideIcons.arrow_down`, … Mirrors Flutter's `Icons` convention.
-abstract final class LucideIcons {
+/// Namespaced Lucide stroke icons — `Lucide.bell`,
+/// `Lucide.arrow_down`, … Mirrors Flutter's `Icons` convention.
+abstract final class Lucide {
   static const a_arrow_down = kAArrowDownIcon;
   static const a_arrow_up = kAArrowUpIcon;
   static const accessibility = kAccessibilityIcon;

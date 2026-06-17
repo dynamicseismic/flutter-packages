@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import 'morph_icon.dart';
 import 'morph_painter.dart';
+import 'morphing_icon_theme.dart';
 
 /// An icon that animates — *morphs* — from its previous shape into a new one
 /// whenever its [icon] changes.
@@ -24,21 +25,25 @@ class DynamicMorphingIcon extends StatefulWidget {
   /// The icon to display. Changing it animates from the previously shown icon.
   final DynamicMorphIcon icon;
 
-  /// Width and height in logical pixels. Defaults to the ambient
-  /// [IconThemeData.size], then `24`.
+  /// Width and height in logical pixels. Null falls back to
+  /// [DynamicMorphingIconTheme], the ambient [IconThemeData.size], then `24`.
   final double? size;
 
-  /// Stroke colour. Defaults to the ambient [IconThemeData.color], then black.
+  /// Stroke colour. Null falls back to [DynamicMorphingIconTheme], the ambient
+  /// [IconThemeData.color], then black.
   final Color? color;
 
-  /// Stroke width in logical pixels.
-  final double strokeWidth;
+  /// Stroke width in logical pixels. Null falls back to
+  /// [DynamicMorphingIconTheme], then to `2`.
+  final double? strokeWidth;
 
-  /// How long a morph takes.
-  final Duration duration;
+  /// How long a morph takes. Null falls back to [DynamicMorphingIconTheme],
+  /// then to 450 ms.
+  final Duration? duration;
 
-  /// Easing applied to the morph.
-  final Curve curve;
+  /// Easing applied to the morph. Null falls back to
+  /// [DynamicMorphingIconTheme], then to `Curves.easeInOutCubic`.
+  final Curve? curve;
 
   /// Optional description for screen readers.
   final String? semanticLabel;
@@ -48,9 +53,9 @@ class DynamicMorphingIcon extends StatefulWidget {
     required this.icon,
     this.size,
     this.color,
-    this.strokeWidth = 2.0,
-    this.duration = const Duration(milliseconds: 450),
-    this.curve = Curves.easeInOutCubic,
+    this.strokeWidth,
+    this.duration,
+    this.curve,
     this.semanticLabel,
   });
 
@@ -60,6 +65,11 @@ class DynamicMorphingIcon extends StatefulWidget {
 
 class _MorphingIconState extends State<DynamicMorphingIcon>
     with SingleTickerProviderStateMixin {
+  static const _kDefaultSize = 24.0;
+  static const _kDefaultStrokeWidth = 2.0;
+  static const _kDefaultDuration = Duration(milliseconds: 450);
+  static const _kDefaultCurve = Curves.easeInOutCubic;
+
   late final AnimationController _controller;
 
   /// The shape the current morph starts from.
@@ -74,9 +84,11 @@ class _MorphingIconState extends State<DynamicMorphingIcon>
     _from = widget.icon;
     _to = widget.icon;
     // value: 1 == "fully showing `_to`", so the first frame is the icon at rest.
+    // The effective duration (widget → theme → default) is resolved and synced
+    // to the controller in build; start with the built-in default until then.
     _controller = AnimationController(
       vsync: this,
-      duration: widget.duration,
+      duration: _kDefaultDuration,
       value: 1,
     );
   }
@@ -84,15 +96,16 @@ class _MorphingIconState extends State<DynamicMorphingIcon>
   @override
   void didUpdateWidget(DynamicMorphingIcon old) {
     super.didUpdateWidget(old);
-    if (widget.duration != old.duration) {
-      _controller.duration = widget.duration;
-    }
     if (widget.icon != old.icon) {
       // Start the new morph from whatever we were heading towards. (A morph
       // retriggered mid-flight restarts from `old.icon` rather than the exact
       // current frame — a deliberate v1 simplification.)
       _from = old.icon;
       _to = widget.icon;
+      // Sync the resolved duration *before* starting, so a same-frame change to
+      // `duration` (or the ambient theme) applies to this morph too — not just
+      // the next one. build() keeps it synced for every other case.
+      _controller.duration = _resolvedDuration(context);
       _controller.forward(from: 0);
     }
   }
@@ -103,11 +116,30 @@ class _MorphingIconState extends State<DynamicMorphingIcon>
     super.dispose();
   }
 
+  /// The effective morph duration: the explicit [DynamicMorphingIcon.duration],
+  /// else the ambient [DynamicMorphingIconTheme], else the built-in default.
+  Duration _resolvedDuration(BuildContext context) =>
+      widget.duration ??
+      DynamicMorphingIconTheme.of(context).duration ??
+      _kDefaultDuration;
+
   @override
   Widget build(BuildContext context) {
+    final theme = DynamicMorphingIconTheme.of(context);
     final iconTheme = IconTheme.of(context);
-    final size = widget.size ?? iconTheme.size ?? 24.0;
-    final color = widget.color ?? iconTheme.color ?? const Color(0xFF000000);
+    final size = widget.size ?? theme.size ?? iconTheme.size ?? _kDefaultSize;
+    final color =
+        widget.color ??
+        theme.color ??
+        iconTheme.color ??
+        const Color(0xFF000000);
+    final strokeWidth =
+        widget.strokeWidth ?? theme.strokeWidth ?? _kDefaultStrokeWidth;
+    final curve = widget.curve ?? theme.curve ?? _kDefaultCurve;
+
+    // Keep the controller's duration synced for morphs started outside build;
+    // didUpdateWidget re-syncs it again right before starting one.
+    _controller.duration = _resolvedDuration(context);
 
     Widget child = RepaintBoundary(
       child: AnimatedBuilder(
@@ -118,9 +150,9 @@ class _MorphingIconState extends State<DynamicMorphingIcon>
             painter: DynamicMorphPainter(
               from: _from,
               to: _to,
-              t: widget.curve.transform(_controller.value),
+              t: curve.transform(_controller.value),
               color: color,
-              strokeWidth: widget.strokeWidth,
+              strokeWidth: strokeWidth,
             ),
           );
         },
@@ -128,11 +160,7 @@ class _MorphingIconState extends State<DynamicMorphingIcon>
     );
 
     if (widget.semanticLabel != null) {
-      child = Semantics(
-        label: widget.semanticLabel,
-        image: true,
-        child: child,
-      );
+      child = Semantics(label: widget.semanticLabel, image: true, child: child);
     }
     return SizedBox(width: size, height: size, child: child);
   }

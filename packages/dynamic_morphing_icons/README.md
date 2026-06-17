@@ -56,6 +56,32 @@ the new one.
 | `curve`         | `easeInOutCubic`     | Morph easing.                                 |
 | `semanticLabel` | `null`               | Optional screen-reader description.           |
 
+`size`, `color`, `strokeWidth`, `duration`, and `curve` resolve per-field: an
+explicit value on the widget wins, else the nearest `DynamicMorphingIconTheme`,
+else the built-in default (`size`/`color` also fall through the ambient
+`IconTheme`).
+
+### Global defaults
+
+Wrap a subtree in a `DynamicMorphingIconTheme` to set defaults once instead of
+repeating `size` / `strokeWidth` / `duration` … on every icon — the
+`dynamic_morphing_icons` analogue of Flutter's `IconTheme`:
+
+```dart
+DynamicMorphingIconTheme(
+  data: const DynamicMorphingIconThemeData(
+    size: 32,
+    strokeWidth: 1.5,
+    duration: Duration(milliseconds: 300),
+  ),
+  child: MaterialApp(/* … */),   // every DynamicMorphingIcon below inherits these
+)
+```
+
+Nest another `DynamicMorphingIconTheme` — or use
+`DynamicMorphingIconTheme.merge` — to override part of an outer theme for a
+subtree.
+
 ## The icons
 
 All are exposed as `const` values on `DynamicMorphIcons`, and the full ordered list is

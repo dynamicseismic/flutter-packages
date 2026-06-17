@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'dynamic_icon_controller.dart';
 import 'dynamic_icon_painter.dart';
+import 'dynamic_icon_theme.dart';
 import 'icon_part.dart';
 
 /// What makes a [DynamicIcon] play its animation.
@@ -34,14 +35,14 @@ class DynamicIcon extends StatefulWidget {
   const DynamicIcon({
     super.key,
     required this.icon,
-    this.size = 28,
+    this.size,
     this.color,
-    this.strokeWidth = 2,
-    this.shape = IconShape.roundedSquare,
+    this.strokeWidth,
+    this.shape,
     this.cornerRadius,
-    this.showBackground = true,
+    this.showBackground,
     this.controller,
-    this.trigger = AnimationTrigger.hoverAndTap,
+    this.trigger,
     this.loop = false,
     this.semanticLabel,
   });
@@ -49,33 +50,39 @@ class DynamicIcon extends StatefulWidget {
   /// The icon definition (e.g. `kBellIcon`, `kEthereumIcon`).
   final DynamicIconData icon;
 
-  /// Edge length in logical pixels.
-  final double size;
+  /// Edge length in logical pixels. Null falls back to [DynamicIconTheme],
+  /// then to the built-in default of `28`.
+  final double? size;
 
   /// Ambient colour for parts without an explicit colour — `currentColor` for
-  /// stroke glyphs. Defaults to the ambient `IconTheme`/`DefaultTextStyle`.
+  /// stroke glyphs. Null falls back to [DynamicIconTheme], then the ambient
+  /// `IconTheme`/`DefaultTextStyle`.
   final Color? color;
 
   /// Stroke width in logical pixels for stroke-style parts (Lucide's is 2).
-  final double strokeWidth;
+  /// Null falls back to [DynamicIconTheme], then to `2`.
+  final double? strokeWidth;
 
   /// Shape of the brand background chip (only drawn when the icon declares a
-  /// [DynamicIconData.backgroundColor]).
-  final IconShape shape;
+  /// [DynamicIconData.backgroundColor]). Null falls back to [DynamicIconTheme],
+  /// then to [IconShape.roundedSquare].
+  final IconShape? shape;
 
-  /// Corner radius for [IconShape.roundedSquare], in logical pixels.
-  /// Defaults to `size * 0.28` (a soft app-icon squircle look).
+  /// Corner radius for [IconShape.roundedSquare], in logical pixels. Null falls
+  /// back to [DynamicIconTheme], then to `size * 0.28` (a soft squircle look).
   final double? cornerRadius;
 
   /// Whether to paint the brand background. Ignored when the icon has no
-  /// [DynamicIconData.backgroundColor].
-  final bool showBackground;
+  /// [DynamicIconData.backgroundColor]. Null falls back to [DynamicIconTheme],
+  /// then to `true`.
+  final bool? showBackground;
 
   /// Optional handle for driving the animation imperatively.
   final IconController? controller;
 
-  /// What triggers the animation.
-  final AnimationTrigger trigger;
+  /// What triggers the animation. Null falls back to [DynamicIconTheme], then
+  /// to [AnimationTrigger.hoverAndTap].
+  final AnimationTrigger? trigger;
 
   /// Whether to loop the animation continuously (e.g. a spinner).
   final bool loop;
@@ -161,14 +168,6 @@ class IconState extends State<DynamicIcon> with SingleTickerProviderStateMixin {
 
   // ---- Trigger handlers ----
 
-  bool get _hoverEnabled =>
-      widget.trigger == AnimationTrigger.hover ||
-      widget.trigger == AnimationTrigger.hoverAndTap;
-
-  bool get _tapEnabled =>
-      widget.trigger == AnimationTrigger.tap ||
-      widget.trigger == AnimationTrigger.hoverAndTap;
-
   /// True when the animation should loop while the icon is active, either
   /// because the caller forced [DynamicIcon.loop] or the icon itself is
   /// defined as repeating (spinners, pulsing indicators).
@@ -216,32 +215,48 @@ class IconState extends State<DynamicIcon> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final theme = DynamicIconTheme.of(context);
+    final size = widget.size ?? theme.size ?? 28;
+    final strokeWidth = widget.strokeWidth ?? theme.strokeWidth ?? 2;
+    final shape = widget.shape ?? theme.shape ?? IconShape.roundedSquare;
+    final showBackground =
+        widget.showBackground ?? theme.showBackground ?? true;
+    final trigger =
+        widget.trigger ?? theme.trigger ?? AnimationTrigger.hoverAndTap;
     final color =
         widget.color ??
+        theme.color ??
         IconTheme.of(context).color ??
         DefaultTextStyle.of(context).style.color ??
         const Color(0xFF000000);
-    final radius = widget.cornerRadius ?? widget.size * 0.28;
+    final radius = widget.cornerRadius ?? theme.cornerRadius ?? size * 0.28;
+
+    final hoverEnabled =
+        trigger == AnimationTrigger.hover ||
+        trigger == AnimationTrigger.hoverAndTap;
+    final tapEnabled =
+        trigger == AnimationTrigger.tap ||
+        trigger == AnimationTrigger.hoverAndTap;
 
     Widget child = RepaintBoundary(
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, _) => CustomPaint(
-          size: Size.square(widget.size),
+          size: Size.square(size),
           painter: IconPainter(
             data: widget.icon,
             t: _controller.value,
             color: color,
-            strokeWidth: widget.strokeWidth,
-            shape: widget.shape,
+            strokeWidth: strokeWidth,
+            shape: shape,
             cornerRadius: radius,
-            showBackground: widget.showBackground,
+            showBackground: showBackground,
           ),
         ),
       ),
     );
 
-    if (_tapEnabled) {
+    if (tapEnabled) {
       child = GestureDetector(
         onTap: _onTap,
         behavior: HitTestBehavior.opaque,
@@ -249,7 +264,7 @@ class IconState extends State<DynamicIcon> with SingleTickerProviderStateMixin {
       );
     }
 
-    if (_hoverEnabled) {
+    if (hoverEnabled) {
       child = MouseRegion(
         onEnter: _onEnter,
         onExit: _onExit,

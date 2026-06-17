@@ -4,14 +4,19 @@ import 'package:dynamic_morphing_icons/dynamic_morphing_icons.dart';
 
 void main() {
   group('catalogue invariants', () {
-    test('the article icons are three lines; scan is the eight-line exception',
-        () {
-      for (final icon in DynamicMorphIcons.all) {
-        final expected = icon.name == 'scan' ? 8 : 3;
-        expect(icon.lines.length, expected,
-            reason: '${icon.name} should have $expected lines');
-      }
-    });
+    test(
+      'the article icons are three lines; scan is the eight-line exception',
+      () {
+        for (final icon in DynamicMorphIcons.all) {
+          final expected = icon.name == 'scan' ? 8 : 3;
+          expect(
+            icon.lines.length,
+            expected,
+            reason: '${icon.name} should have $expected lines',
+          );
+        }
+      },
+    );
 
     test('catalogue has the 21 article icons plus scan', () {
       expect(DynamicMorphIcons.all.length, 22);
@@ -39,13 +44,18 @@ void main() {
         isTrue,
       );
       expect(DynamicMorphIcons.plus.lines, DynamicMorphIcons.cross.lines);
-      expect(DynamicMorphIcons.cross.rotationDegrees - DynamicMorphIcons.plus.rotationDegrees,
-          45);
+      expect(
+        DynamicMorphIcons.cross.rotationDegrees -
+            DynamicMorphIcons.plus.rotationDegrees,
+        45,
+      );
     });
 
     test('icons in different groups do not share a rotation morph', () {
       expect(
-        DynamicMorphIcons.arrowRight.sharesRotationGroupWith(DynamicMorphIcons.chevronRight),
+        DynamicMorphIcons.arrowRight.sharesRotationGroupWith(
+          DynamicMorphIcons.chevronRight,
+        ),
         isFalse,
       );
       expect(
@@ -66,9 +76,15 @@ void main() {
 
     test('interpolates opacity (collapsed line growing in)', () {
       const hidden = DynamicMorphLine.hidden; // opacity 0
-      const visible = DynamicMorphLine(Offset(4, 12), Offset(20, 12)); // opacity 1
+      const visible = DynamicMorphLine(
+        Offset(4, 12),
+        Offset(20, 12),
+      ); // opacity 1
       expect(DynamicMorphLine.lerp(hidden, visible, 0).opacity, 0);
-      expect(DynamicMorphLine.lerp(hidden, visible, 0.5).opacity, closeTo(0.5, 1e-9));
+      expect(
+        DynamicMorphLine.lerp(hidden, visible, 0.5).opacity,
+        closeTo(0.5, 1e-9),
+      );
       expect(DynamicMorphLine.lerp(hidden, visible, 1).opacity, 1);
     });
 
@@ -82,7 +98,10 @@ void main() {
 
   group('DynamicMorphIcon.resolvedLines', () {
     test('non-grouped icons return their lines unchanged', () {
-      expect(DynamicMorphIcons.menu.resolvedLines, DynamicMorphIcons.menu.lines);
+      expect(
+        DynamicMorphIcons.menu.resolvedLines,
+        DynamicMorphIcons.menu.lines,
+      );
     });
 
     test('a 90-degree arrow rotates its base coordinates about the centre', () {
@@ -97,8 +116,9 @@ void main() {
   });
 
   group('DynamicMorphingIcon widget', () {
-    testWidgets('renders and reaches a steady state for a static icon',
-        (tester) async {
+    testWidgets('renders and reaches a steady state for a static icon', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         const Center(
           child: DynamicMorphingIcon(icon: DynamicMorphIcons.menu, size: 48),
@@ -123,19 +143,100 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('morphs between icons of different line counts (menu <-> scan)',
-        (tester) async {
-      await tester.pumpWidget(const _Harness(icon: DynamicMorphIcons.menu));
+    testWidgets(
+      'morphs between icons of different line counts (menu <-> scan)',
+      (tester) async {
+        await tester.pumpWidget(const _Harness(icon: DynamicMorphIcons.menu));
+        await tester.pumpAndSettle();
+
+        await tester.pumpWidget(
+          const _Harness(icon: DynamicMorphIcons.scan),
+        ); // 3 -> 8
+        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pumpAndSettle();
+
+        await tester.pumpWidget(
+          const _Harness(icon: DynamicMorphIcons.menu),
+        ); // 8 -> 3
+        await tester.pumpAndSettle();
+
+        expect(tester.takeException(), isNull);
+      },
+    );
+
+    testWidgets('a same-frame duration change applies to that morph', (
+      tester,
+    ) async {
+      Widget harness(DynamicMorphIcon icon, Duration d) => Directionality(
+        textDirection: TextDirection.ltr,
+        child: Center(
+          child: DynamicMorphingIcon(icon: icon, duration: d),
+        ),
+      );
+
+      await tester.pumpWidget(
+        harness(DynamicMorphIcons.menu, const Duration(seconds: 1)),
+      );
       await tester.pumpAndSettle();
 
-      await tester.pumpWidget(const _Harness(icon: DynamicMorphIcons.scan)); // 3 -> 8
-      await tester.pump(const Duration(milliseconds: 100));
+      // Change the icon AND shorten the duration in the same frame. The new
+      // (short) duration must apply to THIS morph, not just the next one.
+      await tester.pumpWidget(
+        harness(DynamicMorphIcons.cross, const Duration(milliseconds: 100)),
+      );
+      // Advance past the new duration: if it applied, the morph is finished;
+      // if the stale 1s duration were used, it would still be running.
+      await tester.pump(const Duration(milliseconds: 120));
+      expect(tester.hasRunningAnimations, isFalse);
+
+      await tester.pumpAndSettle();
+    });
+  });
+
+  group('DynamicMorphingIconTheme', () {
+    test('merge layers this over other; copyWith replaces fields', () {
+      const base = DynamicMorphingIconThemeData(size: 40, strokeWidth: 3);
+      final merged = const DynamicMorphingIconThemeData(size: 20).merge(base);
+      expect(merged.size, 20); // local wins
+      expect(merged.strokeWidth, 3); // filled in from base
+      expect(base.copyWith(size: 99).size, 99);
+      expect(base.copyWith(size: 99).strokeWidth, 3); // untouched
+    });
+
+    testWidgets('icon inherits theme size & strokeWidth; explicit size wins', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const DynamicMorphingIconTheme(
+          data: DynamicMorphingIconThemeData(size: 50, strokeWidth: 4),
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Center(
+              child: Column(
+                children: [
+                  DynamicMorphingIcon(icon: DynamicMorphIcons.menu),
+                  DynamicMorphingIcon(icon: DynamicMorphIcons.menu, size: 12),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
       await tester.pumpAndSettle();
 
-      await tester.pumpWidget(const _Harness(icon: DynamicMorphIcons.menu)); // 8 -> 3
-      await tester.pumpAndSettle();
+      CustomPaint paintAt(int i) => tester.widget<CustomPaint>(
+        find.descendant(
+          of: find.byType(DynamicMorphingIcon).at(i),
+          matching: find.byType(CustomPaint),
+        ),
+      );
 
-      expect(tester.takeException(), isNull);
+      // First icon inherits both fields from the theme.
+      expect(paintAt(0).size, const Size.square(50));
+      expect((paintAt(0).painter! as DynamicMorphPainter).strokeWidth, 4);
+      // Second overrides size explicitly; strokeWidth still inherited.
+      expect(paintAt(1).size, const Size.square(12));
+      expect((paintAt(1).painter! as DynamicMorphPainter).strokeWidth, 4);
     });
   });
 }

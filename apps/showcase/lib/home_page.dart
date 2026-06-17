@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
         title: 'Lucide Icons',
         subtitle: 'Hover / tap micro-animations',
         leading: const DynamicIcon(
-          icon: LucideIcons.sparkles,
+          icon: Lucide.sparkles,
           size: 28,
           trigger: AnimationTrigger.none,
         ),
@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
         title: 'Crypto Chain Icons',
         subtitle: 'Filled brand marks — ETH, SOL, BNB…',
         leading: DynamicIcon(
-          icon: CryptoIcons.ethereum,
+          icon: Crypto.ethereum,
           size: 28,
           trigger: AnimationTrigger.none,
         ),

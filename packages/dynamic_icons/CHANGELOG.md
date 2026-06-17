@@ -14,8 +14,12 @@ one package and engine.
   no third-party runtime dependencies.
 - One widget, `DynamicIcon`, with hover / tap / looping triggers and a
   `IconController` for programmatic control.
-- Icons are namespaced under the `LucideIcons` and `CryptoIcons` classes (like
-  Flutter's `Icons`): `LucideIcons.bell`, `CryptoIcons.ethereum`. Import
+- `DynamicIconTheme` — an `InheritedWidget` (like Flutter's `IconTheme`) that
+  sets ambient defaults for `trigger`, `size`, `color`, `strokeWidth`, `shape`,
+  `cornerRadius`, and `showBackground`. Each field resolves to the explicit
+  widget value, else the nearest theme, else the built-in default.
+- Icons are namespaced under the `Lucide` and `Crypto` classes (like
+  Flutter's `Icons`): `Lucide.bell`, `Crypto.ethereum`. Import
   `package:dynamic_icons/lucide.dart` or `…/crypto.dart` for just one family,
   or `…/dynamic_icons.dart` for both.
 - Catalogs: `lucideIcons` (the full Lucide set), `cryptoIcons` (the brand

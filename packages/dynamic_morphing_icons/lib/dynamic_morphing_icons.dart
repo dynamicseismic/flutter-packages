@@ -14,3 +14,4 @@ export 'src/morph_icon.dart';
 export 'src/morph_icons.dart';
 export 'src/morph_painter.dart';
 export 'src/morphing_icon.dart';
+export 'src/morphing_icon_theme.dart';

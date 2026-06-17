@@ -34,7 +34,7 @@ class _CryptoIconsDemoState extends State<CryptoIconsDemo> {
                   Row(
                     children: [
                       DynamicIcon(
-                        icon: CryptoIcons.ethereum,
+                        icon: Crypto.ethereum,
                         size: 72,
                         shape: _shape,
                         controller: _controller,
