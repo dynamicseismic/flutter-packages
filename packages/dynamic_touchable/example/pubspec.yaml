@@ -1,0 +1,32 @@
+name: dynamic_touchable_example
+description: "Example gallery for dynamic_touchable."
+publish_to: 'none'
+version: 1.0.0+1
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  dynamic_touchable:
+    path: ../
+
+  # Only to demo the decoupled haptics hook — the package itself has no
+  # haptics dependency.
+  dynamic_haptics:
+    path: ../../dynamic_haptics
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

@@ -14,6 +14,7 @@ packages — plus a single web **showcase** that demos them all.
 | [`dynamic_icons`](packages/dynamic_icons) | Hover/tap-animated icons — Lucide stroke glyphs + filled crypto brand marks |
 | [`dynamic_morphing_icons`](packages/dynamic_morphing_icons) | Icons that morph into one another — every icon is three line segments |
 | [`dynamic_torph`](packages/dynamic_torph) | Dependency-free animated text morphing |
+| [`dynamic_touchable`](packages/dynamic_touchable) | Make any widget touchable — a tactile sink/press effect on touch, hover & tap, with real spring physics |
 | [`dynamic_native_extensions`](packages/dynamic_native_extensions) | Low-level native interface (Rust + FFI) powering the packages below — not used directly |
 | [`dynamic_clipboard`](packages/dynamic_clipboard) | Rich clipboard read/write — text, images, custom formats — across platforms |
 | [`dynamic_context_menu`](packages/dynamic_context_menu) | Native context menus that transition to drag & drop on mobile |
@@ -21,7 +22,7 @@ packages — plus a single web **showcase** that demos them all.
 | [`dynamic_hot_key`](packages/dynamic_hot_key) | System-wide hot keys |
 | [`dynamic_keyboard_layout`](packages/dynamic_keyboard_layout) | Physical keyboard layout mapping |
 
-The first five packages keep their own `example/` app. The native-extensions
+The first six packages keep their own `example/` app. The native-extensions
 family (`dynamic_native_extensions` + the four built on it) is forked from
 [super_native_extensions](https://github.com/superlistapp/super_native_extensions)
 (MIT) with the `super_` prefix renamed to `dynamic_`; their upstream example apps
@@ -29,7 +30,7 @@ are omitted here.
 
 ## Apps
 
-- [`apps/showcase`](apps/showcase) — one demo app exercising all four packages.
+- [`apps/showcase`](apps/showcase) — one demo app exercising the UI packages.
   Built for the web and deployed to GitHub Pages on every push to `main` via
   [`.github/workflows/deploy-showcase.yml`](.github/workflows/deploy-showcase.yml).
 
