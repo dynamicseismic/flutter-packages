@@ -236,6 +236,7 @@ class _DynamicTouchableState extends State<DynamicTouchable>
       }
     }
     if (!_enabled && (_pointerDown || _keyDown || _depth.value != 0)) {
+      final wasPressed = _pointerDown || _keyDown;
       _pointerDown = false;
       _keyDown = false;
       _activePointer = null;
@@ -243,6 +244,9 @@ class _DynamicTouchableState extends State<DynamicTouchable>
       _depth
         ..stop()
         ..value = 0;
+      // Disabling mid-press is a cancel: notify pressed→false so callers
+      // syncing on onPressChanged don't get stuck after a `true`.
+      if (wasPressed) widget.onPressChanged?.call(false);
     }
   }
 
@@ -464,10 +468,11 @@ class _DynamicTouchableState extends State<DynamicTouchable>
     final hasShadow =
         restElevation > 0 || pressedElevation > 0 || hoverElevation > 0;
 
-    final cursor =
-        widget.mouseCursor ??
-        theme.mouseCursor ??
-        (_actionable ? SystemMouseCursors.click : MouseCursor.defer);
+    final cursor = !enabled
+        ? MouseCursor.defer
+        : widget.mouseCursor ??
+              theme.mouseCursor ??
+              (_actionable ? SystemMouseCursors.click : MouseCursor.defer);
 
     final state = TouchState(
       enabled: enabled,
@@ -525,6 +530,14 @@ class _DynamicTouchableState extends State<DynamicTouchable>
       onTap: enabled && (widget.onTap != null) ? _activate : null,
       onLongPress: enabled && (widget.onLongPress != null)
           ? _fireLongPress
+          : null,
+      // Release the visual the instant the tap recognizer loses the arena
+      // (e.g. an eager competitor wins without a PointerCancelEvent). Only
+      // wired for tap-only controls: with a long-press recognizer present,
+      // its win also cancels the tap, and releasing here would pop the sink
+      // up mid-long-press — there the Listener handles release on pointer up.
+      onTapCancel: enabled && widget.onTap != null && widget.onLongPress == null
+          ? _onTapCancel
           : null,
       child: content,
     );

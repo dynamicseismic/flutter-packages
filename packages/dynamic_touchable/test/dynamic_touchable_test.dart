@@ -303,6 +303,85 @@ void main() {
     });
   });
 
+  group('robustness', () {
+    testWidgets('disabling mid-press reports the release', (tester) async {
+      final events = <bool>[];
+      Widget build(bool enabled) => _host(
+        DynamicTouchable(
+          enabled: enabled,
+          onPressChanged: events.add,
+          child: _box,
+        ),
+        reduceMotion: true,
+      );
+      await tester.pumpWidget(build(true));
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.byType(DynamicTouchable)),
+      );
+      await tester.pump();
+      expect(events, [true]);
+
+      await tester.pumpWidget(build(false)); // disable mid-press
+      await tester.pump();
+      expect(events, [true, false], reason: 'cancel must notify pressed→false');
+      await gesture.up();
+    });
+
+    testWidgets('releases when a scroll steals the gesture', (tester) async {
+      final events = <bool>[];
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: ListView(
+              children: [
+                DynamicTouchable(
+                  onTap: () {},
+                  onPressChanged: events.add,
+                  child: const SizedBox(
+                    height: 80,
+                    child: Center(child: Text('row')),
+                  ),
+                ),
+                for (var i = 0; i < 30; i++)
+                  SizedBox(height: 80, child: Center(child: Text('filler $i'))),
+              ],
+            ),
+          ),
+        ),
+      );
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.text('row')),
+      );
+      await tester.pump();
+      expect(events, [true]);
+
+      await gesture.moveBy(const Offset(0, -250)); // scroll the list away
+      await tester.pump();
+      expect(events, [true, false]);
+      await gesture.up();
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('disabled ignores a custom mouseCursor', (tester) async {
+      await tester.pumpWidget(
+        _host(
+          const DynamicTouchable(
+            enabled: false,
+            mouseCursor: SystemMouseCursors.click,
+            child: _box,
+          ),
+        ),
+      );
+      final region = tester.widget<MouseRegion>(
+        find.descendant(
+          of: find.byType(DynamicTouchable),
+          matching: find.byType(MouseRegion),
+        ),
+      );
+      expect(region.cursor, MouseCursor.defer);
+    });
+  });
+
   group('DynamicTouchableThemeData', () {
     test('defaults are all null', () {
       const data = DynamicTouchableThemeData();

@@ -16,9 +16,9 @@ dependencies:
     path: ../
 
   # Only to demo the decoupled haptics hook — the package itself has no
-  # haptics dependency.
-  dynamic_haptics:
-    path: ../../dynamic_haptics
+  # haptics dependency. Plain version constraint (not an out-of-tree path):
+  # the Dart workspace resolves it to the local package.
+  dynamic_haptics: ^0.1.0
 
   cupertino_icons: ^1.0.8
 
