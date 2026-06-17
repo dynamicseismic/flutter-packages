@@ -38,7 +38,7 @@ extension TouchableExtension on Widget {
     String? semanticLabel,
     bool excludeSemantics = false,
     HitTestBehavior behavior = HitTestBehavior.opaque,
-    bool enableFeedback = true,
+    bool? enableFeedback,
   }) {
     return DynamicTouchable(
       key: key,

@@ -64,7 +64,7 @@ class DynamicTouchable extends StatefulWidget {
     this.semanticLabel,
     this.excludeSemantics = false,
     this.behavior = HitTestBehavior.opaque,
-    this.enableFeedback = true,
+    this.enableFeedback,
     this.scaleAlignment = Alignment.center,
   });
 
@@ -164,8 +164,9 @@ class DynamicTouchable extends StatefulWidget {
   final HitTestBehavior behavior;
 
   /// Whether a completed tap/long-press plays the platform feedback
-  /// (click sound + OS haptic) via `Feedback`. Independent of `dynamic_haptics`.
-  final bool enableFeedback;
+  /// (click sound + OS haptic) via `Feedback`. Null falls back to
+  /// [DynamicTouchableTheme], then `true`. Independent of `dynamic_haptics`.
+  final bool? enableFeedback;
 
   /// Alignment of the press scale. Defaults to [Alignment.center].
   final Alignment scaleAlignment;
@@ -203,6 +204,7 @@ class _DynamicTouchableState extends State<DynamicTouchable>
   );
   bool _resHasHoverLift = false;
   bool _reduceMotion = false;
+  bool _resEnableFeedback = true;
 
   bool get _enabled => widget.enabled ?? true;
 
@@ -309,16 +311,21 @@ class _DynamicTouchableState extends State<DynamicTouchable>
     }
   }
 
-  void _fireTap() {
+  /// Primary activation — a tap, Space/Enter, or assistive "activate". Invokes
+  /// [DynamicTouchable.onTap], falling back to [DynamicTouchable.onLongPress] so
+  /// a long-press-only control is still keyboard- and assistive-activatable.
+  void _activate() {
     if (!_enabled) return;
-    if (widget.enableFeedback) Feedback.forTap(context);
-    widget.onTap?.call();
+    final callback = widget.onTap ?? widget.onLongPress;
+    if (callback == null) return;
+    if (_resEnableFeedback) Feedback.forTap(context);
+    callback();
   }
 
   void _fireLongPress() {
-    if (!_enabled) return;
-    if (widget.enableFeedback) Feedback.forLongPress(context);
-    widget.onLongPress?.call();
+    if (!_enabled || widget.onLongPress == null) return;
+    if (_resEnableFeedback) Feedback.forLongPress(context);
+    widget.onLongPress!.call();
   }
 
   // ---- Pointer handlers (drive the visual; instant, arena-independent) ----
@@ -397,7 +404,7 @@ class _DynamicTouchableState extends State<DynamicTouchable>
     if (event is KeyDownEvent) {
       if (key == LogicalKeyboardKey.enter ||
           key == LogicalKeyboardKey.numpadEnter) {
-        _fireTap();
+        _activate();
         return KeyEventResult.handled;
       }
       if (key == LogicalKeyboardKey.space && !_keyDown) {
@@ -408,7 +415,7 @@ class _DynamicTouchableState extends State<DynamicTouchable>
       if (_keyDown) {
         _setKeyDown(false);
         widget.onReleased?.call();
-        _fireTap();
+        _activate();
       }
       return KeyEventResult.handled;
     }
@@ -452,6 +459,7 @@ class _DynamicTouchableState extends State<DynamicTouchable>
         resolveTouchSpring(_resSpring);
     _resHasHoverLift = hoveredScale != 1.0 || hoverElevation != restElevation;
     _reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+    _resEnableFeedback = widget.enableFeedback ?? theme.enableFeedback ?? true;
 
     final hasShadow =
         restElevation > 0 || pressedElevation > 0 || hoverElevation > 0;
@@ -514,7 +522,7 @@ class _DynamicTouchableState extends State<DynamicTouchable>
 
     content = GestureDetector(
       behavior: widget.behavior,
-      onTap: enabled && (widget.onTap != null) ? _fireTap : null,
+      onTap: enabled && (widget.onTap != null) ? _activate : null,
       onLongPress: enabled && (widget.onLongPress != null)
           ? _fireLongPress
           : null,
@@ -543,7 +551,12 @@ class _DynamicTouchableState extends State<DynamicTouchable>
       onKeyEvent: _handleKeyEvent,
       onFocusChange: (f) {
         setState(() => _focused = f);
-        if (!f) _onTapCancel(); // losing focus while space-held cancels cleanly
+        // Losing focus mid-press (route change, dialog, programmatic unfocus)
+        // must release a held Space as well as any pointer press.
+        if (!f) {
+          if (_keyDown) _setKeyDown(false);
+          _onTapCancel();
+        }
       },
       child: content,
     );
@@ -553,7 +566,7 @@ class _DynamicTouchableState extends State<DynamicTouchable>
       button: _actionable,
       label: widget.semanticLabel,
       excludeSemantics: widget.excludeSemantics,
-      onTap: _actionable && widget.onTap != null ? _fireTap : null,
+      onTap: _actionable ? _activate : null,
       onLongPress: _actionable && widget.onLongPress != null
           ? _fireLongPress
           : null,

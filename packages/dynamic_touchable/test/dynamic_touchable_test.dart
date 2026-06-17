@@ -1,5 +1,6 @@
 import 'package:dynamic_touchable/dynamic_touchable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The x-scale of the touchable's scale `Transform` (the value furthest from
@@ -198,6 +199,107 @@ void main() {
       await tester.tap(find.byType(DynamicTouchable));
       await tester.pumpAndSettle();
       expect(taps, 1);
+    });
+  });
+
+  group('keyboard & focus', () {
+    testWidgets('a long-press-only control is keyboard-activatable', (
+      tester,
+    ) async {
+      var longPresses = 0;
+      final focusNode = FocusNode();
+      addTearDown(focusNode.dispose);
+      await tester.pumpWidget(
+        _host(
+          DynamicTouchable(
+            focusNode: focusNode,
+            onLongPress: () => longPresses++,
+            child: _box,
+          ),
+        ),
+      );
+      focusNode.requestFocus();
+      await tester.pump();
+      expect(focusNode.hasFocus, isTrue);
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      await tester.pump();
+      expect(longPresses, 1, reason: 'Enter falls back to onLongPress');
+    });
+
+    testWidgets('losing focus while Space is held releases the press', (
+      tester,
+    ) async {
+      final events = <bool>[];
+      final focusNode = FocusNode();
+      addTearDown(focusNode.dispose);
+      await tester.pumpWidget(
+        _host(
+          DynamicTouchable(
+            focusNode: focusNode,
+            onTap: () {},
+            onPressChanged: events.add,
+            child: _box,
+          ),
+        ),
+      );
+      focusNode.requestFocus();
+      await tester.pump();
+
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.space);
+      await tester.pump();
+      expect(events, [true]);
+
+      focusNode.unfocus(); // route change / dialog / programmatic unfocus
+      await tester.pumpAndSettle();
+      expect(events, [true, false], reason: 'press must not stick');
+
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.space);
+    });
+  });
+
+  group('feedback', () {
+    Iterable<String> feedbackCalls(List<String> calls) => calls.where(
+      (m) => m.contains('HapticFeedback') || m.contains('SystemSound'),
+    );
+
+    testWidgets('theme enableFeedback: false suppresses platform feedback', (
+      tester,
+    ) async {
+      final calls = <String>[];
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        SystemChannels.platform,
+        (MethodCall call) async {
+          calls.add(call.method);
+          return null;
+        },
+      );
+      addTearDown(
+        () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          SystemChannels.platform,
+          null,
+        ),
+      );
+
+      // Control: feedback on by default → a tap emits platform feedback.
+      await tester.pumpWidget(
+        _host(DynamicTouchable(onTap: () {}, child: _box)),
+      );
+      await tester.tap(find.byType(DynamicTouchable));
+      await tester.pumpAndSettle();
+      expect(feedbackCalls(calls), isNotEmpty);
+
+      // Theme turns it off and the widget doesn't override → no feedback.
+      calls.clear();
+      await tester.pumpWidget(
+        _host(
+          DynamicTouchable(onTap: () {}, child: _box),
+          theme: const DynamicTouchableThemeData(enableFeedback: false),
+        ),
+      );
+      await tester.tap(find.byType(DynamicTouchable));
+      await tester.pumpAndSettle();
+      expect(feedbackCalls(calls), isEmpty);
     });
   });
 
