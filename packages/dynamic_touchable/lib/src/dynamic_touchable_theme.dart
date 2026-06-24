@@ -136,6 +136,11 @@ class DynamicTouchableThemeData {
   /// Used to layer a local theme over an enclosing one.
   DynamicTouchableThemeData merge(DynamicTouchableThemeData? other) {
     if (other == null) return this;
+    // [spring] and [springDescription] are a single choice: if this theme sets
+    // either, its spring wins as a unit, so [other]'s raw description can't
+    // leak past a local preset (a raw description always beats a preset at
+    // build time). Mirrors the widget-level resolution in DynamicTouchable.
+    final ownsSpring = spring != null || springDescription != null;
     return DynamicTouchableThemeData(
       pressedScale: pressedScale ?? other.pressedScale,
       hoveredScale: hoveredScale ?? other.hoveredScale,
@@ -144,8 +149,10 @@ class DynamicTouchableThemeData {
       pressedElevation: pressedElevation ?? other.pressedElevation,
       hoverElevation: hoverElevation ?? other.hoverElevation,
       shadowColor: shadowColor ?? other.shadowColor,
-      spring: spring ?? other.spring,
-      springDescription: springDescription ?? other.springDescription,
+      spring: ownsSpring ? spring : other.spring,
+      springDescription: ownsSpring
+          ? springDescription
+          : other.springDescription,
       pressDuration: pressDuration ?? other.pressDuration,
       showFocusRing: showFocusRing ?? other.showFocusRing,
       focusRingColor: focusRingColor ?? other.focusRingColor,

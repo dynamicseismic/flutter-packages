@@ -499,6 +499,23 @@ void main() {
       expect(local.merge(null), same(local));
     });
 
+    test('merge: a local spring preset suppresses an enclosing raw spring', () {
+      // spring + springDescription merge as one unit. A local preset must not
+      // let the enclosing raw description leak through — raw beats preset at
+      // build time, so leaking it would silently ignore the local choice.
+      final base = DynamicTouchableThemeData(
+        springDescription: resolveTouchSpring(TouchSpring.bouncy),
+      );
+      const local = DynamicTouchableThemeData(spring: TouchSpring.gentle);
+      final merged = local.merge(base);
+      expect(merged.spring, TouchSpring.gentle);
+      expect(merged.springDescription, isNull, reason: 'raw must not leak');
+
+      // The reverse still fills from base when the local sets no spring at all.
+      const noSpring = DynamicTouchableThemeData(pressedScale: 0.5);
+      expect(noSpring.merge(base).springDescription, base.springDescription);
+    });
+
     test('== and hashCode are value-based', () {
       const a = DynamicTouchableThemeData(
         pressedScale: 0.9,
