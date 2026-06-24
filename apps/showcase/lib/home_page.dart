@@ -10,6 +10,7 @@ import 'demos/haptics_demo.dart';
 import 'demos/lucide_icons_demo.dart';
 import 'demos/morphing_icons_demo.dart';
 import 'demos/torph_demo.dart';
+import 'demos/touchable_demo.dart';
 
 /// Landing page: one card per demo, each opening it.
 ///
@@ -32,6 +33,12 @@ class HomePage extends StatelessWidget {
         subtitle: 'Presets & custom vibration patterns',
         leading: const Icon(Icons.vibration, size: 28),
         builder: (_) => const HapticsDemo(),
+      ),
+      _DemoEntry(
+        title: 'Touchable',
+        subtitle: 'Sink-on-press — wrap any widget',
+        leading: const Icon(Icons.touch_app, size: 28),
+        builder: (_) => const TouchableDemo(),
       ),
       _DemoEntry(
         title: 'Clipboard',

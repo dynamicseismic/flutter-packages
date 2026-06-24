@@ -19,6 +19,8 @@ workspace:
   - packages/dynamic_morphing_icons/example
   - packages/dynamic_torph
   - packages/dynamic_torph/example
+  - packages/dynamic_touchable
+  - packages/dynamic_touchable/example
   # super_native_extensions fork (super_ -> dynamic_). Native Rust+FFI plugin
   # dynamic_native_extensions + the pure-Dart packages built on it. Its vendored
   # cargokit/build_tool is intentionally NOT a member (pinned deps, own lockfile).

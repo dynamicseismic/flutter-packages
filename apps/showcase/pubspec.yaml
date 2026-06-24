@@ -45,6 +45,7 @@ dependencies:
   dynamic_icons: ^0.1.0
   dynamic_morphing_icons: ^0.1.0
   dynamic_torph: ^0.1.0
+  dynamic_touchable: ^0.1.0
 
 dev_dependencies:
   flutter_test:
