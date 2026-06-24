@@ -178,7 +178,7 @@ void main() {
       handle.dispose();
     });
 
-    testWidgets('no button semantics for a pure-effect touchable', (
+    testWidgets('a pure-effect touchable has no button role or enabled state', (
       tester,
     ) async {
       final handle = tester.ensureSemantics();
@@ -187,6 +187,31 @@ void main() {
           .getSemantics(find.byType(DynamicTouchable))
           .getSemanticsData();
       expect(data.flagsCollection.isButton, isFalse);
+      expect(data.flagsCollection.isEnabled.toBoolOrNull(), isNull);
+      handle.dispose();
+    });
+
+    testWidgets('a disabled control is still a (disabled) button', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      await tester.pumpWidget(
+        _host(DynamicTouchable(enabled: false, onTap: () {}, child: _box)),
+      );
+      final data = tester
+          .getSemantics(find.byType(DynamicTouchable))
+          .getSemanticsData();
+      expect(data.flagsCollection.isButton, isTrue, reason: 'role kept');
+      expect(
+        data.flagsCollection.isEnabled.toBoolOrNull(),
+        isNotNull,
+        reason: 'has enabled state',
+      );
+      expect(
+        data.flagsCollection.isEnabled.toBoolOrNull(),
+        isFalse,
+        reason: 'announced disabled',
+      );
       handle.dispose();
     });
   });
@@ -379,6 +404,66 @@ void main() {
         ),
       );
       expect(region.cursor, MouseCursor.defer);
+    });
+  });
+
+  group('spring resolution', () {
+    // Tracks the peak scale during the release settle. A bouncy spring
+    // overshoots rest (scale climbs past 1.0 when hoveredScale > 1); a plain
+    // ease (`none`) never does.
+    Future<double> peakScaleAfterRelease(
+      WidgetTester tester,
+      Widget app,
+    ) async {
+      await tester.pumpWidget(app);
+      final gesture = await tester.startGesture(
+        tester.getCenter(find.byType(DynamicTouchable)),
+      );
+      await tester.pump();
+      await gesture.up();
+      var peak = 1.0;
+      for (var i = 0; i < 40; i++) {
+        await tester.pump(const Duration(milliseconds: 16));
+        final s = _scaleX(tester);
+        if (s > peak) peak = s;
+      }
+      await tester.pumpAndSettle();
+      return peak;
+    }
+
+    testWidgets('explicit spring: none wins over a theme springDescription', (
+      tester,
+    ) async {
+      final bouncy = resolveTouchSpring(TouchSpring.bouncy);
+
+      // Control: the theme's bouncy raw description overshoots past rest.
+      final overshoot = await peakScaleAfterRelease(
+        tester,
+        _host(
+          const DynamicTouchable(
+            hoveredScale: 1.2,
+            pressedScale: 0.8,
+            child: _box,
+          ),
+          theme: DynamicTouchableThemeData(springDescription: bouncy),
+        ),
+      );
+      expect(overshoot, greaterThan(1.0 + 1e-3));
+
+      // Explicit `none` must win over the theme → a plain ease, no overshoot.
+      final eased = await peakScaleAfterRelease(
+        tester,
+        _host(
+          const DynamicTouchable(
+            spring: TouchSpring.none,
+            hoveredScale: 1.2,
+            pressedScale: 0.8,
+            child: _box,
+          ),
+          theme: DynamicTouchableThemeData(springDescription: bouncy),
+        ),
+      );
+      expect(eased, lessThanOrEqualTo(1.0 + 1e-3));
     });
   });
 

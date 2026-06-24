@@ -198,7 +198,7 @@ class _DynamicTouchableState extends State<DynamicTouchable>
 
   // Values resolved in build() that the input handlers need between frames.
   Duration _resPressDuration = const Duration(milliseconds: 90);
-  TouchSpring _resSpring = TouchSpring.snappy;
+  bool _resSpringless = false; // the `none` choice — ease back, no simulation
   SpringDescription _resSpringDescription = resolveTouchSpring(
     TouchSpring.snappy,
   );
@@ -208,9 +208,13 @@ class _DynamicTouchableState extends State<DynamicTouchable>
 
   bool get _enabled => widget.enabled ?? true;
 
-  /// "Actionable" — exposes button semantics, a click cursor, and focusability.
-  bool get _actionable =>
-      _enabled && (widget.onTap != null || widget.onLongPress != null);
+  /// Whether this carries a tap/long-press action — its semantic *role* as a
+  /// button, independent of [DynamicTouchable.enabled].
+  bool get _hasAction => widget.onTap != null || widget.onLongPress != null;
+
+  /// "Actionable" — interactive *right now*: has an action and is enabled.
+  /// Gates the click cursor, focusability, and keyboard handling.
+  bool get _actionable => _enabled && _hasAction;
 
   bool get _pressed => _enabled && (_pointerDown || _keyDown);
 
@@ -272,7 +276,7 @@ class _DynamicTouchableState extends State<DynamicTouchable>
     final target = _restDepth;
     if (_reduceMotion) {
       _depth.value = target;
-    } else if (_resSpring == TouchSpring.none) {
+    } else if (_resSpringless) {
       _depth.animateTo(
         target,
         duration: const Duration(milliseconds: 140),
@@ -456,11 +460,21 @@ class _DynamicTouchableState extends State<DynamicTouchable>
         widget.pressDuration ??
         theme.pressDuration ??
         const Duration(milliseconds: 90);
-    _resSpring = widget.spring ?? theme.spring ?? TouchSpring.snappy;
+    // Spring resolution follows the package order: a widget-level choice — a
+    // preset OR a raw description — wins entirely over the theme; only when the
+    // widget sets neither do we fall to the theme's springDescription/spring.
+    final widgetSetsSpring =
+        widget.spring != null || widget.springDescription != null;
+    final spring = widgetSetsSpring
+        ? widget.spring
+        : (theme.springDescription != null ? null : theme.spring);
+    final rawSpring = widgetSetsSpring
+        ? widget.springDescription
+        : theme.springDescription;
+    _resSpringless =
+        rawSpring == null && (spring ?? TouchSpring.snappy) == TouchSpring.none;
     _resSpringDescription =
-        widget.springDescription ??
-        theme.springDescription ??
-        resolveTouchSpring(_resSpring);
+        rawSpring ?? resolveTouchSpring(spring ?? TouchSpring.snappy);
     _resHasHoverLift = hoveredScale != 1.0 || hoverElevation != restElevation;
     _reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
     _resEnableFeedback = widget.enableFeedback ?? theme.enableFeedback ?? true;
@@ -575,12 +589,15 @@ class _DynamicTouchableState extends State<DynamicTouchable>
     );
 
     return Semantics(
-      enabled: enabled,
-      button: _actionable,
+      // Role (button) and enabled-state come from having an action — so a
+      // disabled control is still announced as a *disabled button*, and a
+      // decorative touchable carries neither. The actions are gated on enabled.
+      button: _hasAction ? true : null,
+      enabled: _hasAction ? enabled : null,
       label: widget.semanticLabel,
       excludeSemantics: widget.excludeSemantics,
-      onTap: _actionable ? _activate : null,
-      onLongPress: _actionable && widget.onLongPress != null
+      onTap: _hasAction && enabled ? _activate : null,
+      onLongPress: _hasAction && enabled && widget.onLongPress != null
           ? _fireLongPress
           : null,
       child: content,
